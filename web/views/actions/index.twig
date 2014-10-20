@@ -25,22 +25,27 @@
 
             {% if title and not movie %}
                 <p>Movie was not found.</p>
+            {% elseif already_released %}
+                <p>This movie is already released.</p>
             {% endif %}
         </form>
 
         <hr>
 
         {% if movie %}
+
             <article>
                 {% if movie.Poster and movie.Poster != "N/A" %}
                     <img src="{{ movie.Poster }}" alt="">
+                {% else %}
+                    <img src="//placehold.it/300x300&amp;text=No+poster" alt="">
                 {% endif %}
                 <h1>{{ movie.Title }}</h1>
                 <dl>
                     <dt>Genre</dt>
                     <dd>{{ movie.Genre }}</dd>
                     <dt>Release Date</dt>
-                    <dd>{{ movie.Released }}</dd>
+                    <dd>{{ movie.Released|date("m/d/Y") }}</dd>
                     <dt>Plot</dt>
                     <dd>{{ movie.Plot }}</dd>
                 </dl>
@@ -48,15 +53,19 @@
 
             <hr>
 
-            <form method="get" action="">
-                <input type="hidden" name="movie" value="{{ movie.Title }}">
-                <fieldset>
-                    <input type="email" name="email" placeholder="Enter your email address to receive notification" value="{{ email }}" autofocus>
-                    <input type="submit" value="Subscribe">
-                </fieldset>
-            </form>
+            {% if not already_released %}
 
-            <hr>
+                <form method="get" action="">
+                    <input type="hidden" name="movie" value="{{ movie.Title }}">
+                    <fieldset>
+                        <input type="email" name="email" placeholder="Enter your email address to receive notification" value="{{ email }}" autofocus>
+                        <input type="submit" value="Subscribe">
+                    </fieldset>
+                </form>
+
+                <hr>
+
+            {% endif %}
 
         {% endif %}
 
