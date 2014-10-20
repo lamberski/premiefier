@@ -180,8 +180,9 @@ form {
 }
 
 form p {
-  line-height: 54px;
-  color: #c63a21;
+  margin-top: 27px;
+  line-height: 27px;
+  color: #E5802B;
 }
 
 fieldset {
