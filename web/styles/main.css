@@ -300,12 +300,4 @@ footer a {
  ******************************************************************************/
 
 @media (max-width: 500px) {
-  body {
-    margin: 40px auto;
-    font-size: 17px;
-  }
-
-  .signature {
-    margin-bottom: 40px;
-  }
 }
