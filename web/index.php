@@ -15,6 +15,7 @@ $app->register(new TwigServiceProvider, array(
 $app->get('/', function (Application $app, Request $request) {
 
     $title = $request->query->get('title');
+    $email = $request->query->get('email');
     $movie = false;
 
     if ($title) {
@@ -28,6 +29,7 @@ $app->get('/', function (Application $app, Request $request) {
         'title' => $title,
         'movie' => $movie,
         'already_released' => $already_released,
+        'email' => $email,
     ));
 });
 
