@@ -1,0 +1,11 @@
+{% if not movie.Error and not already_released %}
+
+    <form method="get" action="">
+        <input type="hidden" name="title" value="{{ movie.Title }}">
+        <fieldset>
+            <input type="email" name="email" placeholder="Enter your email address to receive notification" value="{{ email }}" autofocus>
+            <input type="submit" value="Subscribe">
+        </fieldset>
+    </form>
+
+{% endif %}
