@@ -274,16 +274,25 @@ article img {
 
 article dt,
 article dd {
-  float: left;
+  display: inline;
 }
 
 article dt {
   font-weight: bold;
   clear: both;
+  white-space: pre;
+}
+
+article dt:before {
+  content: "\A";
+}
+
+article dt:first-child:before {
+  content: "";
 }
 
 article dt:after {
-  content: ":\00a0";
+  content: ":";
 }
 
 /* Footer */
