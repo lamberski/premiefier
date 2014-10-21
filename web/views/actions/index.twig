@@ -23,7 +23,7 @@
                 <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
             </fieldset>
 
-            {% if title and not movie %}
+            {% if title and movie.Error %}
                 <p>Movie was not found.</p>
             {% elseif already_released %}
                 <p>This movie is already released.</p>
@@ -32,7 +32,7 @@
 
         <hr>
 
-        {% if movie %}
+        {% if not movie.Error %}
 
             <article>
                 {% if movie.Poster and movie.Poster != "N/A" %}
