@@ -182,6 +182,9 @@ form {
 form p {
     margin-top: 27px;
     line-height: 27px;
+}
+
+form .error {
     color: #E5802B;
 }
 
@@ -189,7 +192,7 @@ fieldset {
     position: relative;
 }
 
-input[type="search"],
+input[type="text"],
 input[type="email"],
 input[type="submit"] {
     -webkit-box-sizing: border-box;
@@ -202,7 +205,7 @@ input[type="submit"] {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-input[type="search"],
+input[type="text"],
 input[type="email"] {
     padding: 10px 100px 10px 20px;
     height: 54px;

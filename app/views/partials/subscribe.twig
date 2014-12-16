@@ -1,11 +1,12 @@
 {% if movie.wasFound and not movie.isAlreadyReleased %}
 
     <form method="post" action="{{ app.request.getUriForPath('/subscribe') }}">
-        <input type="hidden" name="title" value="{{ movie.title }}">
+        <input type="hidden" name="title" value="{{ title }}">
         <fieldset>
-            <input type="email" name="email" placeholder="Enter your email address to receive notification" value="{{ email }}" autofocus>
+            <input type="email" name="email" placeholder="Enter your email address" value="{{ email }}" autofocus>
             <input type="submit" value="Subscribe">
         </fieldset>
+        <p>You will receive email notification week before premiere. You can opt out in any moment.</p>
     </form>
 
 {% endif %}
