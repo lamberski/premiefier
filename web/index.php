@@ -1,36 +1,81 @@
 <?php
 
+//------------------------------------------------------------------------------
+// Initialization of the application
+//------------------------------------------------------------------------------
+
 require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__.'/../app/models/movie.php';
 
 use Silex\Application;
-use Symfony\Component\HttpFoundation\Request;
 use Silex\Provider\TwigServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
+use Premiefier\Movie;
 
-$app = new Application;
+$app = new Application();
+$app['debug'] = true;
 
-$app->register(new TwigServiceProvider, array(
-    'twig.path' => __DIR__.'/views',
-));
+//------------------------------------------------------------------------------
+// Registration of services
+//------------------------------------------------------------------------------
+
+$app->register(new TwigServiceProvider(), [
+    'twig.path' => __DIR__.'/../app/views',
+    'twig.options' => [
+        'strict_variables' => false,
+    ],
+]);
+
+//------------------------------------------------------------------------------
+// Common actions
+//------------------------------------------------------------------------------
+
+$app->before(function ($request) {
+});
+
+//------------------------------------------------------------------------------
+// Routes: Search
+//------------------------------------------------------------------------------
 
 $app->get('/', function (Application $app, Request $request) {
+    return $app['twig']->render('actions/index.twig');
+});
 
-    $title = $request->query->get('title');
-    $email = $request->query->get('email');
-    $movie = false;
+$app->post('/', function (Application $app, Request $request) {
+    $title = $request->get('title');
+    $movie = nil;
 
     if ($title) {
-        $url = 'http://www.omdbapi.com/?' . http_build_query(array('t' => $title));
-        $json = file_get_contents($url);
-        $movie = json_decode($json);
-        $already_released = strtotime($movie->Released) < time();
+        $movie = new Movie($title);
     }
 
-    return $app['twig']->render('actions/index.twig', array(
+    return $app['twig']->render('actions/index.twig', [
         'title' => $title,
         'movie' => $movie,
-        'already_released' => $already_released,
-        'email' => $email,
-    ));
+    ]);
 });
+
+//------------------------------------------------------------------------------
+// Routes: Subscription
+//------------------------------------------------------------------------------
+
+$app->post('/subscribe', function (Application $app, Request $request) {
+    $title = $request->get('title');
+    $movie = nil;
+
+    if ($title) {
+        $movie = new Movie($title);
+    }
+
+    return $app['twig']->render('actions/index.twig', [
+        'title' => $title,
+        'movie' => $movie,
+        'email' => $email,
+    ]);
+});
+
+//------------------------------------------------------------------------------
+// Starting the application
+//------------------------------------------------------------------------------
 
 $app->run();

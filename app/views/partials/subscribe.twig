@@ -1,7 +1,7 @@
-{% if not movie.Error and not already_released %}
+{% if movie.wasFound and not movie.isAlreadyReleased %}
 
-    <form method="get" action="">
-        <input type="hidden" name="title" value="{{ movie.Title }}">
+    <form method="post" action="{{ app.request.getUriForPath("/subscribe") }}">
+        <input type="hidden" name="title" value="{{ movie.title }}">
         <fieldset>
             <input type="email" name="email" placeholder="Enter your email address to receive notification" value="{{ email }}" autofocus>
             <input type="submit" value="Subscribe">
