@@ -38,7 +38,7 @@ $app->before(function ($request) {
 //------------------------------------------------------------------------------
 
 $app->get('/', function (Application $app, Request $request) {
-    return $app['twig']->render('actions/index.twig');
+    return $app['twig']->render('actions/subscribe.twig');
 });
 
 $app->post('/search', function (Application $app, Request $request) {
@@ -49,7 +49,7 @@ $app->post('/search', function (Application $app, Request $request) {
         $movie = new Movie($title);
     }
 
-    return $app['twig']->render('actions/index.twig', [
+    return $app['twig']->render('actions/subscribe.twig', [
         'title' => $title,
         'movie' => $movie,
     ]);
@@ -63,7 +63,16 @@ $app->post('/subscribe', function (Application $app, Request $request) {
         $movie = new Movie($title);
     }
 
-    return $app['twig']->render('actions/index.twig', [
+    return $app['twig']->render('actions/subscribe.twig', [
+        'title' => $title,
+        'movie' => $movie,
+        'email' => $email,
+    ]);
+});
+
+$app->get('/unsubscribe', function (Application $app, Request $request) {
+
+    return $app['twig']->render('actions/unsubscribe.twig', [
         'title' => $title,
         'movie' => $movie,
         'email' => $email,

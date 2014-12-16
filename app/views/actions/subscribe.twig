@@ -1,0 +1,50 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form method="post" action="{{ app.request.getUriForPath('/search') }}">
+        <fieldset>
+            <input type="text" name="title" placeholder="Enter movie title" value="{{ title }}" autofocus>
+            <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
+        </fieldset>
+
+        {% if title and movie %}
+            {% if not movie.wasFound %}
+                <p class="error">Movie was not found.</p>
+            {% elseif movie.releasedAt == 'N/A' %}
+                <p class="error">Release date of this movie is not available.</p>
+            {% elseif movie.isAlreadyReleased %}
+                <p class="error">This movie was already released.</p>
+            {% endif %}
+        {% elseif movie %}
+            <p class="error">Enter movie title.</p>
+        {% endif %}
+    </form>
+
+    {% if movie.wasFound %}
+        <article>
+            {% if movie.poster and movie.poster != 'N/A' %}
+                <img src="{{ movie.poster }}" alt="">
+            {% endif %}
+            <h1>{{ movie.title }}</h1>
+            <dl>
+                <dt>Genre</dt>
+                <dd>{{ movie.genre }}</dd>
+                <dt>Release Date</dt>
+                <dd>{{ movie.releasedAt == 'N/A' ? 'N/A' : movie.releasedAt|date('m/d/Y') }}</dd>
+                <dt>Plot</dt>
+                <dd>{{ movie.plot }}</dd>
+            </dl>
+        </article>
+    {% endif %}
+
+    {% if movie.wasFound and not movie.isAlreadyReleased %}
+        <form method="post" action="{{ app.request.getUriForPath('/subscribe') }}">
+            <input type="hidden" name="title" value="{{ title }}">
+            <fieldset>
+                <input type="email" name="email" placeholder="Enter your email address" value="{{ email }}" autofocus>
+                <input type="submit" value="Subscribe">
+            </fieldset>
+            <p>You will receive email notification a week before premiere. You can <a href="{{ app.request.getUriForPath('/unsubscribe') }}">opt out of notifications</a> in any moment.</p>
+        </form>
+    {% endif %}
+{% endblock %}
