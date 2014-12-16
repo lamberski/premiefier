@@ -34,14 +34,14 @@ $app->before(function ($request) {
 });
 
 //------------------------------------------------------------------------------
-// Routes: Search
+// Routes
 //------------------------------------------------------------------------------
 
 $app->get('/', function (Application $app, Request $request) {
     return $app['twig']->render('actions/index.twig');
 });
 
-$app->post('/', function (Application $app, Request $request) {
+$app->post('/search', function (Application $app, Request $request) {
     $title = $request->get('title');
     $movie = nil;
 
@@ -54,10 +54,6 @@ $app->post('/', function (Application $app, Request $request) {
         'movie' => $movie,
     ]);
 });
-
-//------------------------------------------------------------------------------
-// Routes: Subscription
-//------------------------------------------------------------------------------
 
 $app->post('/subscribe', function (Application $app, Request $request) {
     $title = $request->get('title');
