@@ -4,7 +4,7 @@
         <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
     </fieldset>
 
-    {% if movie is defined %}
+    {% if title %}
         {% if not movie.wasFound %}
             <p>Movie was not found.</p>
         {% elseif movie.releasedAt == 'N/A' %}
@@ -12,7 +12,7 @@
         {% elseif movie.isAlreadyReleased %}
             <p>This movie was already released.</p>
         {% endif %}
-    {% elseif title is defined and not title %}
+    {% else %}
         <p>Enter movie title.</p>
     {% endif %}
 </form>
