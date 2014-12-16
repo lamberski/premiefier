@@ -1,17 +1,15 @@
 {% if movie.wasFound %}
 
     <article>
-        {% if movie.poster and movie.poster != "N/A" %}
+        {% if movie.poster and movie.poster != 'N/A' %}
             <img src="{{ movie.poster }}" alt="">
-        {% else %}
-            <img src="//placehold.it/300x300&amp;text=No+poster" alt="">
         {% endif %}
         <h1>{{ movie.title }}</h1>
         <dl>
             <dt>Genre</dt>
             <dd>{{ movie.genre }}</dd>
             <dt>Release Date</dt>
-            <dd>{{ movie.releasedAt|date("m/d/Y") }}</dd>
+            <dd>{{ movie.releasedAt == 'N/A' ? 'N/A' : movie.releasedAt|date('m/d/Y') }}</dd>
             <dt>Plot</dt>
             <dd>{{ movie.plot }}</dd>
         </dl>
