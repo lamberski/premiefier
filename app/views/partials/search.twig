@@ -7,6 +7,8 @@
     {% if movie is defined %}
         {% if not movie.wasFound %}
             <p>Movie was not found.</p>
+        {% elseif movie.releasedAt == 'N/A' %}
+            <p>Release date of this movie is not available.</p>
         {% elseif movie.isAlreadyReleased %}
             <p>This movie was already released.</p>
         {% endif %}
