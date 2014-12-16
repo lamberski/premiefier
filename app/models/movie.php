@@ -30,7 +30,7 @@ class Movie {
         $this->plot = $movie->Plot;
         $this->genre = $movie->Genre;
         $this->poster = $movie->Poster;
-        $this->releasedAt = strtotime($movie->Released);
+        $this->releasedAt = $movie->Released == 'N/A' ? $movie->Released : strtotime($movie->Released);
         $this->wasFound = true;
     }
 }
