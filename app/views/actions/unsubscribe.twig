@@ -1,11 +1,12 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <form method="post" action="{{ app.request.getUriForPath('/unsubscribe') }}">
-        <fieldset>
-            <input type="email" name="email" placeholder="Enter your email address" value="{{ email }}" autofocus>
-            <input type="submit" value="Show movies">
-        </fieldset>
-        <p>Enter your email address to list all movie premieres you're subscribed to.</p>
-    </form>
+  <form method="post" action="{{ app.request.getUriForPath('/opt-out') }}">
+    <fieldset>
+      <input type="hidden" id="_method" name="_method" value="DELETE">
+      <input type="email" name="email" placeholder="Enter your email address" value="{{ email }}" autofocus>
+      <input type="submit" value="Show movies">
+    </fieldset>
+    <p>Enter your email address to list all movie premieres you're subscribed to.</p>
+  </form>
 {% endblock %}

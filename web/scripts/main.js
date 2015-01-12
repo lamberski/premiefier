@@ -1,38 +1,43 @@
-(function($) {
+(function ($) {
 
   var App = {
 
-    /**
-     * Initialize features
-     */
-    init: function() {
-      // App.getMovie();
-    },
+  /**
+   * Initialize features
+   */
+  init: function () {
+    App.createSearchForm();
+    // App.getMovie();
+  },
 
-    /**
-     * Fetch movie data
-     */
-    getMovie: function() {
-      var $form = $('form');
+  createSearchForm: function () {
 
-      $form.on('submit', function(event) {
-        var $self = $(this);
-        var $button = $self.find('input[type="submit"]');
+  },
 
-        $button.val($button.data('processing'));
+  /**
+   * Fetch movie data
+   */
+  getMovie: function () {
+    var $form = $('form');
 
-        $.get($form.attr('action'), function() {
-          $button.val($button.data('initial'));
-        });
+    $form.on('submit', function (event) {
+      var $self = $(this);
+      var $button = $self.find('input[type="submit"]');
 
-        event.preventDefault();
+      $button.val($button.data('processing'));
+
+      $.get($form.attr('action'), function() {
+        $button.val($button.data('initial'));
       });
-    }
 
-  };
+      event.preventDefault();
+    });
+  }
 
-  $(function() {
-    App.init();
-  });
+};
+
+$(function () {
+  App.init();
+});
 
 })(jQuery);

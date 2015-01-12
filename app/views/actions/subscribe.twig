@@ -1,13 +1,21 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-    <form method="post" action="{{ app.request.getUriForPath('/search') }}">
+  <div id="dsad">
+
+  </div>
+{% endblock %}
+
+{% block templates %}
+  <script id="search-template" type="x-handlebars-template">
+    {% raw %}
+      <form method="post" action="/search" id="search">
         <fieldset>
-            <input type="text" name="title" placeholder="Enter movie title" value="{{ title }}" autofocus>
-            <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
+          <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
+          <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
         </fieldset>
 
-        {% if title and movie %}
+        <!--{% if title and movie %}
             {% if not movie.wasFound %}
                 <p class="error">Movie was not found.</p>
             {% elseif movie.releasedAt == 'N/A' %}
@@ -17,34 +25,38 @@
             {% endif %}
         {% elseif movie %}
             <p class="error">Enter movie title.</p>
-        {% endif %}
-    </form>
-
-    {% if movie.wasFound %}
-        <article>
-            {% if movie.poster and movie.poster != 'N/A' %}
-                <img src="{{ movie.poster }}" alt="">
-            {% endif %}
-            <h1>{{ movie.title }}</h1>
-            <dl>
-                <dt>Genre</dt>
-                <dd>{{ movie.genre }}</dd>
-                <dt>Release Date</dt>
-                <dd>{{ movie.releasedAt == 'N/A' ? 'N/A' : movie.releasedAt|date('m/d/Y') }}</dd>
-                <dt>Plot</dt>
-                <dd>{{ movie.plot }}</dd>
-            </dl>
-        </article>
-    {% endif %}
-
-    {% if movie.wasFound and not movie.isAlreadyReleased %}
-        <form method="post" action="{{ app.request.getUriForPath('/subscribe') }}">
-            <input type="hidden" name="title" value="{{ title }}">
-            <fieldset>
-                <input type="email" name="email" placeholder="Enter your email address" value="{{ email }}" autofocus>
-                <input type="submit" value="Subscribe">
-            </fieldset>
-            <p>You will receive email notification a week before premiere. You can <a href="{{ app.request.getUriForPath('/unsubscribe') }}">opt out of notifications</a> in any moment.</p>
-        </form>
-    {% endif %}
+        {% endif %}-->
+      </form>
+    {% endraw %}
+  </script>
+  <script id="movie-template" type="x-handlebars-template">
+    {% raw %}
+      <article id="movie">
+        {{#if poster}}
+          <img src="{{poster}}" alt="">
+        {{/if}}
+        <h1>{{title}}</h1>
+        <dl>
+          <dt>Genre</dt>
+          <dd>{{genre}}</dd>
+          <dt>Release Date</dt>
+          <dd>{{movie.releasedAt}}</dd>
+          <dt>Plot</dt>
+          <dd>{{plot}}</dd>
+        </dl>
+      </article>
+    {% endraw %}
+  </script>
+  <script id="subscribe-template" type="x-handlebars-template">
+    {% raw %}
+      <form method="post" action="/subscribe" id="subscribe">
+        <input type="hidden" name="title" value="{{title}}">
+        <fieldset>
+          <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
+          <input type="submit" value="Subscribe">
+        </fieldset>
+        <p>You will receive email notification a week before premiere. You can <a href="/opt-out">opt out of notifications</a> in any moment.</p>
+      </form>
+    {% endraw %}
+  </script>
 {% endblock %}

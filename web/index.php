@@ -34,49 +34,38 @@ $app->before(function ($request) {
 });
 
 //------------------------------------------------------------------------------
-// Routes
+// Routes: Pages
 //------------------------------------------------------------------------------
 
 $app->get('/', function (Application $app, Request $request) {
     return $app['twig']->render('actions/subscribe.twig');
 });
 
-$app->post('/search', function (Application $app, Request $request) {
-    $title = $request->get('title');
-    $movie = nil;
-
-    if ($title) {
-        $movie = new Movie($title);
-    }
-
-    return $app['twig']->render('actions/subscribe.twig', [
-        'title' => $title,
-        'movie' => $movie,
-    ]);
-});
-
-$app->post('/subscribe', function (Application $app, Request $request) {
-    $title = $request->get('title');
-    $movie = nil;
-
-    if ($title) {
-        $movie = new Movie($title);
-    }
-
-    return $app['twig']->render('actions/subscribe.twig', [
-        'title' => $title,
-        'movie' => $movie,
-        'email' => $email,
-    ]);
-});
-
 $app->get('/unsubscribe', function (Application $app, Request $request) {
+    return $app['twig']->render('actions/unsubscribe.twig');
+});
 
-    return $app['twig']->render('actions/unsubscribe.twig', [
-        'title' => $title,
-        'movie' => $movie,
-        'email' => $email,
-    ]);
+//------------------------------------------------------------------------------
+// Routes: API
+//------------------------------------------------------------------------------
+
+$app->get('/api/search', function (Application $app, Request $request) {
+    $title = $request->get('title');
+    $movie = null;
+
+    if ($title) {
+        $movie = new Movie($title);
+    }
+
+    return $app->json($movie);
+});
+
+$app->post('/api/subscribe', function (Application $app, Request $request) {
+    // Add email subscription for given movie
+});
+
+$app->delete('/api/unsubscribe', function (Application $app, Request $request) {
+    // Remove email subscription from given movie
 });
 
 //------------------------------------------------------------------------------

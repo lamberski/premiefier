@@ -3,34 +3,47 @@
 namespace Premiefier;
 
 class Movie {
-    public $title, $plot, $genre, $poster, $releasedAt, $wasFound;
+  public $title, $plot, $genre, $poster, $releasedAt;
 
-    public function __construct($title) {
-        $this->fetch($title);
+  public function __construct($title) {
+    $this->fetch($title);
+  }
+
+  public function isAlreadyReleased() {
+    return $this->releasedAt < time();
+  }
+
+  protected function fetch($title) {
+    // Get movie data from IMDB API
+    $url = 'http://www.omdbapi.com/?'.http_build_query(['t' => $title]);
+    $json = file_get_contents($url);
+    $data = json_decode($json);
+
+    if (!empty($data->Error)) {
+      // Throw an error
     }
 
-    public function isAlreadyReleased() {
-        return $this->releasedAt < time();
+    $data = $this->parseOMDBData($data);
+
+    // Save movie info in the object
+    $this->title = $data->Title;
+    $this->plot = $data->Plot;
+    $this->genre = $data->Genre;
+    $this->poster = $data->Poster;
+    $this->releasedAt = $data->Released;
+  }
+
+  protected function parseOMDBData($data) {
+    // Set value as empty if 'N/A'
+    foreach($data as &$value) {
+      if ($value == 'N/A') $value = '';
     }
 
-    protected function fetch($title) {
-
-        // Get movie data from IMDB API
-        $url = 'http://www.omdbapi.com/?'.http_build_query(['t' => $title]);
-        $json = file_get_contents($url);
-        $movie = json_decode($json);
-
-        if (!empty($movie->Error)) {
-            $this->wasFound = false;
-            return;
-        }
-
-        // Save movie info in the object
-        $this->title = $movie->Title;
-        $this->plot = $movie->Plot;
-        $this->genre = $movie->Genre;
-        $this->poster = $movie->Poster;
-        $this->releasedAt = $movie->Released == 'N/A' ? $movie->Released : strtotime($movie->Released);
-        $this->wasFound = true;
+    // Set date from text
+    if ($data->Released) {
+      $data->Released = strtotime($data->Released);
     }
+
+    return $data;
+  }
 }
