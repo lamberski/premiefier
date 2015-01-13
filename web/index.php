@@ -49,15 +49,33 @@ $app->get('/unsubscribe', function (Application $app, Request $request) {
 // Routes: API
 //------------------------------------------------------------------------------
 
-$app->get('/api/search', function (Application $app, Request $request) {
+$app->post('/api/search', function (Application $app, Request $request) {
     $title = $request->get('title');
-    $movie = null;
+    $movie = $error = null;
 
     if ($title) {
-        $movie = new Movie($title);
+      $movie = new Movie($title);
+
+      if (!$movie->wasFound) {
+        $error = 'Movie was not found.';
+      }
+
+      if (!$movie->releasedAt) {
+        $error = 'Release date of this movie is not available.';
+      }
+
+      if ($movie->wasAlreadyReleased) {
+        $error = 'This movie was already released.';
+      }
+    } else {
+      $error = 'Enter movie title.';
     }
 
-    return $app->json($movie);
+    return $app->json([
+      'title' => $title,
+      'movie' => $movie,
+      'error' => $error
+    ]);
 });
 
 $app->post('/api/subscribe', function (Application $app, Request $request) {

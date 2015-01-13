@@ -4,13 +4,10 @@ namespace Premiefier;
 
 class Movie {
   public $title, $plot, $genre, $poster, $releasedAt;
+  public $wasFound, $wasAlreadyReleased;
 
   public function __construct($title) {
     $this->fetch($title);
-  }
-
-  public function isAlreadyReleased() {
-    return $this->releasedAt < time();
   }
 
   protected function fetch($title) {
@@ -18,10 +15,6 @@ class Movie {
     $url = 'http://www.omdbapi.com/?'.http_build_query(['t' => $title]);
     $json = file_get_contents($url);
     $data = json_decode($json);
-
-    if (!empty($data->Error)) {
-      // Throw an error
-    }
 
     $data = $this->parseOMDBData($data);
 
@@ -31,6 +24,10 @@ class Movie {
     $this->genre = $data->Genre;
     $this->poster = $data->Poster;
     $this->releasedAt = $data->Released;
+
+    // Save flags values
+    $this->wasFound = $this->title != '';
+    $this->wasAlreadyReleased = $this->releasedAt && $this->releasedAt < time();
   }
 
   protected function parseOMDBData($data) {

@@ -1,62 +1,58 @@
 {% extends "layout.twig" %}
 
 {% block content %}
-  <div id="dsad">
-
-  </div>
+  <div id="search-container"></div>
+  <div id="movie-container"></div>
+  <div id="subscribe-container"></div>
 {% endblock %}
 
 {% block templates %}
   <script id="search-template" type="x-handlebars-template">
     {% raw %}
-      <form method="post" action="/search" id="search">
+      <form method="post" action="api/search" id="search">
         <fieldset>
           <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
           <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
         </fieldset>
 
-        <!--{% if title and movie %}
-            {% if not movie.wasFound %}
-                <p class="error">Movie was not found.</p>
-            {% elseif movie.releasedAt == 'N/A' %}
-                <p class="error">Release date of this movie is not available.</p>
-            {% elseif movie.isAlreadyReleased %}
-                <p class="error">This movie was already released.</p>
-            {% endif %}
-        {% elseif movie %}
-            <p class="error">Enter movie title.</p>
-        {% endif %}-->
+        <p class="error">{{error}}</p>
       </form>
     {% endraw %}
   </script>
   <script id="movie-template" type="x-handlebars-template">
     {% raw %}
-      <article id="movie">
-        {{#if poster}}
-          <img src="{{poster}}" alt="">
-        {{/if}}
-        <h1>{{title}}</h1>
-        <dl>
-          <dt>Genre</dt>
-          <dd>{{genre}}</dd>
-          <dt>Release Date</dt>
-          <dd>{{movie.releasedAt}}</dd>
-          <dt>Plot</dt>
-          <dd>{{plot}}</dd>
-        </dl>
-      </article>
+      {{#if movie.wasFound}}
+        <article id="movie">
+          {{#if movie.poster}}
+            <img src="{{movie.poster}}" alt="">
+          {{/if}}
+          <h1>{{movie.title}}</h1>
+          <dl>
+            <dt>Genre</dt>
+            <dd>{{movie.genre}}</dd>
+            <dt>Release Date</dt>
+            <dd>{{movie.releasedAt}}</dd>
+            <dt>Plot</dt>
+            <dd>{{movie.plot}}</dd>
+          </dl>
+        </article>
+      {{/if}}
     {% endraw %}
   </script>
   <script id="subscribe-template" type="x-handlebars-template">
     {% raw %}
-      <form method="post" action="/subscribe" id="subscribe">
-        <input type="hidden" name="title" value="{{title}}">
-        <fieldset>
-          <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
-          <input type="submit" value="Subscribe">
-        </fieldset>
-        <p>You will receive email notification a week before premiere. You can <a href="/opt-out">opt out of notifications</a> in any moment.</p>
-      </form>
+      {{#if movie.releasedAt}}
+        {{#unless movie.wasAlreadyReleased}}
+          <form method="post" action="api/subscribe" id="subscribe">
+            <input type="hidden" name="title" value="{{title}}">
+            <fieldset>
+              <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
+              <input type="submit" value="Subscribe">
+            </fieldset>
+            <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
+          </form>
+        {{/unless}}
+      {{/if}}
     {% endraw %}
   </script>
 {% endblock %}

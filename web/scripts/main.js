@@ -2,42 +2,82 @@
 
   var App = {
 
-  /**
-   * Initialize features
-   */
-  init: function () {
-    App.createSearchForm();
-    // App.getMovie();
-  },
+    elements: {
+      body: $('body')
+    },
 
-  createSearchForm: function () {
+    templates: {
+      search    : $('#search-template'),
+      movie     : $('#movie-template'),
+      subscribe : $('#subscribe-template')
+    },
 
-  },
+    containers: {
+      search    : $('#search-container'),
+      movie     : $('#movie-container'),
+      subscribe : $('#subscribe-container')
+    },
 
-  /**
-   * Fetch movie data
-   */
-  getMovie: function () {
-    var $form = $('form');
+    compileTemplate: function (name, data) {
+      var template = Handlebars.compile(App.templates[name].html());
+      App.containers[name].empty().append(template(data));
+    },
 
-    $form.on('submit', function (event) {
-      var $self = $(this);
-      var $button = $self.find('input[type="submit"]');
+    /**
+     * Initialize features
+     */
+    init: function () {
+      App.compileTemplate('search');
+      App.search();
+      App.subscribe();
+    },
 
-      $button.val($button.data('processing'));
+    search: function () {
+      App.elements.body.on('submit', '#search', function (event) {
+        event.preventDefault();
 
-      $.get($form.attr('action'), function() {
-        $button.val($button.data('initial'));
+        var form = $(this);
+
+        $.ajax({
+          url: form.attr('action'),
+          type: 'POST',
+          data: form.serialize()
+        })
+        .done(function (data) {
+          App.compileTemplate('search', data);
+          App.compileTemplate('movie', data);
+          App.compileTemplate('subscribe', data);
+        })
+        .fail(function (xhr) {
+          App.compileTemplate('search', xhr.responseJSON);
+        });
       });
+    },
 
-      event.preventDefault();
-    });
-  }
+    subscribe: function () {
+      App.elements.body.on('submit', '#subscribe', function (event) {
+        event.preventDefault();
 
-};
+        var form = $(this);
 
-$(function () {
-  App.init();
-});
+        $.ajax({
+          url: form.attr('action'),
+          type: 'POST',
+          data: form.serialize()
+        })
+        .done(function (data) {
+
+        })
+        .fail(function (xhr) {
+          var data = xhr.responseJSON;
+        });
+      });
+    }
+
+  };
+
+  $(function () {
+    App.init();
+  });
 
 })(jQuery);

@@ -1,8 +1,8 @@
 <IfModule mod_rewrite.c>
-    Options -MultiViews
+  Options -MultiViews
 
-    RewriteEngine On
-    RewriteBase /personal/premiefier/web
-    RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [QSA,L]
+  RewriteEngine On
+  RewriteBase /personal/premiefier/web
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^ index.php [QSA,L]
 </IfModule>
