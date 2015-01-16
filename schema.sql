@@ -11,6 +11,6 @@ CREATE TABLE `movies` (
 
 CREATE TABLE `notifications` (
   `id`  INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  `email_id`  INTEGER NOT NULL,
+  `user_id`  INTEGER NOT NULL,
   `movie_id`  INTEGER NOT NULL
 );
