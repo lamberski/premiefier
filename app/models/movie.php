@@ -30,7 +30,7 @@ class Movie {
     // Detect any errors
     if (!$this->title) {
       throw new \Exception('Movie was not found.');
-    } elseif (!$movie->releasedAt) {
+    } elseif (!$this->releasedAt) {
       throw new \Exception('Release date of this movie is not available.');
     } elseif ($this->releasedAt && $this->releasedAt < time()) {
       throw new \Exception('This movie was already released.');
