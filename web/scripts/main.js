@@ -40,7 +40,7 @@
 
         $.ajax({
           url: form.attr('action'),
-          type: 'POST',
+          type: 'GET',
           data: form.serialize()
         })
         .done(function (data) {
