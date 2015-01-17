@@ -11,7 +11,6 @@ use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Doctrine\DBAL\Query\QueryBuilder;
 use Premiefier\Movie;
 
 $app = new Application();
@@ -44,7 +43,7 @@ $app->before(function ($request) {
 });
 
 $app->error(function (Exception $exception, $code) use ($app) {
-  return $app->json(['error' => $exception->getMessage()]);
+  return $app->json(['error' => $exception->getMessage()], 404);
 });
 
 //------------------------------------------------------------------------------
