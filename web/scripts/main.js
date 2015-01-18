@@ -20,7 +20,7 @@
 
     compileTemplate: function (name, data) {
       var template = Handlebars.compile(App.templates[name].html());
-      App.containers[name].empty().append(template(data));
+      App.containers[name].html(template(data));
     },
 
     /**
@@ -62,14 +62,16 @@
 
         $.ajax({
           url: form.attr('action'),
-          type: 'POST',
+          type: 'GET',
           data: form.serialize()
         })
         .done(function (data) {
+          App.compileTemplate('subscribe', data);
 
+          // TODO: Show notification about successful subscription
         })
         .fail(function (xhr) {
-          var data = xhr.responseJSON;
+          App.compileTemplate('subscribe', xhr.responseJSON);
         });
       });
     }

@@ -42,8 +42,14 @@ $app->before(function ($request) {
   // TODO: Checking if request is from the same domain
 });
 
-$app->error(function (Exception $exception, $code) use ($app) {
-  return $app->json(['error' => $exception->getMessage()], 404);
+$app->error(function (\Exception $exception, $code) use ($app) {
+  $request = $app['request'];
+
+  return $app->json([
+    'error' => $exception->getMessage(),
+    'title' => $request->get('title'),
+    'email' => $request->get('email'),
+  ], 404);
 });
 
 //------------------------------------------------------------------------------
@@ -74,8 +80,8 @@ $app->get('/api/search', function (Application $app, Request $request) {
 
 $app->get('/api/subscribe', function (Application $app, Request $request) {
   $db    = $app['db'];
-  $email = $request->get('email');
   $title = $request->get('title');
+  $email = $request->get('email');
 
   // TODO: Throw an exception if $email is empty
 
@@ -104,7 +110,7 @@ $app->get('/api/subscribe', function (Application $app, Request $request) {
       ->setParameter(1, $movie->releasedAt)
       ->execute();
 
-    $movieID = $db->lastInsertId();
+    $movieID = $db->lastInsertID();
   }
 
   // 4. Fetch user (if exists)
@@ -127,17 +133,40 @@ $app->get('/api/subscribe', function (Application $app, Request $request) {
       ->setParameter(0, $email)
       ->execute();
 
-    $userID = $db->lastInsertId();
+    $userID = $db->lastInsertID();
   }
 
-  // 5. Create link between user and movie
-  $db->createQueryBuilder()
-    ->insert('notifications')
-    ->setValue('user_id', '?')
-    ->setValue('movie_id', '?')
+  // 5. Check if user already subscribed to the movie
+  $notification = $db->createQueryBuilder()
+    ->select('id')
+    ->from('notifications')
+    ->where('user_id = ?')
+    ->andWhere('movie_id = ?')
     ->setParameter(0, $userID)
     ->setParameter(1, $movieID)
-    ->execute();
+    ->execute()
+    ->fetch();
+
+  if ($notification) {
+    throw new \Exception(sprintf('You are already subscribed to %s.', $movie->title));
+
+  // 6. Create link between user and movie
+  } else {
+    $db->createQueryBuilder()
+      ->insert('notifications')
+      ->setValue('user_id', '?')
+      ->setValue('movie_id', '?')
+      ->setParameter(0, $userID)
+      ->setParameter(1, $movieID)
+      ->execute();
+  }
+
+  return $app->json([
+    'user'  => $user,
+    'movie' => $movie,
+    'title' => $request->get('title'),
+    'email' => $request->get('email'),
+  ]);
 });
 
 $app->delete('/api/unsubscribe', function (Application $app, Request $request) {
