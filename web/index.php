@@ -10,8 +10,8 @@ use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
-use Premiefier\Movie;
 use BitolaCo\Silex\CapsuleServiceProvider;
+use Premiefier\Models\Movie;
 
 $app = new Application();
 $app['debug'] = true;
@@ -77,7 +77,7 @@ $app->get('/unsubscribe', function (Application $app, Request $request) {
 
 $app->get('/api/search', function (Application $app, Request $request) {
   $title = $request->get('title');
-  $movie = new Movie($title);
+  $movie = Movie::findOrFail($title);
 
   return $app->json([
     'title' => $title,
@@ -92,8 +92,8 @@ $app->get('/api/subscribe', function (Application $app, Request $request) {
 
   // TODO: Throw an exception if $email is empty
 
-  // 1. Get movie info from IMDB
-  $movie = new Movie($title);
+  // 1. Get movie info from OMDb
+  $movie = Movie::findOrFail($title);
 
   // 2. Fetch movie (if exists)
   $movieInDb = $db->createQueryBuilder()
