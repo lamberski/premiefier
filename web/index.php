@@ -12,6 +12,9 @@ use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Premiefier\Models\Movie;
+use Premiefier\Models\Premiere;
+use Premiefier\Models\User;
+use Premiefier\Models\Notification;
 
 $app = new Application();
 $app['debug'] = true;
@@ -95,77 +98,25 @@ $app->get('/api/subscribe', function (Application $app, Request $request) {
   // 1. Get movie info from OMDb
   $movie = Movie::findOrFail($title);
 
-  // 2. Fetch movie (if exists)
-  $movieInDb = $db->createQueryBuilder()
-    ->select('id', 'title', 'released_at')
-    ->from('movies')
-    ->where('title = ?')
-    ->setParameter(0, $title)
-    ->execute()
-    ->fetch();
+  // 2. Fetch or create premiere
+  $premiere = Premiere::firstOrCreate([
+    'title'       => $movie->title,
+    'released_at' => $movie->releasedAt,
+  ]);
 
-  if ($movieInDb) {
-    $movieID = $movieInDb['id'];
+  // 3. Fetch or create user
+  $user = User::firstOrCreate(['email' => $email]);
 
-  // 3. If not, create one
+  // 4. Create notification (or throw error about already being subscribed)
+  $notification = Notification::firstOrNew([
+    'premiere_id' => $premiere->id,
+    'user_id'     => $user->id,
+  ]);
+
+  if ($notification->count() == 0) {
+    $notification->save();
   } else {
-    $db->createQueryBuilder()
-      ->insert('movies')
-      ->setValue('title', '?')
-      ->setValue('released_at', '?')
-      ->setParameter(0, $movie->title)
-      ->setParameter(1, $movie->releasedAt)
-      ->execute();
-
-    $movieID = $db->lastInsertID();
-  }
-
-  // 4. Fetch user (if exists)
-  $user = $db->createQueryBuilder()
-    ->select('id', 'email')
-    ->from('users')
-    ->where('email = ?')
-    ->setParameter(0, $email)
-    ->execute()
-    ->fetch();
-
-  if ($user) {
-    $userID = $user['id'];
-
-  // 5. If not, create one
-  } else {
-    $db->createQueryBuilder()
-      ->insert('users')
-      ->setValue('email', '?')
-      ->setParameter(0, $email)
-      ->execute();
-
-    $userID = $db->lastInsertID();
-  }
-
-  // 5. Check if user already subscribed to the movie
-  $notification = $db->createQueryBuilder()
-    ->select('id')
-    ->from('notifications')
-    ->where('user_id = ?')
-    ->andWhere('movie_id = ?')
-    ->setParameter(0, $userID)
-    ->setParameter(1, $movieID)
-    ->execute()
-    ->fetch();
-
-  if ($notification) {
     throw new \Exception(sprintf('You are already subscribed to %s.', $movie->title));
-
-  // 6. Create link between user and movie
-  } else {
-    $db->createQueryBuilder()
-      ->insert('notifications')
-      ->setValue('user_id', '?')
-      ->setValue('movie_id', '?')
-      ->setParameter(0, $userID)
-      ->setParameter(1, $movieID)
-      ->execute();
   }
 
   return $app->json([
