@@ -5,7 +5,7 @@ CREATE TABLE `users` (
 );
 
 DROP TABLE IF EXISTS `premieres`;
-CREATE TABLE `movies` (
+CREATE TABLE `premieres` (
   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `title` TEXT NOT NULL,
   `released_at` INTEGER NOT NULL
@@ -15,6 +15,6 @@ DROP TABLE IF EXISTS `notifications`;
 CREATE TABLE `notifications` (
   `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
   `user_id` INTEGER NOT NULL,
-  `movie_id` INTEGER NOT NULL,
-  UNIQUE(`user_id`, `movie_id`)
+  `premiere_id` INTEGER NOT NULL,
+  UNIQUE(`user_id`, `premiere_id`)
 );
