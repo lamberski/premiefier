@@ -5,13 +5,13 @@
 //------------------------------------------------------------------------------
 
 require_once __DIR__.'/../vendor/autoload.php';
-require_once __DIR__.'/../app/models/movie.php';
 
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
 use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use Premiefier\Movie;
+use BitolaCo\Silex\CapsuleServiceProvider;
 
 $app = new Application();
 $app['debug'] = true;
@@ -32,6 +32,13 @@ $app->register(new DoctrineServiceProvider(), [
     'driver' => 'pdo_sqlite',
     'path' => __DIR__.'/../db.sqlite',
   ],
+]);
+
+$app->register(new CapsuleServiceProvider(), [
+ 'capsule.connection' => [
+    'driver'   => 'sqlite',
+    'database' => __DIR__.'/../db.sqlite',
+  ]
 ]);
 
 //------------------------------------------------------------------------------
