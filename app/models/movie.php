@@ -14,7 +14,7 @@ class Movie {
     $url = 'http://www.omdbapi.com/?'.http_build_query(['t' => $title]);
     $json = file_get_contents($url);
     $data = json_decode($json);
-    $data = self::parseOMDBData($data);
+    $data = self::parseOMDbData($data);
 
     // Detect any errors
     if (!empty($data->Error)) {
@@ -36,7 +36,7 @@ class Movie {
     return $movie;
   }
 
-  protected static function parseOMDBData($data) {
+  protected static function parseOMDbData($data) {
     // Set value as empty if 'N/A'
     foreach($data as &$value) {
       if ($value == 'N/A') $value = '';
