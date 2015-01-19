@@ -16,19 +16,20 @@ class Movie {
     $data = json_decode($json);
     $data = self::parseOMDBData($data);
 
-    $movie = new Movie();
+    if (!empty($data->Error)) {
+      throw new \Exception($data->Error);
+    }
 
     // Assign movie info to the object
+    $movie = new Movie();
     $movie->title = $data->Title;
     $movie->plot = $data->Plot;
     $movie->genre = $data->Genre;
     $movie->poster = $data->Poster;
     $movie->releasedAt = $data->Released;
 
-    // Detect any errors
-    if (!$movie->title) {
-      throw new \Exception('Movie was not found.');
-    } elseif (!$movie->releasedAt) {
+    // Detect any premiere-related errors
+    if (!$movie->releasedAt) {
       throw new \Exception('Release date of this movie is not available.');
     } elseif ($movie->releasedAt && $movie->releasedAt < time()) {
       throw new \Exception('This movie was already released.');
