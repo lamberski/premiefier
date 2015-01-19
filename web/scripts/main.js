@@ -43,13 +43,11 @@
           type: 'GET',
           data: form.serialize()
         })
-        .done(function (data) {
-          App.compileTemplate('search', data);
-          App.compileTemplate('movie', data);
-          App.compileTemplate('subscribe', data);
-        })
-        .fail(function (xhr) {
-          App.compileTemplate('search', xhr.responseJSON);
+        .always(function (data) {
+          data = data.responseJSON || data;
+          App.compileTemplate('search', data.responseJSON);
+          App.compileTemplate('movie', data.responseJSON);
+          App.compileTemplate('subscribe', data.responseJSON);
         });
       });
     },
