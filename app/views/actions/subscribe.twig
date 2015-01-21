@@ -12,7 +12,7 @@
       <form method="post" action="api/search" id="search">
         <fieldset>
           <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
-          <input type="submit" value="Search" data-initial="Search" data-processing="Searching&hellip;">
+          <input type="submit" value="Search" data-processing="Searching&hellip;">
         </fieldset>
         <p class="error">{{error}}</p>
       </form>
@@ -45,7 +45,7 @@
           <input type="hidden" name="title" value="{{title}}">
           <fieldset>
             <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
-            <input type="submit" value="Subscribe">
+            <input type="submit" value="Subscribe" data-processing="Processing&hellip;">
           </fieldset>
           <p class="error">{{error}}</p>
           <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
