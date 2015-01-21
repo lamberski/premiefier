@@ -8,7 +8,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
-use Symfony\Component\HttpFoundation\Request;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Premiefier\Models\Movie;
 use Premiefier\Models\Premiere;
@@ -40,17 +39,15 @@ $app->register(new CapsuleServiceProvider(), [
 // Common actions
 //------------------------------------------------------------------------------
 
-$app->before(function ($request) {
+$app->before(function () {
   // TODO: Checking if request is from the same domain
 });
 
 $app->error(function (\Exception $exception, $code) use ($app) {
-  $request = $app['request'];
-
   return $app->json([
     'error' => $exception->getMessage(),
-    'title' => $request->get('title'),
-    'email' => $request->get('email'),
+    'title' => $app['request']->get('title'),
+    'email' => $app['request']->get('email'),
   ], 404);
 });
 
@@ -58,11 +55,11 @@ $app->error(function (\Exception $exception, $code) use ($app) {
 // Routes: Pages
 //------------------------------------------------------------------------------
 
-$app->get('/', function (Application $app, Request $request) {
+$app->get('/', function (Application $app) {
   return $app['twig']->render('actions/subscribe.twig');
 });
 
-$app->get('/unsubscribe', function (Application $app, Request $request) {
+$app->get('/unsubscribe', function (Application $app) {
   return $app['twig']->render('actions/unsubscribe.twig');
 });
 
@@ -70,8 +67,8 @@ $app->get('/unsubscribe', function (Application $app, Request $request) {
 // Routes: API
 //------------------------------------------------------------------------------
 
-$app->get('/api/search', function (Application $app, Request $request) {
-  $title = $request->get('title');
+$app->get('/api/search', function (Application $app) {
+  $title = $app['request']->get('title');
   $movie = Movie::findOrFail($title);
 
   return $app->json([
@@ -80,10 +77,10 @@ $app->get('/api/search', function (Application $app, Request $request) {
   ]);
 });
 
-$app->get('/api/subscribe', function (Application $app, Request $request) {
+$app->get('/api/subscribe', function (Application $app) {
   $db    = $app['db'];
-  $title = $request->get('title');
-  $email = $request->get('email');
+  $title = $app['request']->get('title');
+  $email = $app['request']->get('email');
 
   // TODO: Throw an exception if $email is empty
 
@@ -114,12 +111,12 @@ $app->get('/api/subscribe', function (Application $app, Request $request) {
   return $app->json([
     'user'  => $user,
     'movie' => $movie,
-    'title' => $request->get('title'),
-    'email' => $request->get('email'),
+    'title' => $app['request']->get('title'),
+    'email' => $app['request']->get('email'),
   ]);
 });
 
-$app->delete('/api/unsubscribe', function (Application $app, Request $request) {
+$app->delete('/api/unsubscribe', function (Application $app) {
   // Remove email subscription from given movie
 });
 
