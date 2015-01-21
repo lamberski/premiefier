@@ -50,10 +50,11 @@ class API {
     }
 
     return $app->json([
-      'user'  => $user,
-      'movie' => $movie,
-      'title' => $app['request']->get('title'),
-      'email' => $app['request']->get('email'),
+      'user'    => $user,
+      'movie'   => $movie,
+      'title'   => $app['request']->get('title'),
+      'email'   => $app['request']->get('email'),
+      'success' => true,
     ]);
   }
 

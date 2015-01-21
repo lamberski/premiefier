@@ -188,6 +188,10 @@ form .error {
   color: #E5802B;
 }
 
+form .success {
+  color: #8bc06c;
+}
+
 fieldset {
   position: relative;
 }

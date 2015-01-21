@@ -48,6 +48,9 @@
             <input type="submit" value="Subscribe" data-processing="Processing&hellip;">
           </fieldset>
           <p class="error">{{error}}</p>
+          {{#if success}}
+            <p class="success">You have successfuly subscribed to {{movie.title}}!</p>
+          {{/if}}
           <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
         </form>
       {{/if}}
