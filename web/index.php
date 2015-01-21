@@ -8,7 +8,6 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 use Silex\Application;
 use Silex\Provider\TwigServiceProvider;
-use Silex\Provider\DoctrineServiceProvider;
 use Symfony\Component\HttpFoundation\Request;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Premiefier\Models\Movie;
@@ -27,13 +26,6 @@ $app->register(new TwigServiceProvider(), [
   'twig.path' => __DIR__.'/../app/views',
   'twig.options' => [
     'strict_variables' => false,
-  ],
-]);
-
-$app->register(new DoctrineServiceProvider(), [
-  'db.options' => [
-    'driver' => 'pdo_sqlite',
-    'path' => __DIR__.'/../db.sqlite',
   ],
 ]);
 
