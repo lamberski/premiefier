@@ -23,6 +23,13 @@
       App.containers[name].html(template(data));
     },
 
+    disableSubmit: function (form) {
+      var button = $('input[type="submit"]', form);
+      button
+        .val(button.data('processing'))
+        .attr('disabled', 'disabled');
+    },
+
     /**
      * Initialize features
      */
@@ -37,6 +44,9 @@
         event.preventDefault();
 
         var form = $(this);
+        App.disableSubmit(form);
+        App.compileTemplate('movie');
+        App.compileTemplate('subscribe');
 
         $.ajax({
           url: form.attr('action'),
@@ -57,6 +67,7 @@
         event.preventDefault();
 
         var form = $(this);
+        App.disableSubmit(form);
 
         $.ajax({
           url: form.attr('action'),
