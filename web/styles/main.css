@@ -233,6 +233,12 @@ input[type="submit"]:hover {
   background: #83b94e;
 }
 
+input[type="submit"][disabled="disabled"],
+input[type="submit"][disabled="disabled"]:hover {
+  background: #90c060;
+  opacity: .75;
+}
+
 /* Header */
 
 header {
