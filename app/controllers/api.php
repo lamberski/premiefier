@@ -20,7 +20,6 @@ class API {
   }
 
   function subscribe(Application $app) {
-    $db    = $app['db'];
     $title = $app['request']->get('title');
     $email = $app['request']->get('email');
 
