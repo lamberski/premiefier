@@ -43,10 +43,10 @@ class API {
       'user_id'     => $user->id,
     ]);
 
-    if ($notification->count() == 0) {
-      $notification->save();
-    } else {
+    if ($notification->id) {
       throw new \Exception(sprintf('You are already subscribed to %s.', $movie->title));
+    } else {
+      $notification->save();
     }
 
     return $app->json([
