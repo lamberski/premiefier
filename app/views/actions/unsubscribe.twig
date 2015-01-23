@@ -6,16 +6,22 @@
 {% endblock %}
 
 {% block templates %}
-  <script id="search-template" type="x-handlebars-template">
+  <script id="unsubscribe-template" type="x-handlebars-template">
     {% raw %}
       <form method="post" action="/api/unsubscribe">
         <fieldset>
-          <input type="hidden" id="_method" name="_method" value="DELETE">
           <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
           <input type="submit" value="Show movies">
         </fieldset>
         <p>Enter your email address to list all movie premieres you&appos;re subscribed to.</p>
       </form>
+    {% endraw %}
+  </script>
+  <script id="movies-template" type="x-handlebars-template">
+    {% raw %}
+      {{#each movies}}
+        // Do something!
+      {{/each}}
     {% endraw %}
   </script>
 {% endblock %}
