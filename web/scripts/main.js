@@ -89,7 +89,7 @@
 
           $.ajax({
             url: form.attr('action'),
-            type: 'GET',
+            type: 'POST',
             data: form.serialize()
           })
           .done(function (data) {
