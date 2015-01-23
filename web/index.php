@@ -51,11 +51,11 @@ $app->error(function (\Exception $exception, $code) use ($app) {
 // Routes
 //------------------------------------------------------------------------------
 
-$app->get('/',                   'Premiefier\Controllers\Pages::subscribe');
-$app->get('/unsubscribe',        'Premiefier\Controllers\Pages::unsubscribe');
-$app->get('/api/search',         'Premiefier\Controllers\API::search');
-$app->get('/api/subscribe',      'Premiefier\Controllers\API::subscribe');
-$app->delete('/api/unsubscribe', 'Premiefier\Controllers\API::unsubscribe');
+$app->get('/', 'Premiefier\Controllers\Pages::subscribe');
+$app->get('/unsubscribe', 'Premiefier\Controllers\Pages::unsubscribe');
+$app->get('/api/search', 'Premiefier\Controllers\Search::index');
+$app->post('/api/notifications', 'Premiefier\Controllers\Notifications::create');
+$app->delete('/api/notifications', 'Premiefier\Controllers\Notifications::delete');
 
 //------------------------------------------------------------------------------
 // Starting the application

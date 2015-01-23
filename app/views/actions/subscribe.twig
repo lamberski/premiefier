@@ -41,7 +41,7 @@
   <script id="subscribe-template" type="x-handlebars-template">
     {% raw %}
       {{#if movie}}
-        <form method="post" action="api/subscribe" id="subscribe">
+        <form method="post" action="api/notifications" id="subscribe">
           <input type="hidden" name="title" value="{{title}}">
           <fieldset>
             <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
