@@ -9,13 +9,17 @@
     templates: {
       search    : $('#search-template'),
       movie     : $('#movie-template'),
-      subscribe : $('#subscribe-template')
+      subscribe : $('#subscribe-template'),
+      email     : $('#email-template'),
+      movies    : $('#movies-template')
     },
 
     containers: {
       search    : $('#search-container'),
       movie     : $('#movie-container'),
-      subscribe : $('#subscribe-container')
+      subscribe : $('#subscribe-container'),
+      email     : $('#email-container'),
+      movies    : $('#movies-container')
     },
 
     compileTemplate: function (name, data) {
