@@ -8,29 +8,19 @@ use Premiefier\Models\Premiere;
 use Premiefier\Models\User;
 use Premiefier\Models\Notification;
 
-class API {
-  function search(Application $app) {
-    $title = $app['request']->get('title');
-    $movie = Movie::findOrFail($title);
-
-    return $app->json([
-      'title' => $title,
-      'movie' => $movie,
-    ]);
-  }
-
-  function subscribe(Application $app) {
+class Notifications {
+  function create(Application $app) {
     $title = $app['request']->get('title');
     $email = $app['request']->get('email');
 
-    // TODO: Throw an exception if $email is empty
+    // TODO: Throw an exception if $email or $title is empty
 
     // 1. Get movie info from OMDb
     $movie = Movie::findOrFail($title);
 
     // 2. Fetch or create premiere
     $premiere = Premiere::firstOrCreate([
-      'title'       => $movie->title,
+      'title' => $movie->title,
       'released_at' => $movie->releasedAt,
     ]);
 
@@ -40,7 +30,7 @@ class API {
     // 4. Create notification (or throw error about already being subscribed)
     $notification = Notification::firstOrNew([
       'premiere_id' => $premiere->id,
-      'user_id'     => $user->id,
+      'user_id' => $user->id,
     ]);
 
     if ($notification->id) {
@@ -50,15 +40,15 @@ class API {
     }
 
     return $app->json([
-      'user'    => $user,
-      'movie'   => $movie,
-      'title'   => $app['request']->get('title'),
-      'email'   => $app['request']->get('email'),
+      'user' => $user,
+      'movie' => $movie,
+      'title' => $title,
+      'email' => $email,
       'success' => true,
     ]);
   }
 
-  function unsubscribe(Application $app) {
+  function delete(Application $app) {
     // Remove email subscription from given movie
   }
 }

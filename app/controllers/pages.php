@@ -3,6 +3,7 @@
 namespace Premiefier\Controllers;
 
 use Silex\Application;
+use Premiefier\Models\User;
 
 class Pages {
   function subscribe(Application $app) {
@@ -10,6 +11,10 @@ class Pages {
   }
 
   function unsubscribe(Application $app) {
+    // $email = $app['request']->get('email');
+    // $user = User::where('email', $email)->firstOrFail();
+    // $notifications = $user->notifications();
+
     return $app['twig']->render('actions/unsubscribe.twig');
   }
 }
