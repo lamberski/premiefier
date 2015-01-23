@@ -6,10 +6,6 @@ class Movie {
   public $title, $plot, $genre, $poster, $releasedAt;
 
   public static function findOrFail($title) {
-    if (!$title) {
-      throw new \Exception('Enter movie title.');
-    }
-
     // Get movie data from IMDB API
     $url = 'http://www.omdbapi.com/?'.http_build_query(['t' => $title]);
     $json = file_get_contents($url);
