@@ -3,7 +3,7 @@
 namespace Premiefier\Controllers;
 
 use Silex\Application;
-use Premiefier\Models\Movie;
+use Premiefier\Models\API;
 
 class Search {
   function index(Application $app) {
@@ -13,11 +13,11 @@ class Search {
       throw new \Exception('Enter movie title.');
     }
 
-    $movie = Movie::findOrFail($title);
+    $movies = API::getMoviesByTitle($title);
 
     return $app->json([
-      'title' => $title,
-      'movie' => $movie,
+      'title'  => $title,
+      'movies' => $movies,
     ]);
   }
 }
