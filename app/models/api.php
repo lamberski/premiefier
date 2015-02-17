@@ -11,6 +11,6 @@ class API {
     $json  = file_get_contents($url.$query);
     $data  = json_decode($json);
 
-    return $data;
+    return $data->movies;
   }
 }
