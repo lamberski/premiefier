@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block templates %}
+  {{ parent() }}
   <script id="unsubscribe-template" type="x-handlebars-template">
     {% raw %}
       <form method="post" action="/api/unsubscribe">

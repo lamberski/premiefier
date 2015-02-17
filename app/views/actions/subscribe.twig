@@ -2,11 +2,12 @@
 
 {% block content %}
   <div id="search-container"></div>
-  <div id="movie-container"></div>
+  <div id="movies-container"></div>
   <div id="subscribe-container"></div>
 {% endblock %}
 
 {% block templates %}
+  {{ parent() }}
   <script id="search-template" type="x-handlebars-template">
     {% raw %}
       <form method="post" action="api/search" id="search">
@@ -18,29 +19,9 @@
       </form>
     {% endraw %}
   </script>
-  <script id="movie-template" type="x-handlebars-template">
-    {% raw %}
-      {{#if movie}}
-        <article id="movie">
-          {{#if movie.poster}}
-            <img src="{{movie.poster}}" alt="">
-          {{/if}}
-          <h1>{{movie.title}}</h1>
-          <dl>
-            <dt>Genre</dt>
-            <dd>{{movie.genre}}</dd>
-            <dt>Release Date</dt>
-            <dd>{{movie.releasedAt}}</dd>
-            <dt>Plot</dt>
-            <dd>{{movie.plot}}</dd>
-          </dl>
-        </article>
-      {{/if}}
-    {% endraw %}
-  </script>
   <script id="subscribe-template" type="x-handlebars-template">
     {% raw %}
-      {{#if movie}}
+      {{#if movies}}
         <form method="post" action="api/notifications" id="subscribe">
           <input type="hidden" name="title" value="{{title}}">
           <fieldset>
