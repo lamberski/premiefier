@@ -8,18 +8,16 @@
 
     templates: {
       search      : $('#search-template'),
-      movie       : $('#movie-template'),
+      movies      : $('#movies-template'),
       subscribe   : $('#subscribe-template'),
-      unsubscribe : $('#unsubscribe-template'),
-      movies      : $('#movies-template')
+      unsubscribe : $('#unsubscribe-template')
     },
 
     containers: {
       search      : $('#search-container'),
-      movie       : $('#movie-container'),
+      movies      : $('#movies-container'),
       subscribe   : $('#subscribe-container'),
-      unsubscribe : $('#unsubscribe-container'),
-      movies      : $('#movies-container')
+      unsubscribe : $('#unsubscribe-container')
     },
 
     compileTemplate: function (name, data) {
@@ -63,7 +61,7 @@
 
           var form = $(this);
           App.disableSubmit(form);
-          App.compileTemplate('movie');
+          App.compileTemplate('movies');
           App.compileTemplate('subscribe');
 
           $.ajax({
@@ -74,7 +72,7 @@
           .always(function (data) {
             data = data.responseJSON || data;
             App.compileTemplate('search', data);
-            App.compileTemplate('movie', data);
+            App.compileTemplate('movies', data);
             App.compileTemplate('subscribe', data);
           });
         });
