@@ -17,4 +17,8 @@ class Pages {
 
     return $app['twig']->render('actions/unsubscribe.twig');
   }
+
+  function error404(Application $app) {
+    return $app['twig']->render('actions/error404.twig');
+  }
 }
