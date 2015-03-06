@@ -9,20 +9,13 @@
   {{ parent() }}
   <script id="unsubscribe-template" type="x-handlebars-template">
     {% raw %}
-      <form method="post" action="/api/unsubscribe">
+      <form method="post" action="/api/unsubscribe" id="unsubscribe" class="form">
         <fieldset>
           <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
           <input type="submit" value="Show movies">
         </fieldset>
-        <p>Enter your email address to list all movie premieres you&appos;re subscribed to.</p>
+        <p class="hint">Enter your email address to list all movie premieres you&appos;re subscribed to.</p>
       </form>
-    {% endraw %}
-  </script>
-  <script id="movies-template" type="x-handlebars-template">
-    {% raw %}
-      {{#each movies}}
-        // Do something!
-      {{/each}}
     {% endraw %}
   </script>
 {% endblock %}
