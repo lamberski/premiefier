@@ -20,7 +20,7 @@
 
     compileTemplate: function (name, data) {
       var template = Handlebars.compile(App.templates[name].html());
-      App.containers[name].html(template(data));
+      return template(data);
     },
 
     disableSubmit: function (form) {
@@ -56,7 +56,7 @@
      */
     Search: {
       init: function () {
-        App.compileTemplate('search');
+        App.containers.search.html(App.compileTemplate('search'));
         App.Search.bindSearchForm();
         App.Search.bindSubscribeForm();
       },
@@ -76,9 +76,10 @@
           })
           .always(function (data) {
             data = data.responseJSON || data;
-            App.compileTemplate('search', data);
-            App.compileTemplate('movies', data);
-            App.containers.movies.removeClass('is-loading');
+            App.containers.search.html(App.compileTemplate('search', data));
+            App.containers.movies
+              .html(App.compileTemplate('movies', data))
+              .removeClass('is-loading');
           });
         });
       },
@@ -112,7 +113,7 @@
      */
     Unsubscribe: {
       init: function () {
-        App.compileTemplate('unsubscribe');
+        App.containers.unsubscribe.html(App.compileTemplate('unsubscribe'));
       }
     },
 
