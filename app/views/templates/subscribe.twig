@@ -1,0 +1,14 @@
+<script id="subscribe-template" type="x-handlebars-template">
+  {% raw %}
+    <form method="post" action="api/notifications" class="form">
+      <input type="hidden" name="id" value="{{movie.id}}">
+      <fieldset>
+        <input type="email" name="email" placeholder="Enter your email address" value="">
+        <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
+      </fieldset>
+      {{#if error}}
+        <p>{{error}}</p>
+      {{/if}}
+    </form>
+  {% endraw %}
+</script>

@@ -1,0 +1,48 @@
+<script id="movies-template" type="x-handlebars-template">
+  {% raw %}
+    {{#if movies}}
+      <hr>
+
+      <section>
+        {{#each movies as |movie movieId|}}
+          <article class="movie">
+            {{#if movie.posters.thumbnail}}
+              <img src="{{movie.posters.thumbnail}}" alt="">
+            {{/if}}
+            <div class="movie__details">
+              <h1>{{movie.title}}</h1>
+              {{#if movie.release_dates.theater}}
+                <p class="movie__release-date">
+                  Will be released on <time>{{movie.release_dates.theater}}</time>.
+                </p>
+              {{else}}
+                <p class="movie__release-date--unavailable">
+                  There&rsquo;s no info about release date.
+                </p>
+              {{/if}}
+              {{#if movie.synopsis}}
+                <div class="movie__synopsis text">
+                  <p>{{movie.synopsis}}</p>
+                </div>
+              {{/if}}
+            </div>
+            <div class="movie__subscribe">
+              <a href="#show-details" class="movie__show-details">&larr; Back to movie details</a>
+              <div class="movie__info text">
+                <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
+              </div>
+              <div class="movie__form"></div>
+            </div>
+          </article>
+        {{/each}}
+      </section>
+    {{else}}
+      {{#unless error}}
+        <section class="text">
+          <h2>Empty list</h2>
+          <p>There are no movies with "<em>{{title}}</em>" in its title.</p>
+        </section>
+      {{/unless}}
+    {{/if}}
+  {% endraw %}
+</script>
