@@ -42,9 +42,6 @@ class Notifications {
     return $app->json([
       'user' => $user,
       'movie' => $movie,
-      'title' => $movie->title,
-      'email' => $email,
-      'success' => true,
     ]);
   }
 

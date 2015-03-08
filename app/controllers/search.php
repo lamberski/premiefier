@@ -16,7 +16,6 @@ class Search {
     $movies = API::getMoviesByTitle($title);
 
     return $app->json([
-      'title'  => $title,
       'movies' => $movies,
     ]);
   }
