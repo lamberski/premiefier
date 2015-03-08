@@ -9,14 +9,12 @@
     templates: {
       search      : $('#search-template'),
       movies      : $('#movies-template'),
-      subscribe   : $('#subscribe-template'),
       unsubscribe : $('#unsubscribe-template')
     },
 
     containers: {
       search      : $('#search-container'),
       movies      : $('#movies-container'),
-      subscribe   : $('#subscribe-container'),
       unsubscribe : $('#unsubscribe-container')
     },
 
@@ -28,8 +26,15 @@
     disableSubmit: function (form) {
       var button = $('input[type="submit"]', form);
       button
-        .val(button.data('processing'))
+        .val(button.data('submit'))
         .attr('disabled', 'disabled');
+    },
+
+    enableSubmit: function (form) {
+      var button = $('input[type="submit"]', form);
+      button
+        .val(button.data('initial'))
+        .removeAttr('disabled');
     },
 
     /**
@@ -37,22 +42,23 @@
      */
     init: function () {
       // Initialize modules related to current page
-      if (App.containers.subscribe.length > 0) {
-        App.Subscribe.init();
-      }
       if (App.containers.unsubscribe.length > 0) {
         App.Unsubscribe.init();
+      } else {
+        App.Search.init();
       }
+
+      App.Movie.init();
     },
 
     /**
-     * Features for Subscribe page
+     * Features for Search page
      */
-    Subscribe: {
+    Search: {
       init: function () {
         App.compileTemplate('search');
-        App.Subscribe.bindSearchForm();
-        App.Subscribe.bindSubscribeForm();
+        App.Search.bindSearchForm();
+        App.Search.bindSubscribeForm();
       },
 
       bindSearchForm: function () {
@@ -61,8 +67,7 @@
 
           var form = $(this);
           App.disableSubmit(form);
-          App.compileTemplate('movies');
-          App.compileTemplate('subscribe');
+          App.containers.movies.addClass('is-loading');
 
           $.ajax({
             url: form.attr('action'),
@@ -73,13 +78,13 @@
             data = data.responseJSON || data;
             App.compileTemplate('search', data);
             App.compileTemplate('movies', data);
-            App.compileTemplate('subscribe', data);
+            App.containers.movies.removeClass('is-loading');
           });
         });
       },
 
       bindSubscribeForm: function () {
-        App.elements.body.on('submit', '#subscribe', function (event) {
+        App.elements.body.on('submit', '.movie__form', function (event) {
           event.preventDefault();
 
           var form = $(this);
@@ -91,12 +96,12 @@
             data: form.serialize()
           })
           .done(function (data) {
-            App.compileTemplate('subscribe', data);
-
-            // TODO: Show notification about successful subscription
           })
           .fail(function (xhr) {
-            App.compileTemplate('subscribe', xhr.responseJSON);
+          })
+          .always(function (data) {
+            data = data.responseJSON || data;
+            App.enableSubmit(form);
           });
         });
       }
@@ -107,6 +112,31 @@
      */
     Unsubscribe: {
       init: function () {
+        App.compileTemplate('unsubscribe');
+      }
+    },
+
+    /**
+     * Features for Movies subscription
+     */
+    Movie: {
+      init: function () {
+        App.elements.body.on('click', '.movie', function () {
+          var movie = $(this);
+
+          if (!movie.hasClass('is-open')) {
+            movie.addClass('is-open');
+
+            return false;
+          }
+        });
+
+        App.elements.body.on('click', '[href="#show-details"]', function () {
+          var movie = $(this).closest('.movie');
+          movie.removeClass('is-open');
+
+          return false;
+        });
       }
     }
 

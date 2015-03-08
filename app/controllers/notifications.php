@@ -3,25 +3,25 @@
 namespace Premiefier\Controllers;
 
 use Silex\Application;
-use Premiefier\Models\Movie;
+use Premiefier\Models\API;
 use Premiefier\Models\Premiere;
 use Premiefier\Models\User;
 use Premiefier\Models\Notification;
 
 class Notifications {
   function create(Application $app) {
-    $title = $app['request']->get('title');
+    $id = $app['request']->get('id');
     $email = $app['request']->get('email');
 
     // TODO: Throw an exception if $email or $title is empty
 
     // 1. Get movie info from OMDb
-    $movie = Movie::findOrFail($title);
+    $movie = API::getMovieByID($id);
 
     // 2. Fetch or create premiere
     $premiere = Premiere::firstOrCreate([
       'title' => $movie->title,
-      'released_at' => $movie->releasedAt,
+      'released_at' => $movie->release_dates->theater,
     ]);
 
     // 3. Fetch or create user
@@ -42,7 +42,7 @@ class Notifications {
     return $app->json([
       'user' => $user,
       'movie' => $movie,
-      'title' => $title,
+      'title' => $movie->title,
       'email' => $email,
       'success' => true,
     ]);

@@ -4,51 +4,111 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Premiefier{% endblock %}</title>
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700&subset=latin,latin-ext" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="styles/main.css" rel="stylesheet">
     <base href="{{ app.request.getUriForPath('/') }}">
   </head>
   <body>
-    {% if not hideHeader %}
+    <div class="container">
       <header class="header">
-        <h1><a href="{{ app.request.getUriForPath('/') }}">Premiefier</a></h1>
-        <h2>Be notified about the premiere of awaited movie.</h2>
+        <h1>
+          <a href="{{ app.request.getUriForPath('/') }}">
+            <img src="images/logo.svg" alt="">
+          </a>
+        </h1>
+        {% block header %}{% endblock %}
       </header>
 
+      {% block content %}{% endblock %}
+
       <hr>
-    {% endif %}
 
-    {% block content %}{% endblock %}
+      <footer class="footer">
+        <small>
+          Made by <a href="http://lamberski.com">Maciek Lamberski</a>.
+          <a href="http://github.com/lamberski/premiefier">Source on GitHub</a>.
+        </small>
+      </footer>
+    </div>
 
-    <hr>
+    <script id="movies-template" type="x-handlebars-template">
+      {% raw %}
+        {{#if movies}}
+          <hr>
 
-    <footer class="footer">
-      <small>Made by <a href="http://lamberski.com">Maciej Lamberski</a>. <a href="http://github.com/lamberski/premiefier">Source on GitHub</a>.</small>
-    </footer>
-
-    {% block templates %}
-      <script id="movies-template" type="x-handlebars-template">
-        {% raw %}
-          {{#if movies}}
-            <section class="movies">
-              {{#each movies as |movie movieId|}}
-                <article>
-                  {{#if movie.posters.thumbnail}}
-                    <img src="{{movie.posters.thumbnail}}" alt="">
-                  {{/if}}
+          <section>
+            {{#each movies as |movie movieId|}}
+              <article class="movie">
+                {{#if movie.posters.thumbnail}}
+                  <img src="{{movie.posters.thumbnail}}" alt="">
+                {{/if}}
+                <div class="movie__details">
                   <h1>{{movie.title}}</h1>
-                  <dl>
-                    <dt>Release Date</dt>
-                    <dd>{{movie.release_dates.theater}}</dd>
-                    <dt>Synopsis</dt>
-                    <dd>{{movie.synopsis}}</dd>
-                  </dl>
-                </article>
-              {{/each}}
+                  {{#if movie.release_dates.theater}}
+                    <p class="movie__release-date">
+                      Will be released on <time>{{movie.release_dates.theater}}</time>.
+                    </p>
+                  {{else}}
+                    <p class="movie__release-date--unavailable">
+                      There&rsquo;s no info about release date.
+                    </p>
+                  {{/if}}
+                  {{#if movie.synopsis}}
+                    <div class="movie__synopsis text">
+                      <p>{{movie.synopsis}}</p>
+                    </div>
+                  {{/if}}
+                </div>
+                <div class="movie__subscribe">
+                  <a href="#show-details" class="movie__show-details">&larr; Back to movie details</a>
+                  <div class="movie__info text">
+                    <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
+                  </div>
+                  <form method="post" action="api/notifications" class="movie__form form">
+                    <input type="hidden" name="id" value="{{movie.id}}">
+                    <fieldset>
+                      <input type="email" name="email" placeholder="Enter your email address" value="">
+                      <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
+                    </fieldset>
+                  </form>
+                </div>
+              </article>
+            {{/each}}
+          </section>
+        {{else}}
+          {{#unless error}}
+            <section class="text">
+              <h2>Empty list</h2>
+              <p>There are no movies with "<em>{{title}}</em>" in its title.</p>
             </section>
-          {{/if}}
-        {% endraw %}
-      </script>
-    {% endblock %}
+          {{/unless}}
+        {{/if}}
+      {% endraw %}
+    </script>
+
+    <script id="search-template" type="x-handlebars-template">
+      {% raw %}
+        <form method="post" action="api/search" id="search" class="form">
+          <fieldset>
+            <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
+            <input type="submit" value="Search" data-initial="Search" data-submit="Searching&hellip;">
+          </fieldset>
+          <p>{{error}}</p>
+        </form>
+      {% endraw %}
+    </script>
+
+    <script id="unsubscribe-template" type="x-handlebars-template">
+      {% raw %}
+        <form method="post" action="/api/unsubscribe" id="unsubscribe" class="form">
+          <fieldset>
+            <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
+            <input type="submit" value="Show movies">
+          </fieldset>
+        </form>
+      {% endraw %}
+    </script>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.0/handlebars.min.js"></script>

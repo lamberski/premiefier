@@ -1,40 +1,20 @@
 {% extends "layout.twig" %}
 
-{% block content %}
+{% block header %}
   <div id="search-container"></div>
-  <div id="movies-container"></div>
-  <div id="subscribe-container"></div>
 {% endblock %}
 
-{% block templates %}
-  {{ parent() }}
-  <script id="search-template" type="x-handlebars-template">
-    {% raw %}
-      <form method="post" action="api/search" id="search" class="form">
-        <fieldset>
-          <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
-          <input type="submit" value="Search" data-processing="Searching&hellip;">
-        </fieldset>
-        <p class="error">{{error}}</p>
-      </form>
-    {% endraw %}
-  </script>
-  <script id="subscribe-template" type="x-handlebars-template">
-    {% raw %}
-      {{#if movies}}
-        <form method="post" action="api/notifications" id="subscribe" class="form">
-          <input type="hidden" name="title" value="{{title}}">
-          <fieldset>
-            <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
-            <input type="submit" value="Subscribe" data-processing="Processing&hellip;">
-          </fieldset>
-          <p class="error">{{error}}</p>
-          {{#if success}}
-            <p class="success">You have successfuly subscribed to {{movie.title}}!</p>
-          {{/if}}
-          <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
-        </form>
-      {{/if}}
-    {% endraw %}
-  </script>
+{% block content %}
+  <div id="movies-container">
+    {% if error404 %}
+      <section class="text">
+        <h2>Error 404</h2>
+        <p>Sorry, the page you are looking for could not be found. Go back to the <a href="">home page</a>.</p>
+      </section>
+    {% else %}
+      <section class="text">
+        <p><strong>Premiefier</strong> helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere a week before via email. Don&apos;t worry, your email will only be used to send you notification, it will not be spammed. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
+      </section>
+    {% endif %}
+  </div>
 {% endblock %}

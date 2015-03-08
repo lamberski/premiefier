@@ -19,8 +19,8 @@ class Pages {
   }
 
   function error404(Application $app) {
-    return $app['twig']->render('actions/error404.twig', [
-      'hideHeader' => true
+    return $app['twig']->render('actions/subscribe.twig', [
+      'error404' => true
     ]);
   }
 }
