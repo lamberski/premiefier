@@ -154,7 +154,14 @@ a:focus:after {
 .form p {
   margin-top: 27px;
   line-height: 27px;
+}
+
+.form__error {
   color: #E5802B;
+}
+
+.form__success {
+  color: #7eb95d;
 }
 
 .form fieldset {
@@ -322,6 +329,10 @@ a:focus:after {
 .movie__info a:hover,
 .movie__info a:focus {
   color: #90c060;
+}
+
+.movie__synopsis {
+  margin-top: 27px;
 }
 
 .movie__info {

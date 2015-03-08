@@ -87,6 +87,9 @@
           event.preventDefault();
 
           var form = $(this);
+          var movie = form.closest('.movie');
+          var container = form.closest('.movie__form');
+
           App.disableSubmit(form);
 
           $.ajax({
@@ -94,13 +97,9 @@
             type: 'POST',
             data: form.serialize()
           })
-          .done(function (data) {
-          })
-          .fail(function (xhr) {
-          })
           .always(function (data) {
             data = data.responseJSON || data;
-            App.enableSubmit(form);
+            container.html(App.compileTemplate('subscribe', data));
           });
         });
       }

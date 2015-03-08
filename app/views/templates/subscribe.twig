@@ -7,7 +7,11 @@
         <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
       </fieldset>
       {{#if error}}
-        <p>{{error}}</p>
+        <p class="form__error">{{error}}</p>
+      {{else}}
+        {{#if user}}
+          <p class="form__success">You have successfully subscribed to {{movie.title}}!</p>
+        {{/if}}
       {{/if}}
     </form>
   {% endraw %}
