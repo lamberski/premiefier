@@ -65,13 +65,7 @@
                   <div class="movie__info text">
                     <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
                   </div>
-                  <form method="post" action="api/notifications" class="movie__form form">
-                    <input type="hidden" name="id" value="{{movie.id}}">
-                    <fieldset>
-                      <input type="email" name="email" placeholder="Enter your email address" value="">
-                      <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
-                    </fieldset>
-                  </form>
+                  <div class="movie__form"></div>
                 </div>
               </article>
             {{/each}}
@@ -89,19 +83,36 @@
 
     <script id="search-template" type="x-handlebars-template">
       {% raw %}
-        <form method="post" action="api/search" id="search" class="form">
+        <form method="post" action="api/search" class="form">
           <fieldset>
             <input type="text" name="title" placeholder="Enter movie title" value="{{title}}" autofocus>
             <input type="submit" value="Search" data-initial="Search" data-submit="Searching&hellip;">
           </fieldset>
-          <p>{{error}}</p>
+          {{#if error}}
+            <p>{{error}}</p>
+          {{/if}}
+        </form>
+      {% endraw %}
+    </script>
+
+    <script id="subscribe-template" type="x-handlebars-template">
+      {% raw %}
+        <form method="post" action="api/notifications" class="form">
+          <input type="hidden" name="id" value="{{movie.id}}">
+          <fieldset>
+            <input type="email" name="email" placeholder="Enter your email address" value="">
+            <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
+          </fieldset>
+          {{#if error}}
+            <p>{{error}}</p>
+          {{/if}}
         </form>
       {% endraw %}
     </script>
 
     <script id="unsubscribe-template" type="x-handlebars-template">
       {% raw %}
-        <form method="post" action="/api/unsubscribe" id="unsubscribe" class="form">
+        <form method="post" action="/api/unsubscribe" class="form">
           <fieldset>
             <input type="email" name="email" placeholder="Enter your email address" value="{{email}}" autofocus>
             <input type="submit" value="Show movies">
