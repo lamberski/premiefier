@@ -10,13 +10,13 @@ use Premiefier\Models\Notification;
 
 class Notifications {
   function create(Application $app) {
-    $id = $app['request']->get('id');
+    $movieID = $app['request']->get('movie_id');
     $email = $app['request']->get('email');
 
     // TODO: Throw an exception if $email or $title is empty
 
     // 1. Get movie info from OMDb
-    $movie = API::getMovieByID($id);
+    $movie = API::getMovieByID($movieID);
 
     // 2. Fetch or create premiere
     $premiere = Premiere::firstOrCreate([
@@ -40,6 +40,10 @@ class Notifications {
     }
 
     return $app->json([
+      'params' => [
+        'movie_id' => $movieID,
+        'email' => $email,
+      ],
       'user' => $user,
       'movie' => $movie,
     ]);

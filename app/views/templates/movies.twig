@@ -5,10 +5,8 @@
 
       <section>
         {{#each movies as |movie movieId|}}
-          <article class="movie">
-            {{#if movie.posters.thumbnail}}
-              <img src="{{movie.posters.thumbnail}}" alt="">
-            {{/if}}
+          <article class="movie" data-id="{{movie.id}}">
+            <img src="{{movie.posters.thumbnail}}" alt="">
             <div class="movie__details">
               <h1>{{movie.title}}</h1>
               {{#if movie.release_dates.theater}}

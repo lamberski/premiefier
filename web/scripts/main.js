@@ -124,11 +124,12 @@
       init: function () {
         App.elements.body.on('click', '.movie', function () {
           var movie = $(this);
+          var data = {params: {movie_id: movie.data('id')}};
           var container = movie.find('.movie__form');
 
           if (!movie.hasClass('is-open')) {
             movie.addClass('is-open');
-            container.html(App.compileTemplate('subscribe'));
+            container.html(App.compileTemplate('subscribe', data));
 
             return false;
           }
