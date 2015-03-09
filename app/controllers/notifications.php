@@ -14,7 +14,13 @@ class Notifications {
     $email = $app['request']->get('email');
 
     try {
-      // TODO: Throw an exception if $email or $title is empty
+      if (!$movieID) {
+        throw new \Exception('Provide movie ID from Rotten Tomatoes API.');
+      }
+
+      if (!$email) {
+        throw new \Exception('Enter your e-mail address first.');
+      }
 
       // 1. Get movie info from OMDb
       $movie = API::getMovieByID($movieID);
@@ -48,9 +54,9 @@ class Notifications {
         'movie_id' => $movieID,
         'email' => $email,
       ],
-      'user' => $user,
-      'movie' => $movie,
-      'error' => isset($error) ? $error : false,
+      'user' => isset($user) ? $user : null,
+      'movie' => isset($movie) ? $movie : null,
+      'error' => isset($error) ? $error : null,
     ]);
   }
 
