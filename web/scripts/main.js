@@ -7,16 +7,18 @@
     },
 
     templates: {
-      search      : $('#search-template'),
-      movies      : $('#movies-template'),
-      subscribe   : $('#subscribe-template'),
-      unsubscribe : $('#unsubscribe-template')
+      search        : $('#search-template'),
+      movies        : $('#movies-template'),
+      notifications : $('#notifications-template'),
+      subscribe     : $('#subscribe-template'),
+      unsubscribe   : $('#unsubscribe-template')
     },
 
     containers: {
-      search      : $('#search-container'),
-      movies      : $('#movies-container'),
-      unsubscribe : $('#unsubscribe-container')
+      search        : $('#search-container'),
+      movies        : $('#movies-container'),
+      notifications : $('#notifications-container'),
+      unsubscribe   : $('#unsubscribe-container')
     },
 
     compileTemplate: function (name, data) {
@@ -69,7 +71,7 @@
 
           $.ajax({
             url: form.attr('action'),
-            type: 'GET',
+            type: form.attr('method'),
             data: form.serialize()
           })
           .always(function (data) {
@@ -94,7 +96,7 @@
 
           $.ajax({
             url: form.attr('action'),
-            type: 'POST',
+            type: form.attr('method'),
             data: form.serialize()
           })
           .always(function (data) {
@@ -113,6 +115,33 @@
         if (App.containers.unsubscribe.length === 0) return;
 
         App.containers.unsubscribe.html(App.compileTemplate('unsubscribe'));
+        App.Unsubscribe.bindSearchForm();
+      },
+
+      bindSearchForm: function () {
+        App.elements.body.on('submit', '#unsubscribe-container form', function (event) {
+          event.preventDefault();
+
+          var form = $(this);
+          App.disableSubmit(form);
+          App.containers.movies.addClass('is-loading');
+
+          $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize()
+          })
+          .always(function (data) {
+            data = data.responseJSON || data;
+            App.containers.unsubscribe.html(App.compileTemplate('unsubscribe', data));
+            App.containers.notifications
+              .html(App.compileTemplate('notifications', data))
+              .removeClass('is-loading');
+          });
+        });
+      },
+
+      bindUnbscribeButton: function () {
       }
     },
 

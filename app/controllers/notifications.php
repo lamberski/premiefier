@@ -9,6 +9,31 @@ use Premiefier\Models\User;
 use Premiefier\Models\Notification;
 
 class Notifications {
+  function index(Application $app) {
+    $email = $app['request']->get('email');
+
+    try {
+      if (!$email) {
+        throw new \Exception('Enter your email address first.');
+      }
+
+      $user = User::whereEmail($email)->first();
+      $notifications = $user->notifications()->with('premiere')->get();
+
+    } catch (\Exception $e) {
+      $error = $e->getMessage();
+    }
+
+    return $app->json([
+      'params' => [
+        'email' => $email,
+      ],
+      'user' => isset($user) ? $user : null,
+      'notifications' => isset($notifications) ? $notifications : null,
+      'error' => isset($error) ? $error : null,
+    ]);
+  }
+
   function create(Application $app) {
     $movieID = $app['request']->get('movie_id');
     $email = $app['request']->get('email');
@@ -19,7 +44,7 @@ class Notifications {
       }
 
       if (!$email) {
-        throw new \Exception('Enter your e-mail address first.');
+        throw new \Exception('Enter your email address first.');
       }
 
       // 1. Get movie info from OMDb
@@ -41,7 +66,7 @@ class Notifications {
       ]);
 
       if ($notification->id) {
-        throw new \Exception(sprintf('You are already subscribed to %s.', $movie->title));
+        throw new \Exception(sprintf('You are already subscribed to %s!', $movie->title));
       } else {
         $notification->save();
       }
