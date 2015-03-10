@@ -1,9 +1,9 @@
 <script id="unsubscribe-template" type="x-handlebars-template">
   {% raw %}
-    <form method="post" action="/api/unsubscribe" class="form">
+    <form method="get" action="api/notifications" class="form">
       <fieldset>
         <input type="email" name="email" placeholder="Enter your email address" value="{{params.email}}" autofocus>
-        <input type="submit" value="Show movies">
+        <input type="submit" value="Show movies" data-initial="Show movies" data-submit="Searching&hellip;">
       </fieldset>
     </form>
   {% endraw %}
