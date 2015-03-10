@@ -98,7 +98,7 @@ a:after {
   bottom: 0.0625em;
   left: 0;
   right: 0;
-  border-bottom: 2px solid #ddd;
+  border-bottom: 2px solid #eee;
 }
 
 a:hover,
@@ -245,6 +245,23 @@ a:focus:after {
 
 .header h1 a:hover img {
   opacity: .75;
+}
+
+.top {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  margin: 13.5px 0;
+  font-size: 12px;
+}
+
+.top a {
+  color: #aaa;
+}
+
+.top a:hover,
+.top a:focus {
+  color: #90c060;
 }
 
 /* Text */
