@@ -54,6 +54,7 @@ $app->error(function (\Exception $exception, $code) use ($app) {
 $app->get('/', 'Premiefier\Controllers\Pages::subscribe');
 $app->get('/unsubscribe', 'Premiefier\Controllers\Pages::unsubscribe');
 $app->get('/api/search', 'Premiefier\Controllers\Search::index');
+$app->get('/api/notifications', 'Premiefier\Controllers\Notifications::index');
 $app->post('/api/notifications', 'Premiefier\Controllers\Notifications::create');
 $app->delete('/api/notifications', 'Premiefier\Controllers\Notifications::delete');
 $app->match('/{slug}', 'Premiefier\Controllers\Pages::error404');
