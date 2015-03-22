@@ -17,6 +17,10 @@ class Notifications {
         throw new \Exception('Enter your email address first.');
       }
 
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new \Exception('Please enter valid email address.');
+      }
+
       $user = User::whereEmail($email)->first();
       $notifications = $user->notifications()->with('premiere')->get();
 
@@ -45,6 +49,10 @@ class Notifications {
 
       if (!$email) {
         throw new \Exception('Enter your email address first.');
+      }
+
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new \Exception('Please enter valid email address.');
       }
 
       // 1. Get movie info from OMDb
