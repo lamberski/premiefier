@@ -158,6 +158,7 @@
           if (!movie.hasClass('is-open')) {
             movie.addClass('is-open');
             container.html(App.compileTemplate('subscribe', data));
+            container.find('input[name="email"]').attr('autofocus', true);
 
             return false;
           }
