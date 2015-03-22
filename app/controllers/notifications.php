@@ -60,8 +60,8 @@ class Notifications {
 
       // 2. Fetch or create premiere
       $premiere = Premiere::firstOrCreate([
-        'title' => $movie->title,
-        'released_at' => $movie->release_dates->theater,
+        'title' => $movie['title'],
+        'released_at' => $movie['release_dates']['theater'],
       ]);
 
       // 3. Fetch or create user
@@ -74,7 +74,7 @@ class Notifications {
       ]);
 
       if ($notification->id) {
-        throw new \Exception(sprintf('You are already subscribed to %s!', $movie->title));
+        throw new \Exception(sprintf('You are already subscribed to %s!', $movie['title']));
       } else {
         $notification->save();
       }
