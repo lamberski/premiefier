@@ -6,9 +6,9 @@ CREATE TABLE `users` (
 
 DROP TABLE IF EXISTS `premieres`;
 CREATE TABLE `premieres` (
-  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-  `title` TEXT NOT NULL,
-  `released_at` INTEGER NOT NULL
+  `id` INTEGER NOT NULL,
+  `released_at` INTEGER NOT NULL,
+  PRIMARY KEY(id)
 );
 
 DROP TABLE IF EXISTS `notifications`;

@@ -60,7 +60,7 @@ class Notifications {
 
       // 2. Fetch or create premiere
       $premiere = Premiere::firstOrCreate([
-        'title' => $movie['title'],
+        'id' => $movieID,
         'released_at' => $movie['release_dates']['theater'],
       ]);
 
@@ -69,8 +69,8 @@ class Notifications {
 
       // 4. Create notification (or throw error about already being subscribed)
       $notification = Notification::firstOrNew([
-        'premiere_id' => $premiere->id,
         'user_id' => $user->id,
+        'premiere_id' => $movieID,
       ]);
 
       if ($notification->id) {
