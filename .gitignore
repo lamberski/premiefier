@@ -3,3 +3,4 @@ composer.lock
 db.sqlite*
 .htaccess
 .DS_Store
+resources
