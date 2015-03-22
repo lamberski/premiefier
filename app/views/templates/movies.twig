@@ -10,9 +10,15 @@
             <div class="movie__details">
               <h1>{{movie.title}}</h1>
               {{#if movie.release_dates.theater}}
-                <p class="movie__release-date">
-                  Will be released on <time>{{movie.release_dates.theater}}</time>.
-                </p>
+                {{#if movie.already_released}}
+                  <p class="movie__release-date--unavailable">
+                    This movie was already released at <time>{{movie.release_dates.theater}}</time>.
+                  </p>
+                {{else}}
+                  <p class="movie__release-date">
+                    Will be released on <time>{{movie.release_dates.theater}}</time>.
+                  </p>
+                {{/if}}
               {{else}}
                 <p class="movie__release-date--unavailable">
                   There&rsquo;s no info about release date.
@@ -26,10 +32,26 @@
             </div>
             <div class="movie__subscribe">
               <a href="#show-details" class="movie__show-details">&larr; Back to movie details</a>
-              <div class="movie__info text">
-                <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
-              </div>
-              <div class="movie__form"></div>
+              {{#if movie.release_dates.theater}}
+                {{#if movie.already_released}}
+                  <div class="movie__info text">
+                    <p class="movie__release-date--unavailable">
+                      You cannot subscribe to this movie premiere as it was already released at <time>{{movie.release_dates.theater}}</time>.
+                    </p>
+                  </div>
+                {{else}}
+                  <div class="movie__info text">
+                    <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
+                  </div>
+                  <div class="movie__form"></div>
+                {{/if}}
+              {{else}}
+                <div class="movie__info text">
+                  <p class="movie__release-date--unavailable">
+                    You cannot subscribe to this movie premiere because there&rsquo;s no info about it&rsquo;s release.
+                  </p>
+                </div>
+              {{/if}}
             </div>
           </article>
         {{/each}}
