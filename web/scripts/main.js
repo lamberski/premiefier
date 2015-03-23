@@ -1,10 +1,8 @@
 (function ($) {
 
-  var App = {
+  var Elements = {
 
-    elements: {
-      body: $('body')
-    },
+    body: $('body'),
 
     templates: {
       search        : $('#search-template'),
@@ -19,10 +17,13 @@
       movies        : $('#movies-container'),
       notifications : $('#notifications-container'),
       unsubscribe   : $('#unsubscribe-container')
-    },
+    }
+  };
+
+  var Helpers = {
 
     compileTemplate: function (name, data) {
-      var template = Handlebars.compile(App.templates[name].html());
+      var template = Handlebars.compile(Elements.templates[name].html());
       return template(data);
     },
 
@@ -38,15 +39,18 @@
       button
         .val(button.data('initial'))
         .removeAttr('disabled');
-    },
+    }
+  };
+
+  var Application = {
 
     /**
      * Initialize features
      */
     init: function () {
-      App.Unsubscribe.init();
-      App.Search.init();
-      App.Movie.init();
+      Application.Unsubscribe.init();
+      Application.Search.init();
+      Application.Movie.init();
     },
 
     /**
@@ -54,20 +58,20 @@
      */
     Search: {
       init: function () {
-        if (App.containers.search.length === 0) return;
+        if (Elements.containers.search.length === 0) return;
 
-        App.containers.search.html(App.compileTemplate('search'));
-        App.Search.bindSearchForm();
-        App.Search.bindSubscribeForm();
+        Elements.containers.search.html(Helpers.compileTemplate('search'));
+        Application.Search.bindSearchForm();
+        Application.Search.bindSubscribeForm();
       },
 
       bindSearchForm: function () {
-        App.elements.body.on('submit', '#search-container form', function (event) {
+        Elements.body.on('submit', '#search-container form', function (event) {
           event.preventDefault();
 
           var form = $(this);
-          App.disableSubmit(form);
-          App.containers.movies.addClass('is-loading');
+          Helpers.disableSubmit(form);
+          Elements.containers.movies.addClass('is-loading');
 
           $.ajax({
             url: form.attr('action'),
@@ -76,23 +80,23 @@
           })
           .always(function (data) {
             data = data.responseJSON || data;
-            App.containers.search.html(App.compileTemplate('search', data));
-            App.containers.movies
-              .html(App.compileTemplate('movies', data))
+            Elements.containers.search.html(Helpers.compileTemplate('search', data));
+            Elements.containers.movies
+              .html(Helpers.compileTemplate('movies', data))
               .removeClass('is-loading');
           });
         });
       },
 
       bindSubscribeForm: function () {
-        App.elements.body.on('submit', '.movie__form form', function (event) {
+        Elements.body.on('submit', '.movie__form form', function (event) {
           event.preventDefault();
 
           var form = $(this);
           var movie = form.closest('.movie');
           var container = form.closest('.movie__form');
 
-          App.disableSubmit(form);
+          Helpers.disableSubmit(form);
 
           $.ajax({
             url: form.attr('action'),
@@ -101,7 +105,7 @@
           })
           .always(function (data) {
             data = data.responseJSON || data;
-            container.html(App.compileTemplate('subscribe', data));
+            container.html(Helpers.compileTemplate('subscribe', data));
           });
         });
       }
@@ -112,19 +116,19 @@
      */
     Unsubscribe: {
       init: function () {
-        if (App.containers.unsubscribe.length === 0) return;
+        if (Elements.containers.unsubscribe.length === 0) return;
 
-        App.containers.unsubscribe.html(App.compileTemplate('unsubscribe'));
-        App.Unsubscribe.bindSearchForm();
+        Elements.containers.unsubscribe.html(Helpers.compileTemplate('unsubscribe'));
+        Application.Unsubscribe.bindSearchForm();
       },
 
       bindSearchForm: function () {
-        App.elements.body.on('submit', '#unsubscribe-container form', function (event) {
+        Elements.body.on('submit', '#unsubscribe-container form', function (event) {
           event.preventDefault();
 
           var form = $(this);
-          App.disableSubmit(form);
-          App.containers.movies.addClass('is-loading');
+          Helpers.disableSubmit(form);
+          Elements.containers.movies.addClass('is-loading');
 
           $.ajax({
             url: form.attr('action'),
@@ -133,9 +137,9 @@
           })
           .always(function (data) {
             data = data.responseJSON || data;
-            App.containers.unsubscribe.html(App.compileTemplate('unsubscribe', data));
-            App.containers.notifications
-              .html(App.compileTemplate('notifications', data))
+            Elements.containers.unsubscribe.html(Helpers.compileTemplate('unsubscribe', data));
+            Elements.containers.notifications
+              .html(Helpers.compileTemplate('notifications', data))
               .removeClass('is-loading');
           });
         });
@@ -150,21 +154,21 @@
      */
     Movie: {
       init: function () {
-        App.elements.body.on('click', '.movie', function () {
+        Elements.body.on('click', '.movie', function () {
           var movie = $(this);
           var data = {params: {movie_id: movie.data('id')}};
           var container = movie.find('.movie__form');
 
           if (!movie.hasClass('is-open')) {
             movie.addClass('is-open');
-            container.html(App.compileTemplate('subscribe', data));
+            container.html(Helpers.compileTemplate('subscribe', data));
             container.find('input[name="email"]').attr('autofocus', true);
 
             return false;
           }
         });
 
-        App.elements.body.on('click', '[href="#show-details"]', function () {
+        Elements.body.on('click', '[href="#show-details"]', function () {
           var movie = $(this).closest('.movie');
           movie.removeClass('is-open');
 
@@ -172,11 +176,10 @@
         });
       }
     }
-
   };
 
   $(function () {
-    App.init();
+    Application.init();
   });
 
 })(jQuery);
