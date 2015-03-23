@@ -69,6 +69,9 @@ class Notifications {
       $premiere = Premiere::firstOrCreate([
         'id' => $movieID,
         'released_at' => $movie['release_dates']['theater'],
+        'title' => $movie['title'],
+        'poster_url' => $movie['posters']['thumbnail'],
+        'details_url' => $movie['links']['alternate'],
       ]);
 
       // 3. Fetch or create user

@@ -6,9 +6,12 @@
       <section>
         {{#each notifications as |notification notificationId|}}
           <article class="notification" data-id="{{notification.id}}">
+            <img src="{{notification.premiere.poster_url}}" alt="">
             <div class="notification__details">
-              <h1>{{notification.title}}</h1>
-              {{notification.premiere.title}}
+              <h1>{{notification.premiere.title}}</h1>
+              <p class="movie__release-date">
+                Will be released on <time>{{notification.premiere.released_at}}</time>.
+              </p>
             </div>
           </article>
         {{/each}}

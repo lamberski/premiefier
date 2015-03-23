@@ -4,10 +4,12 @@ CREATE TABLE `users` (
   `email` TEXT NOT NULL UNIQUE
 );
 
-DROP TABLE IF EXISTS `premieres`;
 CREATE TABLE `premieres` (
   `id` INTEGER NOT NULL,
   `released_at` INTEGER NOT NULL,
+  `title` TEXT,
+  `poster_url` TEXT,
+  `details_url` TEXT,
   PRIMARY KEY(id)
 );
 

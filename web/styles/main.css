@@ -377,6 +377,90 @@ a:focus:after {
   display: block;
 }
 
+/* Movie */
+
+.notification {
+  margin: -27px -27px -27px -108px;
+  padding: 27px 27px 27px 108px;
+  position: relative;
+  min-height: 80px;
+}
+
+.notification + .notification {
+  margin-top: 27px;
+}
+
+.notification img {
+  position: absolute;
+  top: 27px;
+  left: 27px;
+  margin-right: 27px;
+  width: 54px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+.notification h1 {
+  font-weight: bold;
+  font-size: 20px;
+  color: #111;
+}
+
+.notification__release-date time {
+  font-weight: bold;
+}
+
+.notification__release-date--unavailable {
+  color: #E5802B;
+}
+
+.notification__synopsis,
+.notification__info {
+  color: #777;
+}
+
+.notification__synopsis a,
+.notification__info a {
+  color: #777;
+}
+
+.notification__synopsis a:hover,
+.notification__synopsis a:focus,
+.notification__info a:hover,
+.notification__info a:focus {
+  color: #90c060;
+}
+
+.notification__synopsis {
+  margin-top: 27px;
+}
+
+.notification__info {
+  margin: 27px 0;
+}
+
+.notification__subscribe {
+  display: none;
+}
+
+.notification.is-open {
+  background: #f5f5f5;
+}
+
+.notification.is-open:hover {
+  background: #f5f5f5;
+  cursor: default;
+}
+
+.notification.is-open .notification__details {
+  display: none;
+}
+
+.notification.is-open .notification__subscribe {
+  display: block;
+}
+
 /* Footer */
 
 .footer,
