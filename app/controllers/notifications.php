@@ -11,6 +11,7 @@ use Premiefier\Models\Notification;
 class Notifications {
   function index(Application $app) {
     $email = $app['request']->get('email');
+    $user = $notifications = $error = null;
 
     try {
       if (!$email) {
@@ -32,15 +33,16 @@ class Notifications {
       'params' => [
         'email' => $email,
       ],
-      'user' => isset($user) ? $user : null,
-      'notifications' => isset($notifications) ? $notifications : null,
-      'error' => isset($error) ? $error : null,
+      'user' => $user,
+      'notifications' => $notifications,
+      'error' => $error,
     ]);
   }
 
   function create(Application $app) {
     $movieID = $app['request']->get('movie_id');
     $email = $app['request']->get('email');
+    $user = $movie = $error = null;
 
     try {
       if (!$movieID) {
@@ -87,9 +89,9 @@ class Notifications {
         'movie_id' => $movieID,
         'email' => $email,
       ],
-      'user' => isset($user) ? $user : null,
-      'movie' => isset($movie) ? $movie : null,
-      'error' => isset($error) ? $error : null,
+      'user' => $user,
+      'movie' => $movie,
+      'error' => $error,
     ]);
   }
 
