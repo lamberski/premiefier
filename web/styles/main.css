@@ -333,6 +333,7 @@ a:focus:after {
 
 .movie__synopsis,
 .movie__info {
+  font-size: 15px;
   color: #777;
 }
 
