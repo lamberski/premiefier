@@ -4,3 +4,5 @@ db.sqlite*
 .htaccess
 .DS_Store
 resources
+web/styles/.sass-cache
+*.css.map
