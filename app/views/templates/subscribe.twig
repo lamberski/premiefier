@@ -4,7 +4,7 @@
       <input type="hidden" name="movie_id" value="{{params.movie_id}}">
       <fieldset>
         <input type="email" name="email" placeholder="Enter your email address" value="{{params.email}}" autofocus>
-        <input type="submit" value="Subscribe" data-initial="Subscribe" data-submit="Processing&hellip;">
+        <input type="submit" value="Subscribe" data-primary="Subscribe" data-processing="Processing&hellip;">
       </fieldset>
       {{#if error}}
         <p class="form__error">{{error}}</p>

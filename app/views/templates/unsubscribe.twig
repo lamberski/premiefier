@@ -3,7 +3,7 @@
     <form method="get" action="api/notifications" class="form">
       <fieldset>
         <input type="email" name="email" placeholder="Enter your email address" value="{{params.email}}" autofocus>
-        <input type="submit" value="Show movies" data-initial="Show movies" data-submit="Searching&hellip;">
+        <input type="submit" value="Show movies" data-primary="Show movies" data-processing="Searching&hellip;">
       </fieldset>
       {{#if error}}
         <p class="form__error">{{error}}</p>

@@ -30,14 +30,14 @@
     disableSubmit: function (form) {
       var button = $('input[type="submit"]', form);
       button
-        .val(button.data('submit'))
+        .val(button.data('processing'))
         .attr('disabled', 'disabled');
     },
 
     enableSubmit: function (form) {
       var button = $('input[type="submit"]', form);
       button
-        .val(button.data('initial'))
+        .val(button.data('primary'))
         .removeAttr('disabled');
     }
   };
