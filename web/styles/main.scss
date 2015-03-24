@@ -412,56 +412,6 @@ a:focus:after {
   font-weight: bold;
 }
 
-.notification__release-date--unavailable {
-  color: #E5802B;
-}
-
-.notification__synopsis,
-.notification__info {
-  color: #777;
-}
-
-.notification__synopsis a,
-.notification__info a {
-  color: #777;
-}
-
-.notification__synopsis a:hover,
-.notification__synopsis a:focus,
-.notification__info a:hover,
-.notification__info a:focus {
-  color: #90c060;
-}
-
-.notification__synopsis {
-  margin-top: 27px;
-}
-
-.notification__info {
-  margin: 27px 0;
-}
-
-.notification__subscribe {
-  display: none;
-}
-
-.notification.is-open {
-  background: #f5f5f5;
-}
-
-.notification.is-open:hover {
-  background: #f5f5f5;
-  cursor: default;
-}
-
-.notification.is-open .notification__details {
-  display: none;
-}
-
-.notification.is-open .notification__subscribe {
-  display: block;
-}
-
 /* Footer */
 
 .footer,
