@@ -26,8 +26,8 @@ $app->register(new TwigServiceProvider(), [
 
 $app->register(new CapsuleServiceProvider(), [
  'capsule.connection' => [
-    'driver'   => 'sqlite',
-    'database' => __DIR__.'/../db.sqlite',
+    'driver' => 'sqlite',
+    'database' => __DIR__.'/../'.getenv('DB_PATH'),
   ]
 ]);
 
