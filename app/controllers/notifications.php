@@ -104,6 +104,24 @@ class Notifications {
   }
 
   function delete(Application $app) {
-    // Remove email subscription from given movie
+    $notificationID = $app['request']->get('notification_id');
+    $error = null;
+
+    try {
+      if (!$notificationID) {
+        throw new \Exception('Provide notification ID.');
+      }
+
+      $notification = Notification::destroy($notificationID);
+    } catch (\Exception $e) {
+      $error = $e->getMessage();
+    }
+
+    return $app->json([
+      'params' => [
+        'notification_id' => $notificationID,
+      ],
+      'error' => $error,
+    ]);
   }
 }

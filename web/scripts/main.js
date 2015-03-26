@@ -27,18 +27,15 @@
       return template(data);
     },
 
-    disableSubmit: function (form) {
+    changeButtonState: function (form, label, disabled) {
       var button = $('input[type="submit"]', form);
-      button
-        .val(button.data('processing'))
-        .attr('disabled', 'disabled');
-    },
+      button.val(button.data(label));
 
-    enableSubmit: function (form) {
-      var button = $('input[type="submit"]', form);
-      button
-        .val(button.data('primary'))
-        .removeAttr('disabled');
+      if (disabled) {
+        button.attr('disabled', 'disabled');
+      } else {
+        button.removeAttr('disabled');
+      }
     }
   };
 
@@ -70,7 +67,7 @@
           event.preventDefault();
 
           var form = $(this);
-          Helpers.disableSubmit(form);
+          Helpers.changeButtonState(form, 'processing', true);
           Elements.containers.movies.addClass('is-loading');
 
           $.ajax({
@@ -96,7 +93,7 @@
           var movie = form.closest('.movie');
           var container = form.closest('.movie__form');
 
-          Helpers.disableSubmit(form);
+          Helpers.changeButtonState(form, 'processing', true);
 
           $.ajax({
             url: form.attr('action'),
@@ -120,6 +117,7 @@
 
         Elements.containers.unsubscribe.html(Helpers.compileTemplate('unsubscribe'));
         Application.Unsubscribe.bindSearchForm();
+        Application.Unsubscribe.bindUnbscribeForm();
       },
 
       bindSearchForm: function () {
@@ -127,7 +125,7 @@
           event.preventDefault();
 
           var form = $(this);
-          Helpers.disableSubmit(form);
+          Helpers.changeButtonState(form, 'processing', true);
           Elements.containers.movies.addClass('is-loading');
 
           $.ajax({
@@ -145,7 +143,23 @@
         });
       },
 
-      bindUnbscribeButton: function () {
+      bindUnbscribeForm: function () {
+        Elements.body.on('submit', '.notification form', function (event) {
+          event.preventDefault();
+
+          var form = $(this);
+          Helpers.changeButtonState(form, 'processing', true);
+
+          $.ajax({
+            url: form.attr('action'),
+            type: form.attr('method'),
+            data: form.serialize()
+          })
+          .always(function (data) {
+            data = data.responseJSON || data;
+            Helpers.changeButtonState(form, 'primary', false);
+          });
+        });
       }
     },
 
