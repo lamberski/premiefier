@@ -41,7 +41,7 @@ class Notifications {
       'user' => $user,
       'notifications' => $notifications,
       'error' => $error,
-    ]);
+    ], $error ? 400 : 200);
   }
 
   function create(Application $app) {
@@ -100,7 +100,7 @@ class Notifications {
       'user' => $user,
       'movie' => $movie,
       'error' => $error,
-    ]);
+    ], $error ? 400 : 200);
   }
 
   function delete(Application $app) {
@@ -122,6 +122,6 @@ class Notifications {
         'notification_id' => $notificationID,
       ],
       'error' => $error,
-    ]);
+    ], $error ? 400 : 200);
   }
 }

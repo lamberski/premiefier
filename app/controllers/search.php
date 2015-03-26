@@ -27,6 +27,6 @@ class Search {
       ],
       'movies' => $movies,
       'error' => $error,
-    ]);
+    ], $error ? 400 : 200);
   }
 }
