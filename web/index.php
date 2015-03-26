@@ -39,11 +39,9 @@ $app->before(function () {
   // TODO: Checking if request is from the same domain
 });
 
-$app->error(function (\Exception $exception, $code) use ($app) {
+$app->error(function (\Exception $exception) use ($app) {
   return $app->json([
     'error' => $exception->getMessage(),
-    'title' => $app['request']->get('title'),
-    'email' => $app['request']->get('email'),
   ], 404);
 });
 

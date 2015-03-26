@@ -8,18 +8,25 @@ use Premiefier\Models\API;
 class Search {
   function index(Application $app) {
     $title = $app['request']->get('title');
+    $movies = $error = null;
 
-    if (!$title) {
-      throw new \Exception('Enter movie title.');
+    try {
+      if (!$title) {
+        throw new \Exception('Enter movie title.');
+      }
+
+      $movies = API::getMoviesByTitle($title);
+
+    } catch (\Exception $e) {
+      $error = $e->getMessage();
     }
-
-    $movies = API::getMoviesByTitle($title);
 
     return $app->json([
       'params' => [
         'title' => $title,
       ],
       'movies' => $movies,
+      'error' => $error,
     ]);
   }
 }
