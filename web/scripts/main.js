@@ -33,7 +33,7 @@
       button.val(button.data(label));
 
       if (disabled) {
-        button.attr('disabled', 'disabled');
+        button.attr('disabled', true);
       } else {
         button.removeAttr('disabled');
       }
@@ -48,20 +48,20 @@
      */
     init: function () {
       Application.Unsubscribe.init();
-      Application.Search.init();
+      Application.Movies.init();
       Application.Movie.init();
     },
 
     /**
-     * Features for Search page
+     * Features for Movies Search page
      */
-    Search: {
+    Movies: {
       init: function () {
         if (Elements.containers.search.length === 0) return;
 
         Elements.containers.search.html(Helpers.compileTemplate('search'));
-        Application.Search.bindSearchForm();
-        Application.Search.bindSubscribeForm();
+        Application.Movies.bindSearchForm();
+        Application.Movies.bindSubscribeForm();
       },
 
       bindSearchForm: function () {

@@ -57,7 +57,7 @@ $namespace = 'Premiefier\Controllers\\';
 
 $app->get('/', $namespace.'Pages::subscribe');
 $app->get('/unsubscribe', $namespace.'Pages::unsubscribe');
-$app->get('/api/search', $namespace.'Search::index');
+$app->get('/api/search', $namespace.'Movies::index');
 $app->get('/api/notifications', $namespace.'Notifications::index');
 $app->post('/api/notifications', $namespace.'Notifications::create');
 $app->delete('/api/notifications', $namespace.'Notifications::delete');

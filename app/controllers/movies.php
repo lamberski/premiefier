@@ -5,7 +5,7 @@ namespace Premiefier\Controllers;
 use Silex\Application;
 use Premiefier\Models\API;
 
-class Search {
+class Movies {
 
   function index(Application $app)
   {
