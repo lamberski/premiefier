@@ -18,6 +18,7 @@
       notifications : $('#notifications-container'),
       unsubscribe   : $('#unsubscribe-container')
     }
+
   };
 
   var Helpers = {
@@ -37,6 +38,7 @@
         button.removeAttr('disabled');
       }
     }
+
   };
 
   var Application = {
@@ -190,6 +192,7 @@
         });
       }
     }
+
   };
 
   $(function () {
