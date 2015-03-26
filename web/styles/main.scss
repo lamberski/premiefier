@@ -27,6 +27,7 @@ $color-minor: #777;
 $color-error: #E5802B;
 $color-movie: #fffce8;
 $color-movie-open: #f5f5f5;
+$color-input: #e6e8eb;
 
 // Mixins
 //------------------------------------------------------------------------------
@@ -153,8 +154,6 @@ hr {
   display: none;
 }
 
-// Links
-
 a {
   display: inline-block;
   text-decoration: none;
@@ -232,7 +231,7 @@ a {
     font-size: 1rem;
     color: $color-base;
     border: 0;
-    background: #e6e8eb;
+    background: $color-input;
   }
 
   input[type='submit'] {
@@ -435,16 +434,9 @@ a {
   }
 }
 
-// Footer
+// Notifications
 //------------------------------------------------------------------------------
 
-.footer {
-  &, a {
-    color: #aaa;
-  }
-
-  a:hover,
-  a:focus {
-    color: $color-accent-hover;
-  }
+.notification {
+  position: relative;
 }
