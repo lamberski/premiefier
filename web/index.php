@@ -39,23 +39,29 @@ $app->before(function () {
   // TODO: Checking if request is from the same domain
 });
 
-$app->error(function (\Exception $exception) use ($app) {
+$app->error(function (\Exception $exception, $code) use ($app) {
   return $app->json([
+    'params' => array_merge(
+      $app['request']->query->all(),
+      $app['request']->request->all()
+    ),
     'error' => $exception->getMessage(),
-  ], 404);
+  ], $exception->getCode());
 });
 
 //------------------------------------------------------------------------------
 // Routes
 //------------------------------------------------------------------------------
 
-$app->get('/', 'Premiefier\Controllers\Pages::subscribe');
-$app->get('/unsubscribe', 'Premiefier\Controllers\Pages::unsubscribe');
-$app->get('/api/search', 'Premiefier\Controllers\Search::index');
-$app->get('/api/notifications', 'Premiefier\Controllers\Notifications::index');
-$app->post('/api/notifications', 'Premiefier\Controllers\Notifications::create');
-$app->delete('/api/notifications', 'Premiefier\Controllers\Notifications::delete');
-$app->match('/{slug}', 'Premiefier\Controllers\Pages::error404');
+$namespace = 'Premiefier\Controllers\\';
+
+$app->get('/', $namespace.'Pages::subscribe');
+$app->get('/unsubscribe', $namespace.'Pages::unsubscribe');
+$app->get('/api/search', $namespace.'Search::index');
+$app->get('/api/notifications', $namespace.'Notifications::index');
+$app->post('/api/notifications', $namespace.'Notifications::create');
+$app->delete('/api/notifications', $namespace.'Notifications::delete');
+$app->match('/{slug}', $namespace.'Pages::error404');
 
 //------------------------------------------------------------------------------
 // Starting the application
