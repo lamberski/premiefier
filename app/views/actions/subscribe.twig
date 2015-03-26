@@ -7,15 +7,8 @@
 
 {% block content %}
   <div id="movies-container">
-    {% if error404 %}
-      <section class="text">
-        <h2>Error 404</h2>
-        <p>Sorry, the page you are looking for could not be found. Go back to the <a href="">home page</a>.</p>
-      </section>
-    {% else %}
-      <section class="text">
-        <p><strong>Premiefier</strong> helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere a week before via email. Don&apos;t worry, your email will only be used to send you notification, it will not be spammed. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
-      </section>
-    {% endif %}
+    <section class="text">
+      <p><strong>Premiefier</strong> helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere a week before via email. Don&apos;t worry, your email will only be used to send you notification, it will not be spammed. You can <a href="unsubscribe">opt out of notifications</a> in any moment.</p>
+    </section>
   </div>
 {% endblock %}
