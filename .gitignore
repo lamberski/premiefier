@@ -6,3 +6,4 @@ db.sqlite*
 resources
 web/styles/.sass-cache
 *.css.map
+.sass-cache
