@@ -11,16 +11,10 @@ class Pages {
   }
 
   function unsubscribe(Application $app) {
-    // $email = $app['request']->get('email');
-    // $user = User::where('email', $email)->firstOrFail();
-    // $notifications = $user->notifications();
-
     return $app['twig']->render('actions/unsubscribe.twig');
   }
 
   function error404(Application $app) {
-    return $app['twig']->render('actions/subscribe.twig', [
-      'error404' => true
-    ]);
+    return $app['twig']->render('actions/error404.twig');
   }
 }
