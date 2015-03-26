@@ -9,28 +9,36 @@ use Premiefier\Models\User;
 use Premiefier\Models\Notification;
 
 class Notifications {
-  function index(Application $app) {
+
+  function index(Application $app)
+  {
     $email = $app['request']->get('email');
     $user = $notifications = $error = null;
 
-    try {
-      if (!$email) {
+    try
+    {
+      if (!$email)
+      {
         throw new \Exception('Enter your email address first.');
       }
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+      {
         throw new \Exception('Please enter valid email address.');
       }
 
       $user = User::whereEmail($email)->first();
 
-      if (!$user) {
+      if (!$user)
+      {
         throw new \Exception('You are not subscribed to any movie premiere yet.');
       }
 
       $notifications = $user->notifications()->with('premiere')->get();
 
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e)
+    {
       $error = $e->getMessage();
     }
 
@@ -44,21 +52,26 @@ class Notifications {
     ], $error ? 400 : 200);
   }
 
-  function create(Application $app) {
+  function create(Application $app)
+  {
     $movieID = $app['request']->get('movie_id');
     $email = $app['request']->get('email');
     $user = $movie = $error = null;
 
-    try {
-      if (!$movieID) {
+    try
+    {
+      if (!$movieID)
+      {
         throw new \Exception('Provide movie ID from Rotten Tomatoes API.');
       }
 
-      if (!$email) {
+      if (!$email)
+      {
         throw new \Exception('Enter your email address first.');
       }
 
-      if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+      {
         throw new \Exception('Please enter valid email address.');
       }
 
@@ -83,12 +96,17 @@ class Notifications {
         'premiere_id' => $movieID,
       ]);
 
-      if ($notification->id) {
+      if ($notification->id)
+      {
         throw new \Exception(sprintf('You are already subscribed to %s!', $movie['title']));
-      } else {
+      }
+      else
+      {
         $notification->save();
       }
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e)
+    {
       $error = $e->getMessage();
     }
 
@@ -103,17 +121,22 @@ class Notifications {
     ], $error ? 400 : 200);
   }
 
-  function delete(Application $app) {
+  function delete(Application $app)
+  {
     $notificationID = $app['request']->get('notification_id');
     $error = null;
 
-    try {
-      if (!$notificationID) {
+    try
+    {
+      if (!$notificationID)
+      {
         throw new \Exception('Provide notification ID.');
       }
 
       $notification = Notification::destroy($notificationID);
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e)
+    {
       $error = $e->getMessage();
     }
 
@@ -124,4 +147,5 @@ class Notifications {
       'error' => $error,
     ], $error ? 400 : 200);
   }
+
 }

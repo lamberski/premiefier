@@ -6,18 +6,24 @@ use Silex\Application;
 use Premiefier\Models\API;
 
 class Search {
-  function index(Application $app) {
+
+  function index(Application $app)
+  {
     $title = $app['request']->get('title');
     $movies = $error = null;
 
-    try {
-      if (!$title) {
+    try
+    {
+      if (!$title)
+      {
         throw new \Exception('Enter movie title.');
       }
 
       $movies = API::getMoviesByTitle($title);
 
-    } catch (\Exception $e) {
+    }
+    catch (\Exception $e)
+    {
       $error = $e->getMessage();
     }
 
@@ -29,4 +35,5 @@ class Search {
       'error' => $error,
     ], $error ? 400 : 200);
   }
+
 }
