@@ -26,12 +26,9 @@ class Notifications {
 
     $user = User::whereEmail($email)->first();
 
-    if (!$user)
-    {
-      throw new \Exception('You are not subscribed to any movie premiere yet.', 404);
-    }
-
-    $notifications = $user->notifications()->with('premiere')->get();
+    $notifications = $user
+      ? $user->notifications()->with('premiere')->get()
+      : null;
 
     return $app->json([
       'params' => $app['request']->query->all(),
