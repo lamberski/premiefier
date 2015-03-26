@@ -29,9 +29,7 @@ class API {
     if (isset($movie['release_dates']['theater']))
     {
       $date_timestamp = strtotime($movie['release_dates']['theater']);
-
       $movie['already_released'] = $date_timestamp < time();
-
     }
     else
     {
