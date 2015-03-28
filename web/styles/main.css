@@ -103,7 +103,7 @@ a {
 
 .text h2, .movie h1, .notification h1 {
   font-weight: bold;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   color: #111; }
 
 .form fieldset {
@@ -193,7 +193,7 @@ a {
     width: 3.375rem;
     border-radius: 2px; }
   .movie__release-date time, .notification__release-date time {
-    font-weight: bold; }
+    font-weight: 600; }
   .movie__release-date--unavailable, .notification__release-date--unavailable {
     color: #d10010; }
   .movie__rotten-link, .notification__rotten-link {

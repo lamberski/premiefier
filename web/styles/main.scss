@@ -11,7 +11,7 @@ $breakpoint-phone: 480px;
 $font-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 $size-base: 16px;
-$size-heading: 1.25rem;
+$size-heading: 1.125rem;
 $size-minor: .9375rem;
 $size-button: .875rem;
 $size-top: .75rem;
@@ -377,7 +377,7 @@ a {
 
   &__release-date {
     time {
-      font-weight: bold;
+      font-weight: 600;
     }
 
     &--unavailable {

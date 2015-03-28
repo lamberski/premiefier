@@ -35,15 +35,13 @@
               <img src="{{movie.posters.thumbnail}}" alt="">
               <div class="movie__details">
                 <h1>{{movie.title}}</h1>
-                {{#if movie.release_dates.theater}}
-                  <p class="movie__release-date--unavailable">
+                <p class="movie__release-date movie__release-date--unavailable">
+                  {{#if movie.release_dates.theater}}
                     This movie was already released at <time>{{movie.release_dates.theater}}</time>.
-                  </p>
-                {{else}}
-                  <p class="movie__release-date--unavailable">
+                  {{else}}
                     There&rsquo;s no info about release date.
-                  </p>
-                {{/if}}
+                  {{/if}}
+                </p>
                 {{#if movie.synopsis}}
                   <div class="movie__synopsis text">
                     <p>{{movie.synopsis}}</p>
