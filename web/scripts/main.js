@@ -101,12 +101,12 @@
     },
 
     bindTogglingMovieDetails: function () {
-      Elements.body.on('click', '.movie', function () {
+      Elements.body.on('click', '.movie', function (event) {
         var movie = $(this);
         var data = {params: {movie_id: movie.data('id')}};
         var container = movie.find('.movie__form');
 
-        if (!movie.hasClass('is-open')) {
+        if (!movie.hasClass('is-open') && !$(event.target).is('a')) {
           movie.addClass('is-open');
           container.html(Helpers.compileTemplate('subscribe', data));
           container.find('input[name="email"]').attr('autofocus', true);
@@ -115,7 +115,7 @@
         }
       });
 
-      Elements.body.on('click', '[href="#show-details"]', function () {
+      Elements.body.on('click', '[href="#show-details"]', function (event) {
         var movie = $(this).closest('.movie');
         movie.removeClass('is-open');
 

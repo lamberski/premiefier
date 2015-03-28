@@ -101,6 +101,11 @@ a {
   .container > :first-child ~ * {
     margin-top: 3.375rem; }
 
+.text h2, .movie h1, .notification h1 {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #111; }
+
 .form fieldset {
   position: relative; }
 .form input[type='text'],
@@ -168,10 +173,6 @@ a {
 
 .text > :first-child ~ * {
   margin-top: 1.6875rem; }
-.text h2 {
-  font-weight: bold;
-  font-size: 1.25rem;
-  color: #111; }
 .text strong {
   font-weight: bold; }
 .text em {
@@ -191,10 +192,6 @@ a {
     margin-right: 1.6875rem;
     width: 3.375rem;
     border-radius: 2px; }
-  .movie h1, .notification h1 {
-    font-weight: bold;
-    font-size: 1.25rem;
-    color: #111; }
   .movie__release-date time, .notification__release-date time {
     font-weight: bold; }
   .movie__release-date--unavailable, .notification__release-date--unavailable {
@@ -226,6 +223,9 @@ a {
       color: #777; }
       .movie__synopsis a:hover, .movie__synopsis a:focus, .movie__info a:hover, .movie__info a:focus {
         color: #84B854; }
+  .movie__synopsis {
+    max-height: 3.375rem;
+    overflow: hidden; }
   .movie__info {
     margin: 1.6875rem 0; }
   .movie__subscribe {

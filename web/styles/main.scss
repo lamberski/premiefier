@@ -11,7 +11,7 @@ $breakpoint-phone: 480px;
 $font-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
 $size-base: 16px;
-$size-header: 1.25rem;
+$size-heading: 1.25rem;
 $size-minor: .9375rem;
 $size-button: .875rem;
 $size-top: .75rem;
@@ -25,6 +25,7 @@ $color-accent: #91BF65;
 $color-accent-hover: #84B854;
 $color-background: #fff;
 $color-base: #333;
+$color-heading: #111;
 $color-border: #eee;
 $color-minor: #777;
 $color-error: #E5802B;
@@ -210,6 +211,12 @@ a {
   }
 }
 
+%heading {
+  font-weight: bold;
+  font-size: $size-heading;
+  color: $color-heading;
+}
+
 // Form
 //------------------------------------------------------------------------------
 
@@ -330,9 +337,7 @@ a {
   }
 
   h2 {
-    font-weight: bold;
-    font-size: $size-header;
-    color: #111;
+    @extend %heading;
   }
 
   strong {
@@ -367,9 +372,7 @@ a {
   }
 
   h1 {
-    font-weight: bold;
-    font-size: $size-header;
-    color: #111;
+    @extend %heading;
   }
 
   &__release-date {
@@ -428,9 +431,10 @@ a {
     }
   }
 
-  // &__synopsis {
-  //   margin-top: $rythm-tick;
-  // }
+  &__synopsis {
+    max-height: $rythm-tick * 2;
+    overflow: hidden;
+  }
 
   &__info {
     margin: $rythm-tick 0;
