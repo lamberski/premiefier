@@ -395,27 +395,6 @@ a {
 }
 
 .movie {
-  cursor: pointer;
-
-  * {
-    position: relative;
-    z-index: 2;
-  }
-
-  &:before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: -$rythm-tick;
-    right: -$rythm-tick;
-    bottom: -$rythm-tick;
-    left: -$rythm-tick;
-  }
-
-  &:hover:before {
-    background: $color-movie;
-  }
-
   &__synopsis,
   &__info {
     font-size: $size-minor;
@@ -444,20 +423,47 @@ a {
     display: none;
   }
 
-  &.is-open {
-    cursor: default;
-
-    &:before {
-      background: $color-movie-open;
-    }
-  }
-
   &.is-open &__details {
     display: none;
   }
 
   &.is-open &__subscribe {
     display: block;
+  }
+
+  &--available {
+    cursor: pointer;
+
+    * {
+      position: relative;
+      z-index: 2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -$rythm-tick;
+      right: -$rythm-tick;
+      bottom: -$rythm-tick;
+      left: -$rythm-tick;
+    }
+
+    &:hover:before {
+      background: $color-movie;
+    }
+
+    &.is-open {
+      cursor: default;
+
+      &:before {
+        background: $color-movie-open;
+      }
+    }
+  }
+
+  &--unavailable {
+    opacity: .5;
   }
 }
 

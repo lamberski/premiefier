@@ -101,7 +101,7 @@
     },
 
     bindTogglingMovieDetails: function () {
-      Elements.body.on('click', '.movie', function (event) {
+      Elements.body.on('click', '.movie--available', function (event) {
         var movie = $(this);
         var data = {params: {movie_id: movie.data('id')}};
         var container = movie.find('.movie__form');
