@@ -6,3 +6,7 @@ resources
 .sass-cache
 *.sqlite
 *.css.map
+node_modules
+web/images
+web/scripts
+web/styles
