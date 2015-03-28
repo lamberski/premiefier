@@ -18,6 +18,9 @@ $size-top: .75rem;
 
 $rythm-tick: 1.6875rem;
 
+$width-body: $rythm-tick * 23;
+$width-indent: $rythm-tick * 3;
+
 $color-accent: #91BF65;
 $color-accent-hover: #84B854;
 $color-background: #fff;
@@ -141,7 +144,7 @@ body {
   background: $color-background;
   margin: $rythm-tick * 2 auto;
   padding: 0 5%;
-  max-width: 540px;
+  max-width: $width-body;
   color: $color-base;
   font-family: $font-base;
   line-height: $rythm-tick;
@@ -189,17 +192,18 @@ a {
   &:after {
     content: '';
     position: absolute;
+    z-index: 3;
     top: 0;
     right: 0;
     bottom: 0;
-    left: 0;
-    background: rgba(255, 255, 255, .75);
+    left: -$width-indent;
+    background: rgba(#fff, .75);
   }
 }
 
 .container {
   position: relative;
-  left: $rythm-tick * 1.5;
+  padding-left: $width-indent;
 
   > :first-child ~ * {
     margin-top: $rythm-tick * 2;
@@ -277,13 +281,27 @@ a {
 //------------------------------------------------------------------------------
 
 .header {
-  position: relative;
+  &__top {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin: ($rythm-tick / 2) 0;
+    font-size: $size-top;
 
-  h1 {
+    a {
+      color: #aaa;
+
+      &:hover,
+      &:focus {
+        color: $color-accent-hover;
+      }
+    }
+  }
+
+  &__logo {
     position: absolute;
     top: 0;
-    right: 100%;
-    margin-right: $rythm-tick;
+    left: 0;
     line-height: $rythm-tick * 2;
 
     a {
@@ -299,23 +317,6 @@ a {
       &:hover {
         opacity: .75;
       }
-    }
-  }
-}
-
-.top {
-  position: absolute;
-  right: 0;
-  bottom: 100%;
-  margin: ($rythm-tick / 2) 0;
-  font-size: $size-top;
-
-  a {
-    color: #aaa;
-
-    &:hover,
-    &:focus {
-      color: $color-accent-hover;
     }
   }
 }
@@ -347,24 +348,19 @@ a {
   }
 }
 
-// Movie
+// Movie & Notification
 //------------------------------------------------------------------------------
 
-.movie {
-  margin: (-$rythm-tick) (-$rythm-tick) (-$rythm-tick) (-$rythm-tick * 4);
-  padding: $rythm-tick $rythm-tick $rythm-tick ($rythm-tick * 4);
+.movie, .notification {
+  margin-left: -$width-indent;
+  padding-left: $width-indent;
   position: relative;
   min-height: 80px;
-  cursor: pointer;
-
-  + .movie {
-    margin-top: $rythm-tick;
-  }
 
   img {
     position: absolute;
-    top: $rythm-tick;
-    left: $rythm-tick;
+    top: 0;
+    left: 0;
     margin-right: $rythm-tick;
     width: $rythm-tick * 2;
     border-radius: 2px;
@@ -386,27 +382,55 @@ a {
     }
   }
 
+  &__rotten-link {
+    font-size: $size-minor;
+  }
+
+  & + & {
+    margin-top: $rythm-tick * 2;
+  }
+}
+
+.movie {
+  cursor: pointer;
+
+  * {
+    position: relative;
+    z-index: 2;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: -$rythm-tick;
+    right: -$rythm-tick;
+    bottom: -$rythm-tick;
+    left: -$rythm-tick;
+  }
+
+  &:hover:before {
+    background: $color-movie;
+  }
+
   &__synopsis,
   &__info {
     font-size: $size-minor;
     color: $color-minor;
+
+    a {
+      color: $color-minor;
+
+      &:hover,
+      &:focus {
+        color: $color-accent-hover;
+      }
+    }
   }
 
-  &__synopsis a,
-  &__info a {
-    color: $color-minor;
-  }
-
-  &__synopsis a:hover,
-  &__synopsis a:focus,
-  &__info a:hover,
-  &__info a:focus {
-    color: $color-accent-hover;
-  }
-
-  &__synopsis {
-    margin-top: $rythm-tick;
-  }
+  // &__synopsis {
+  //   margin-top: $rythm-tick;
+  // }
 
   &__info {
     margin: $rythm-tick 0;
@@ -416,13 +440,12 @@ a {
     display: none;
   }
 
-  &:hover {
-    background: $color-movie;
-  }
-
   &.is-open {
-    background: $color-movie-open;
     cursor: default;
+
+    &:before {
+      background: $color-movie-open;
+    }
   }
 
   &.is-open &__details {
@@ -434,9 +457,5 @@ a {
   }
 }
 
-// Notifications
-//------------------------------------------------------------------------------
-
 .notification {
-  position: relative;
 }

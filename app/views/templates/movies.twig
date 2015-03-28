@@ -24,6 +24,9 @@
                   There&rsquo;s no info about release date.
                 </p>
               {{/if}}
+              <p class="movie__rotten-link">
+                <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
+              </p>
               {{#if movie.synopsis}}
                 <div class="movie__synopsis text">
                   <p>{{movie.synopsis}}</p>
@@ -41,7 +44,7 @@
                   </div>
                 {{else}}
                   <div class="movie__info text">
-                    <p>You will receive email notification a week before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
+                    <p>You will receive email notification three days before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
                   </div>
                   <div class="movie__form"></div>
                 {{/if}}
