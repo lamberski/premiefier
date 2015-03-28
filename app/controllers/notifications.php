@@ -14,7 +14,7 @@ class Notifications {
   {
     $email = $app['request']->get('email');
 
-    if (!$email)
+    if (!trim($email))
     {
       throw new \Exception('Enter your email address first.', 400);
     }
@@ -45,12 +45,12 @@ class Notifications {
     $movieID = $app['request']->get('movie_id');
     $email = $app['request']->get('email');
 
-    if (!$movieID)
+    if (!trim($movieID))
     {
       throw new \Exception('Provide movie ID from Rotten Tomatoes API.', 400);
     }
 
-    if (!$email)
+    if (!trim($email))
     {
       throw new \Exception('Enter your email address first.', 400);
     }
@@ -97,7 +97,7 @@ class Notifications {
   {
     $notificationID = $app['request']->get('notification_id');
 
-    if (!$notificationID)
+    if (!trim($notificationID))
     {
       throw new \Exception('Provide notification ID.', 400);
     }

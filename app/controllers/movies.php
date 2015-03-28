@@ -11,7 +11,7 @@ class Movies {
   {
     $title = $app['request']->get('title');
 
-    if (!$title)
+    if (!trim($title))
     {
       throw new \Exception('Enter movie title.', 400);
     }
