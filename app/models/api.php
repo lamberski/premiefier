@@ -31,10 +31,11 @@ class API {
     {
       $date_timestamp = strtotime($movie['release_dates']['theater']);
       $movie['already_released'] = $date_timestamp < time();
+      $movie['subscribable'] = !$movie['already_released'];
     }
     else
     {
-      $movie['already_released'] = false;
+      $movie['already_released'] = $movie['subscribable'] = false;
     }
 
     return $movie;
@@ -43,7 +44,14 @@ class API {
   protected static function sortByReleaseDate($movies)
   {
     usort($movies, function ($movie) {
-      return ($movie['already_released'] || empty($movie['release_dates']['theater'])) ? -1 : 1;
+      $has_release_date = isset($movie['release_dates']['theater']);
+      $already_released = $movie['already_released'];
+      return ($already_released || !$has_release_date) ? -1 : 1;
+    });
+
+    usort($movies, function ($movie) {
+      $has_release_date = isset($movie['release_dates']['theater']);
+      return ($has_release_date) ? 1 : -1;
     });
 
     return array_reverse($movies);
