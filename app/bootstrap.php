@@ -49,4 +49,5 @@ $app->post('/api/notifications', $namespace.'Notifications::create');
 $app->delete('/api/notifications', $namespace.'Notifications::delete');
 $app->match('/{slug}', $namespace.'Pages::error404');
 
+// Return application instance to web/index.php
 return $app;
