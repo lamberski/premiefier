@@ -27,13 +27,16 @@ class Notifications {
     $user = User::whereEmail($email)->first();
 
     $notifications = $user
-      ? $user->notifications()->with('premiere')->get()
-      : null;
+      ? $user
+          ->notifications()->with('premiere')->get()
+          ->sortBy(function ($notification) { return $notification->premiere->released_at; })
+          ->toArray()
+      : [];
 
     return $app->json([
       'params' => $app['request']->query->all(),
       'user' => $user,
-      'notifications' => $notifications,
+      'notifications' => array_values($notifications),
     ]);
   }
 
