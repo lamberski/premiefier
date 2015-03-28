@@ -29,5 +29,11 @@ $app->register(new CapsuleServiceProvider(), [
   ]
 ]);
 
+// Register Console provider
+$app->register(new ConsoleServiceProvider(), array(
+  'console.name' => 'Premiefier',
+  'console.project_directory' => __DIR__.'/..'
+));
+
 // Return application instance to web/index.php
 return $app;
