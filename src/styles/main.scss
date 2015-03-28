@@ -236,7 +236,7 @@ a {
 
   input[type='text'],
   input[type='email'] {
-    padding: 10px 100px 10px 20px;
+    padding: .625rem 6.25rem .625rem 1.25rem;
     height: $rythm-tick * 2;
     width: 100%;
     font-size: 1rem;
@@ -247,10 +247,10 @@ a {
 
   input[type='submit'] {
     position: absolute;
-    top: 4px;
-    right: 4px;
-    bottom: 4px;
-    padding: 0 10px;
+    top: .25rem;
+    right: .25rem;
+    bottom: .25rem;
+    padding: 0 .625rem;
     font-size: $size-button;
     color: #fff;
     background: $color-accent;
@@ -360,7 +360,7 @@ a {
   margin-left: -$width-indent;
   padding-left: $width-indent;
   position: relative;
-  min-height: 80px;
+  min-height: 5rem;
 
   img {
     position: absolute;
