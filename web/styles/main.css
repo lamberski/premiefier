@@ -79,7 +79,7 @@ a {
     left: 0;
     border-bottom: 0.075rem solid #eee; }
   a:hover, a:focus {
-    color: #84B854; }
+    color: #91BF65; }
   a:hover:after, a:focus:after {
     border-color: #84B854; }
 
@@ -132,11 +132,11 @@ a {
   padding: 0 10px;
   font-size: 0.875rem;
   color: #fff;
-  background: #84B854;
+  background: #91BF65;
   border: 0;
   cursor: pointer; }
   .form input[type='submit']:hover, .form input[type='submit']:focus {
-    background: #83b94e; }
+    background: #84B854; }
   .form input[type='submit'][disabled='disabled'], .form input[type='submit'][disabled='disabled']:hover, .form input[type='submit'][disabled='disabled']:focus {
     background: #84B854;
     opacity: .75; }
@@ -144,7 +144,7 @@ a {
   margin-top: 1.6875rem;
   line-height: 1.6875rem; }
 .form__error {
-  color: #E5802B; }
+  color: #d10010; }
 .form__success {
   color: #7eb95d; }
 
@@ -195,7 +195,7 @@ a {
   .movie__release-date time, .notification__release-date time {
     font-weight: bold; }
   .movie__release-date--unavailable, .notification__release-date--unavailable {
-    color: #E5802B; }
+    color: #d10010; }
   .movie__rotten-link, .notification__rotten-link {
     font-size: 0.9375rem; }
   .movie + .movie, .notification + .movie, .movie + .notification, .notification + .notification {

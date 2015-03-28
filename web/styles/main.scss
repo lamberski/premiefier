@@ -28,7 +28,7 @@ $color-base: #333;
 $color-heading: #111;
 $color-border: #eee;
 $color-minor: #777;
-$color-error: #E5802B;
+$color-error: #d10010;
 $color-movie: #fffce8;
 $color-movie-open: #f5f5f5;
 $color-input: #e6e8eb;
@@ -175,7 +175,7 @@ a {
 
   &:hover,
   &:focus {
-    color: $color-accent-hover;
+    color: $color-accent;
   }
 
   &:hover:after,
@@ -253,13 +253,13 @@ a {
     padding: 0 10px;
     font-size: $size-button;
     color: #fff;
-    background: $color-accent-hover;
+    background: $color-accent;
     border: 0;
     cursor: pointer;
 
     &:hover,
     &:focus {
-      background: #83b94e;
+      background: $color-accent-hover;
     }
 
     &[disabled='disabled'],
