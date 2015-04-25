@@ -2,11 +2,11 @@ vendor
 composer.lock
 .htaccess
 .DS_Store
-resources
+assets
 .sass-cache
 *.sqlite
 *.css.map
 node_modules
-web/images
-web/scripts
-web/styles
+public/images
+public/scripts
+public/styles
