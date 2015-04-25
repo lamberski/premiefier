@@ -7,17 +7,17 @@ use Premiefier\Models\API;
 
 class Movies {
 
-  function index(Application $app)
+  function index(Application $application)
   {
-    $title = $app['request']->get('title');
+    $title = $application['request']->get('title');
 
     if (!trim($title))
     {
       throw new \Exception('Enter movie title.', 400);
     }
 
-    return $app->json([
-      'params' => $app['request']->query->all(),
+    return $application->json([
+      'params' => $application['request']->query->all(),
       'movies' => API::getMoviesByTitle($title),
     ]);
   }

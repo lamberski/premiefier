@@ -7,19 +7,19 @@ use Premiefier\Models\User;
 
 class Pages {
 
-  function subscribe(Application $app)
+  function subscribe(Application $application)
   {
-    return $app['twig']->render('pages/subscribe.twig');
+    return $application['twig']->render('pages/subscribe.twig');
   }
 
-  function unsubscribe(Application $app)
+  function unsubscribe(Application $application)
   {
-    return $app['twig']->render('pages/unsubscribe.twig');
+    return $application['twig']->render('pages/unsubscribe.twig');
   }
 
-  function error404(Application $app)
+  function error404(Application $application)
   {
-    return $app['twig']->render('pages/error404.twig');
+    return $application['twig']->render('pages/error404.twig');
   }
 
 }

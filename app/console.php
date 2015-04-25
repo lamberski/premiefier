@@ -1,10 +1,13 @@
 <?php
 
+// Include used classes
 use Premiefier\Commands\Notify;
 
 // Require bootstrap file
-$app = require_once __DIR__.'/bootstrap.php';
+$application = require_once __DIR__.'/bootstrap.php';
 
-$application = $app['console'];
-$application->add(new Notify());
-$application->run();
+// Add available console commands
+$application['console']->add(new Notify());
+
+// Start the engine
+$application['console']->run();

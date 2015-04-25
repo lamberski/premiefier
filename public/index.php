@@ -4,11 +4,11 @@
 require_once __DIR__.'/../app/bootstrap.php';
 
 // Declare common error handler for all exceptions
-$app->error(function (\Exception $exception, $code) use ($app) {
-  return $app->json([
+$application->error(function (\Exception $exception, $code) use ($application) {
+  return $application->json([
     'params' => array_merge(
-      $app['request']->query->all(),
-      $app['request']->request->all()
+      $application['request']->query->all(),
+      $application['request']->request->all()
     ),
     'error' => $exception->getMessage(),
   ], $exception->getCode());
@@ -16,13 +16,13 @@ $app->error(function (\Exception $exception, $code) use ($app) {
 
 // Define public routes
 $namespace = 'Premiefier\Controllers\\';
-$app->get('/', $namespace.'Pages::subscribe');
-$app->get('/unsubscribe', $namespace.'Pages::unsubscribe');
-$app->get('/api/movies', $namespace.'Movies::index');
-$app->get('/api/notifications', $namespace.'Notifications::index');
-$app->post('/api/notifications', $namespace.'Notifications::create');
-$app->delete('/api/notifications', $namespace.'Notifications::delete');
-$app->match('/{slug}', $namespace.'Pages::error404');
+$application->get('/', $namespace.'Pages::subscribe');
+$application->get('/unsubscribe', $namespace.'Pages::unsubscribe');
+$application->get('/api/movies', $namespace.'Movies::index');
+$application->get('/api/notifications', $namespace.'Notifications::index');
+$application->post('/api/notifications', $namespace.'Notifications::create');
+$application->delete('/api/notifications', $namespace.'Notifications::delete');
+$application->match('/{slug}', $namespace.'Pages::error404');
 
 // Start the engine
-return $app->run();
+return $application->run();

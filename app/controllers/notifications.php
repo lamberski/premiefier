@@ -10,9 +10,9 @@ use Premiefier\Models\Notification;
 
 class Notifications {
 
-  function index(Application $app)
+  function index(Application $application)
   {
-    $email = $app['request']->get('email');
+    $email = $application['request']->get('email');
 
     if (!trim($email))
     {
@@ -33,17 +33,17 @@ class Notifications {
           ->toArray()
       : [];
 
-    return $app->json([
-      'params' => $app['request']->query->all(),
+    return $application->json([
+      'params' => $application['request']->query->all(),
       'user' => $user,
       'notifications' => array_values($notifications),
     ]);
   }
 
-  function create(Application $app)
+  function create(Application $application)
   {
-    $movieID = $app['request']->get('movie_id');
-    $email = $app['request']->get('email');
+    $movieID = $application['request']->get('movie_id');
+    $email = $application['request']->get('email');
 
     if (!trim($movieID))
     {
@@ -86,16 +86,16 @@ class Notifications {
       $notification->save();
     }
 
-    return $app->json([
-      'params' => $app['request']->request->all(),
+    return $application->json([
+      'params' => $application['request']->request->all(),
       'user' => $user,
       'movie' => $movie,
     ]);
   }
 
-  function delete(Application $app)
+  function delete(Application $application)
   {
-    $notificationID = $app['request']->get('notification_id');
+    $notificationID = $application['request']->get('notification_id');
 
     if (!trim($notificationID))
     {
@@ -104,8 +104,8 @@ class Notifications {
 
     Notification::destroy($notificationID);
 
-    return $app->json([
-      'params' => $app['request']->request->all(),
+    return $application->json([
+      'params' => $application['request']->request->all(),
     ]);
   }
 
