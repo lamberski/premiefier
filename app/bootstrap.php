@@ -32,6 +32,7 @@ $app->register(new CapsuleServiceProvider(), [
 // Register Console provider
 $app->register(new ConsoleServiceProvider(), array(
   'console.name' => 'Premiefier',
+  'console.version' => '1.0.0',
   'console.project_directory' => __DIR__.'/..'
 ));
 
