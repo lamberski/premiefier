@@ -1,7 +1,7 @@
 <?php
 
 // Require bootstrap file
-require_once __DIR__.'/../app/bootstrap.php';
+require_once __DIR__.'/../application/bootstrap.php';
 
 // Declare common error handler for all exceptions
 $application->error(function (\Exception $exception, $code) use ($application) {

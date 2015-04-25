@@ -9,13 +9,13 @@ use Silex\Provider\TwigServiceProvider;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Knp\Provider\ConsoleServiceProvider;
 
-// Init application
+// Initialize application
 $application = new Application();
 $application['debug'] = getenv('ENVIRONMENT') == 'development';
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
-  'twig.path' => __DIR__.'/../app/views',
+  'twig.path' => __DIR__.'/../application/views',
   'twig.options' => [
     'strict_variables' => false,
   ],

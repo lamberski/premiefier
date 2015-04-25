@@ -9,9 +9,9 @@
   },
   "autoload": {
     "psr-4": {
-      "Premiefier\\Models\\": "app/models/",
-      "Premiefier\\Controllers\\": "app/controllers/",
-      "Premiefier\\Commands\\": "app/commands/"
+      "Premiefier\\Models\\": "application/models/",
+      "Premiefier\\Controllers\\": "application/controllers/",
+      "Premiefier\\Commands\\": "application/commands/"
     }
   }
 }
