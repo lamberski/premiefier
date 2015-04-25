@@ -9,17 +9,17 @@ class Pages {
 
   function subscribe(Application $app)
   {
-    return $app['twig']->render('actions/subscribe.twig');
+    return $app['twig']->render('pages/subscribe.twig');
   }
 
   function unsubscribe(Application $app)
   {
-    return $app['twig']->render('actions/unsubscribe.twig');
+    return $app['twig']->render('pages/unsubscribe.twig');
   }
 
   function error404(Application $app)
   {
-    return $app['twig']->render('actions/error404.twig');
+    return $app['twig']->render('pages/error404.twig');
   }
 
 }
