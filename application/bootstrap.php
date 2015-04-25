@@ -5,13 +5,16 @@ require_once __DIR__.'/../vendor/autoload.php';
 
 // Include used classes
 use Silex\Application;
+use Igorw\Silex\ConfigServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Knp\Provider\ConsoleServiceProvider;
 
 // Initialize application
 $application = new Application();
-$application['debug'] = getenv('ENVIRONMENT') == 'development';
+
+// Register Configuration provider
+$application->register(new ConfigServiceProvider(__DIR__.'/configuration.php'));
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
@@ -25,7 +28,7 @@ $application->register(new TwigServiceProvider(), [
 $application->register(new CapsuleServiceProvider(), [
  'capsule.connection' => [
     'driver' => 'sqlite',
-    'database' => __DIR__.'/../'.getenv('DB_PATH'),
+    'database' => __DIR__.'/../'.$application['db_path'],
   ]
 ]);
 

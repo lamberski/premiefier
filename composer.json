@@ -5,7 +5,8 @@
     "symfony/twig-bridge": "~2.3",
     "bitolaco/silex-eloquent": "*",
     "illuminate/database": "~4.2",
-    "knplabs/console-service-provider": "~1.0"
+    "knplabs/console-service-provider": "~1.0",
+    "igorw/config-service-provider": "~1.2"
   },
   "autoload": {
     "psr-4": {
