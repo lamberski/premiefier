@@ -11,7 +11,7 @@ use Knp\Provider\ConsoleServiceProvider;
 
 // Init application
 $app = new Application();
-$app['debug'] = true;
+$app['debug'] = getenv('ENVIRONMENT') == 'development';
 
 // Register Twig provider
 $app->register(new TwigServiceProvider(), [
