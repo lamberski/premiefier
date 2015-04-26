@@ -9,6 +9,7 @@ use Igorw\Silex\ConfigServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Knp\Provider\ConsoleServiceProvider;
+use Silex\Provider\SwiftmailerServiceProvider;
 
 // Initialize application
 $application = new Application();
@@ -33,11 +34,19 @@ $application->register(new CapsuleServiceProvider(), [
 ]);
 
 // Register Console provider
-$application->register(new ConsoleServiceProvider(), array(
+$application->register(new ConsoleServiceProvider(), [
   'console.name' => 'Premiefier',
   'console.version' => '1.0.0',
-  'console.project_directory' => __DIR__.'/..'
-));
+  'console.project_directory' => __DIR__.'/..',
+]);
+
+// Require SwiftMailer provider
+$application->register(new SwiftmailerServiceProvider([
+  'swiftmailer.use_spool' => false,
+  'swiftmailer.transport' => function ($application) {
+    return \Swift_MailTransport::newInstance();
+  },
+]));
 
 // Return application instance to web/index.php
 return $application;
