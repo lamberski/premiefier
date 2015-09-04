@@ -43,18 +43,14 @@ class API {
 
   protected static function sortByReleaseDate($movies)
   {
-    usort($movies, function ($movie) {
-      $has_release_date = isset($movie['release_dates']['theater']);
-      $already_released = $movie['already_released'];
-      return ($already_released || !$has_release_date) ? -1 : 1;
+    usort($movies, function ($a, $b) {
+      $current  = isset($a['release_dates']['theater']) ? $a['release_dates']['theater'] : 0;
+      $previous = isset($b['release_dates']['theater']) ? $b['release_dates']['theater'] : 0;
+
+      return $current < $previous ? 1 : -1;
     });
 
-    usort($movies, function ($movie) {
-      $has_release_date = isset($movie['release_dates']['theater']);
-      return ($has_release_date) ? 1 : -1;
-    });
-
-    return array_reverse($movies);
+    return $movies;
   }
 
 }
