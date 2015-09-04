@@ -60,7 +60,7 @@ class Notifications {
       throw new \Exception('Please enter valid email address.', 400);
     }
 
-    $movie = API::getMovieByID($movieID);
+    $movie = API::getMovieByID($movieID, $application['api_key']);
 
     $premiere = Premiere::firstOrCreate([
       'id' => $movieID,
