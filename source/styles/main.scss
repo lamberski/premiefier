@@ -8,32 +8,32 @@ $breakpoint-tablet: 1024px;
 $breakpoint-phablet: 736px;
 $breakpoint-phone: 480px;
 
-$font-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font--base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 
-$size-base: 16px;
-$size-heading: 1.125rem;
-$size-minor: .9375rem;
-$size-button: .875rem;
-$size-top: .75rem;
+$size--base: 16px;
+$size--heading: 1.125rem;
+$size--minor: .9375rem;
+$size--button: .875rem;
+$size--top: .75rem;
 
-$rythm-tick: 1.6875rem;
+$rythm--tick: 1.6875rem;
 
-$width-body: $rythm-tick * 23;
-$width-indent: $rythm-tick * 3;
+$width--body: $rythm--tick * 23;
+$width--indent: $rythm--tick * 3;
 
-$color-accent: #91BF65;
-$color-accent-hover: #84B854;
-$color-background: #fff;
-$color-base: #333;
-$color-heading: #111;
-$color-border: #eee;
-$color-minor: #777;
-$color-error: #d10010;
-$color-movie: #fffce8;
-$color-movie-open: #f5f5f5;
-$color-input: #e6e8eb;
+$color--accent: #91BF65;
+$color--accent-hover: #84B854;
+$color--background: #fff;
+$color--base: #333;
+$color--heading: #111;
+$color--border: #eee;
+$color--minor: #777;
+$color--error: #d10010;
+$color--movie: #fffce8;
+$color--movie-open: #f5f5f5;
+$color--input: #e6e8eb;
 
-$duration-base: 250ms;
+$duration--base: 250ms;
 
 // Mixins
 //------------------------------------------------------------------------------
@@ -130,7 +130,7 @@ table {
 //------------------------------------------------------------------------------
 
 html {
-  font-size: $size-base;
+  font-size: $size--base;
 
   &:before {
     content: '';
@@ -139,18 +139,18 @@ html {
     right: 0;
     left: 0;
     height: 3px;
-    background: $color-accent;
+    background: $color--accent;
   }
 }
 
 body {
-  background: $color-background;
-  margin: $rythm-tick * 2 auto;
+  background: $color--background;
+  margin: $rythm--tick * 2 auto;
   padding: 0 5%;
-  max-width: $width-body;
-  color: $color-base;
-  font-family: $font-base;
-  line-height: $rythm-tick;
+  max-width: $width--body;
+  color: $color--base;
+  font-family: $font--base;
+  line-height: $rythm--tick;
   text-size-adjust: 100%;
 }
 
@@ -162,8 +162,8 @@ a {
   display: inline-block;
   text-decoration: none;
   position: relative;
-  color: $color-base;
-  transition: color $duration-base;
+  color: $color--base;
+  transition: color $duration--base;
 
   &:after {
     content: '';
@@ -172,18 +172,18 @@ a {
     bottom: .2rem;
     left: 0;
     border-bottom: .075rem solid transparent;
-    border-color: $color-border;
-    transition: border-color $duration-base;
+    border-color: $color--border;
+    transition: border-color $duration--base;
   }
 
   &:hover,
   &:focus {
-    color: $color-accent;
+    color: $color--accent;
   }
 
   &:hover:after,
   &:focus:after {
-    border-color: $color-accent-hover;
+    border-color: $color--accent-hover;
   }
 }
 
@@ -197,27 +197,27 @@ a {
     content: '';
     position: absolute;
     z-index: 3;
-    top: -$rythm-tick;
-    right: -$rythm-tick;
-    bottom: -$rythm-tick;
-    left: -($width-indent + $rythm-tick);
+    top: -$rythm--tick;
+    right: -$rythm--tick;
+    bottom: -$rythm--tick;
+    left: -($width--indent + $rythm--tick);
     background: rgba(#fff, .75);
   }
 }
 
 .container {
   position: relative;
-  padding-left: $width-indent;
+  padding-left: $width--indent;
 
   > :first-child ~ * {
-    margin-top: $rythm-tick * 2;
+    margin-top: $rythm--tick * 2;
   }
 }
 
 %heading {
   font-weight: bold;
-  font-size: $size-heading;
-  color: $color-heading;
+  font-size: $size--heading;
+  color: $color--heading;
 }
 
 // Form
@@ -234,18 +234,18 @@ a {
     box-sizing: border-box;
     border-radius: 2px;
     display: block;
-    font-family: $font-base;
+    font-family: $font--base;
   }
 
   input[type='text'],
   input[type='email'] {
     padding: .625rem 6.25rem .625rem 1.25rem;
-    height: $rythm-tick * 2;
+    height: $rythm--tick * 2;
     width: 100%;
     font-size: 1rem;
-    color: $color-base;
+    color: $color--base;
     border: 0;
-    background: $color-input;
+    background: $color--input;
   }
 
   input[type='submit'] {
@@ -254,33 +254,33 @@ a {
     right: .25rem;
     bottom: .25rem;
     padding: 0 .625rem;
-    font-size: $size-button;
+    font-size: $size--button;
     color: #fff;
-    background: $color-accent;
+    background: $color--accent;
     border: 0;
     cursor: pointer;
-    transition: background $duration-base;
+    transition: background $duration--base;
 
     &:hover,
     &:focus {
-      background: $color-accent-hover;
+      background: $color--accent-hover;
     }
 
     &[disabled='disabled'],
     &[disabled='disabled']:hover,
     &[disabled='disabled']:focus {
-      background: $color-accent-hover;
+      background: $color--accent-hover;
       opacity: .75;
     }
   }
 
   p {
-    margin-top: $rythm-tick;
-    line-height: $rythm-tick;
+    margin-top: $rythm--tick;
+    line-height: $rythm--tick;
   }
 
   &__error {
-    color: $color-error;
+    color: $color--error;
   }
 
   &__success {
@@ -296,15 +296,15 @@ a {
     position: absolute;
     right: 0;
     bottom: 100%;
-    margin: ($rythm-tick / 2) 0;
-    font-size: $size-top;
+    margin: ($rythm--tick / 2) 0;
+    font-size: $size--top;
 
     a {
       color: #aaa;
 
       &:hover,
       &:focus {
-        color: $color-accent-hover;
+        color: $color--accent-hover;
       }
     }
   }
@@ -313,11 +313,11 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    line-height: $rythm-tick * 2;
+    line-height: $rythm--tick * 2;
 
     a {
       img {
-        width: $rythm-tick * 2;
+        width: $rythm--tick * 2;
         vertical-align: middle;
       }
 
@@ -337,7 +337,7 @@ a {
 
 .text {
   > :first-child ~ * {
-    margin-top: $rythm-tick;
+    margin-top: $rythm--tick;
   }
 
   h2 {
@@ -361,8 +361,8 @@ a {
 //------------------------------------------------------------------------------
 
 .movie, .notification {
-  margin-left: -$width-indent;
-  padding-left: $width-indent;
+  margin-left: -$width--indent;
+  padding-left: $width--indent;
   position: relative;
   min-height: 5rem;
 
@@ -370,8 +370,8 @@ a {
     position: absolute;
     top: 0;
     left: 0;
-    margin-right: $rythm-tick;
-    width: $rythm-tick * 2;
+    margin-right: $rythm--tick;
+    width: $rythm--tick * 2;
     border-radius: 2px;
   }
 
@@ -385,42 +385,42 @@ a {
     }
 
     &--unavailable {
-      color: $color-error;
+      color: $color--error;
     }
   }
 
   &__rotten-link {
-    font-size: $size-minor;
+    font-size: $size--minor;
   }
 
   & + & {
-    margin-top: $rythm-tick * 2;
+    margin-top: $rythm--tick * 2;
   }
 }
 
 .movie {
   &__synopsis,
   &__info {
-    font-size: $size-minor;
-    color: $color-minor;
+    font-size: $size--minor;
+    color: $color--minor;
 
     a {
-      color: $color-minor;
+      color: $color--minor;
 
       &:hover,
       &:focus {
-        color: $color-accent-hover;
+        color: $color--accent-hover;
       }
     }
   }
 
   &__synopsis {
-    max-height: $rythm-tick * 2;
+    max-height: $rythm--tick * 2;
     overflow: hidden;
   }
 
   &__info {
-    margin: $rythm-tick 0;
+    margin: $rythm--tick 0;
   }
 
   &__subscribe {
@@ -447,22 +447,22 @@ a {
       content: '';
       position: absolute;
       z-index: 1;
-      top: -$rythm-tick;
-      right: -$rythm-tick;
-      bottom: -$rythm-tick;
-      left: -$rythm-tick;
-      transition: background $duration-base;
+      top: -$rythm--tick;
+      right: -$rythm--tick;
+      bottom: -$rythm--tick;
+      left: -$rythm--tick;
+      transition: background $duration--base;
     }
 
     &:hover:before {
-      background: $color-movie;
+      background: $color--movie;
     }
 
     &.is-open {
       cursor: default;
 
       &:before {
-        background: $color-movie-open;
+        background: $color--movie-open;
       }
     }
   }
@@ -470,7 +470,4 @@ a {
   &--unavailable {
     opacity: .5;
   }
-}
-
-.notification {
 }
