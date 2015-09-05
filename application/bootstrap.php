@@ -56,7 +56,7 @@ $application->error(function (\Exception $exception, $code) use ($application) {
       $application['request']->query->all(),
       $application['request']->request->all()
     ),
-  ], $exception->getCode());
+  ], $exception->getCode() ? $exception->getCode() : $code);
 });
 
 // Define public routes
