@@ -19,7 +19,7 @@ $application->register(new ConfigServiceProvider(__DIR__.'/configuration.php'));
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
-  'twig.path' => __DIR__.'/../application/views',
+  'twig.path'    => __DIR__.'/../application/views',
   'twig.options' => [
     'strict_variables' => false,
   ],
@@ -28,14 +28,14 @@ $application->register(new TwigServiceProvider(), [
 // Register Laravel Eloquent ORM provider
 $application->register(new CapsuleServiceProvider(), [
  'capsule.connection' => [
-    'driver' => 'sqlite',
+    'driver'   => 'sqlite',
     'database' => __DIR__.'/../'.$application['db_path'],
   ]
 ]);
 
 // Register Console provider
 $application->register(new ConsoleServiceProvider(), [
-  'console.name' => 'Premiefier',
+  'console.name'    => 'Premiefier',
   'console.version' => '1.0.0',
   'console.project_directory' => __DIR__.'/..',
 ]);

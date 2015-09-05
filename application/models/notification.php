@@ -4,8 +4,8 @@ namespace Premiefier\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Notification extends Model {
-
+class Notification extends Model
+{
   public $timestamps = false;
   protected $fillable = ['user_id', 'premiere_id'];
 
@@ -18,5 +18,4 @@ class Notification extends Model {
   {
     return $this->belongsTo('Premiefier\Models\Premiere');
   }
-
 }

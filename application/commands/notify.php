@@ -11,9 +11,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Knp\Command\Command;
 use Premiefier\Models\Notification;
 
-class Notify extends Command {
-
-  protected function configure() {
+class Notify extends Command
+{
+  protected function configure()
+  {
     $this
       ->setName('notify')
       ->setDescription('Sends email notifications to all subscribed users.');
@@ -24,5 +25,4 @@ class Notify extends Command {
     $app = $this->getSilexApplication();
     $output->writeln('Test');
   }
-
 }

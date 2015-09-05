@@ -5,8 +5,8 @@ namespace Premiefier\Controllers;
 use Silex\Application;
 use Premiefier\Models\User;
 
-class Pages {
-
+class Pages
+{
   function subscribe(Application $application)
   {
     return $application['twig']->render('pages/subscribe.twig');
@@ -21,5 +21,4 @@ class Pages {
   {
     return $application['twig']->render('pages/error404.twig');
   }
-
 }

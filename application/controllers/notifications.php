@@ -8,8 +8,8 @@ use Premiefier\Models\Premiere;
 use Premiefier\Models\User;
 use Premiefier\Models\Notification;
 
-class Notifications {
-
+class Notifications
+{
   function index(Application $application)
   {
     $email = $application['request']->get('email');
@@ -34,18 +34,18 @@ class Notifications {
       : [];
 
     return $application->json([
-      'params' => $application['request']->query->all(),
-      'user' => $user,
+      'params'        => $application['request']->query->all(),
+      'user'          => $user,
       'notifications' => array_values($notifications),
     ]);
   }
 
   function create(Application $application)
   {
-    $movieID = $application['request']->get('movie_id');
-    $email = $application['request']->get('email');
+    $movieId = $application['request']->get('movie_id');
+    $email   = $application['request']->get('email');
 
-    if (!trim($movieID))
+    if (!trim($movieId))
     {
       throw new \Exception('Provide movie ID from Rotten Tomatoes API.', 400);
     }
@@ -60,21 +60,21 @@ class Notifications {
       throw new \Exception('Please enter valid email address.', 400);
     }
 
-    $movie = API::getMovieByID($movieID, $application['api_key']);
+    $movie = API::getMovieByID($movieId, $application['api_key']);
 
     $premiere = Premiere::firstOrCreate([
-      'id' => $movieID,
+      'id'          => $movieId,
       'released_at' => $movie['release_dates']['theater'],
-      'title' => $movie['title'],
-      'poster_url' => $movie['posters']['thumbnail'],
+      'title'       => $movie['title'],
+      'poster_url'  => $movie['posters']['thumbnail'],
       'details_url' => $movie['links']['alternate'],
     ]);
 
     $user = User::firstOrCreate(['email' => $email]);
 
     $notification = Notification::firstOrNew([
-      'user_id' => $user->id,
-      'premiere_id' => $movieID,
+      'user_id'     => $user->id,
+      'premiere_id' => $movieId,
     ]);
 
     if ($notification->id)
@@ -88,8 +88,8 @@ class Notifications {
 
     return $application->json([
       'params' => $application['request']->request->all(),
-      'user' => $user,
-      'movie' => $movie,
+      'user'   => $user,
+      'movie'  => $movie,
     ]);
   }
 
@@ -108,5 +108,4 @@ class Notifications {
       'params' => $application['request']->request->all(),
     ]);
   }
-
 }

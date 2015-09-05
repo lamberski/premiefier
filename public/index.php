@@ -6,11 +6,11 @@ require_once __DIR__.'/../application/bootstrap.php';
 // Declare common error handler for all exceptions
 $application->error(function (\Exception $exception, $code) use ($application) {
   return $application->json([
+    'error'  => $exception->getMessage(),
     'params' => array_merge(
       $application['request']->query->all(),
       $application['request']->request->all()
     ),
-    'error' => $exception->getMessage(),
   ], $exception->getCode());
 });
 

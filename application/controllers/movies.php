@@ -5,8 +5,8 @@ namespace Premiefier\Controllers;
 use Silex\Application;
 use Premiefier\Models\API;
 
-class Movies {
-
+class Movies
+{
   function index(Application $application)
   {
     $title = $application['request']->get('title');
@@ -21,5 +21,4 @@ class Movies {
       'movies' => API::getMoviesByTitle($title, $application['api_key']),
     ]);
   }
-
 }
