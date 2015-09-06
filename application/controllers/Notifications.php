@@ -95,14 +95,14 @@ class Notifications
 
   function delete(Application $application)
   {
-    $notificationID = $application['request']->get('notification_id');
+    $notificationId = $application['request']->get('notification_id');
 
-    if (!trim($notificationID))
+    if (!trim($notificationId))
     {
       throw new \Exception('Provide notification ID.', 400);
     }
 
-    Notification::destroy($notificationID);
+    Notification::destroy($notificationId);
 
     return $application->json([
       'params' => $application['request']->request->all(),
