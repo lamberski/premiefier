@@ -40,9 +40,14 @@ $application->register(new ConsoleServiceProvider(), [
 // Register SwiftMailer provider
 $application->register(new SwiftmailerServiceProvider([
   'swiftmailer.use_spool' => false,
-  'swiftmailer.transport' => function ($application) {
-    return \Swift_MailTransport::newInstance();
-  },
+  'swiftmailer.options' => [
+    'host'       => $_SERVER['MAIL_HOST'],
+    'port'       => $_SERVER['MAIL_PORT'],
+    'username'   => $_SERVER['MAIL_USERNAME'],
+    'password'   => $_SERVER['MAIL_PASSWORD'],
+    'encryption' => $_SERVER['MAIL_ENCRYPTION'],
+    'auth_mode'  => $_SERVER['MAIL_AUTH_MODE'],
+  ],
 ]));
 
 // Declare common error handler for all exceptions
