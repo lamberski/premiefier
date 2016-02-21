@@ -21,8 +21,8 @@ $rythm--tick: 1.6875rem;
 $width--body: $rythm--tick * 23;
 $width--indent: $rythm--tick * 3;
 
-$color--accent: #91BF65;
-$color--accent-hover: #84B854;
+$color--accent: #CF6192;
+$color--accent-hover: darken($color--accent, 5%);
 $color--background: #fff;
 $color--base: #333;
 $color--heading: #111;
@@ -163,7 +163,7 @@ a {
   text-decoration: none;
   position: relative;
   color: $color--base;
-  transition: color $duration--base;
+  transition: color $duration--base, opacity $duration--base;
 
   &:after {
     content: '';
