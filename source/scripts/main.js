@@ -26,25 +26,15 @@
     compileTemplate: function (name, data) {
       var template = Handlebars.compile(Elements.templates[name].html());
       return template(data);
-    },
-
-    changeButtonState: function (form, label, disabled) {
-      var button = $('input[type="submit"]', form);
-      button.val(button.data(label));
-
-      if (disabled) {
-        button.attr('disabled', true);
-      } else {
-        button.removeAttr('disabled');
-      }
     }
-
   };
 
   var Subscribe = {
 
     init: function () {
-      if (Elements.containers.search.length === 0) return;
+      if (Elements.containers.search.length === 0) {
+        return;
+      }
 
       Elements.containers.search.html(Helpers.compileTemplate('search'));
       Subscribe.bindSearchForm();
@@ -54,56 +44,53 @@
 
     bindSearchForm: function () {
       Elements.body.on('submit', '#search-container form', function (event) {
-        event.preventDefault();
+        var form = $(this).addClass('form--loading');
 
-        var form = $(this);
-
-        Helpers.changeButtonState(form, 'processing', true);
-        Elements.containers.movies.addClass('is-loading');
+        Elements.containers.movies.addClass('loadable--loading');
 
         $.ajax({
-          url: form.attr('action'),
-          type: form.attr('method'),
-          data: form.serialize()
+          url  : form.attr('action'),
+          type : form.attr('method'),
+          data : form.serialize()
         })
         .always(function (data) {
           data = data.responseJSON || data;
+          form.removeClass('form--loading');
           Elements.containers.search
             .html(Helpers.compileTemplate('search', data));
           Elements.containers.movies
             .html(Helpers.compileTemplate('movies', data))
-            .removeClass('is-loading');
+            .removeClass('loadable--loading');
         });
+
+        event.preventDefault();
       });
     },
 
     bindSubscribeForm: function () {
       Elements.body.on('submit', '.movie__form form', function (event) {
-        event.preventDefault();
-
-        var form = $(this);
-
-        var movie = form.closest('.movie');
+        var form      = $(this);
+        var movie     = form.closest('.movie');
         var container = form.closest('.movie__form');
 
-        Helpers.changeButtonState(form, 'processing', true);
-
         $.ajax({
-          url: form.attr('action'),
-          type: form.attr('method'),
-          data: form.serialize()
+          url  : form.attr('action'),
+          type : form.attr('method'),
+          data : form.serialize()
         })
         .always(function (data) {
           data = data.responseJSON || data;
           container.html(Helpers.compileTemplate('subscribe', data));
         });
+
+        event.preventDefault();
       });
     },
 
     bindTogglingMovieDetails: function () {
       Elements.body.on('click', '.movie--available', function (event) {
-        var movie = $(this);
-        var data = {params: {movie_id: movie.data('id')}};
+        var movie     = $(this);
+        var data      = { params: { movie_id: movie.data('id') } };
         var container = movie.find('.movie__form');
 
         if (!movie.hasClass('is-open') && !$(event.target).is('a')) {
@@ -119,7 +106,7 @@
         var movie = $(this).closest('.movie');
         movie.removeClass('is-open');
 
-        return false;
+        event.preventDefault();
       });
     }
 
@@ -128,7 +115,9 @@
   var Unsubscribe = {
 
     init: function () {
-      if (Elements.containers.unsubscribe.length === 0) return;
+      if (Elements.containers.unsubscribe.length === 0) {
+        return;
+      }
 
       Elements.containers.unsubscribe.html(Helpers.compileTemplate('unsubscribe'));
       Unsubscribe.bindSearchForm();
@@ -137,64 +126,53 @@
 
     bindSearchForm: function () {
       Elements.body.on('submit', '#unsubscribe-container form', function (event) {
-        event.preventDefault();
+        var form = $(this).addClass('form--loading');
 
-        var form = $(this);
-
-        Helpers.changeButtonState(form, 'processing', true);
-        Elements.containers.movies.addClass('is-loading');
+        Elements.containers.movies.addClass('loadable--loading');
 
         $.ajax({
-          url: form.attr('action'),
-          type: form.attr('method'),
-          data: form.serialize()
+          url  : form.attr('action'),
+          type : form.attr('method'),
+          data : form.serialize()
         })
         .always(function (data) {
           data = data.responseJSON || data;
+          form.removeClass('form--loading');
           Elements.containers.unsubscribe
             .html(Helpers.compileTemplate('unsubscribe', data));
           Elements.containers.notifications
             .html(Helpers.compileTemplate('notifications', data))
-            .removeClass('is-loading');
+            .removeClass('loadable--loading');
         });
+
+        event.preventDefault();
       });
     },
 
     bindUnbscribeForm: function () {
       Elements.body.on('submit', '.notification form', function (event) {
-        event.preventDefault();
-
-        var form = $(this);
+        var form         = $(this);
         var notification = form.closest('.notification');
 
-        Helpers.changeButtonState(form, 'processing', true);
-
         $.ajax({
-          url: form.attr('action'),
-          type: form.attr('method'),
-          data: form.serialize()
+          url  : form.attr('action'),
+          type : form.attr('method'),
+          data : form.serialize()
         })
         .always(function (data) {
           data = data.responseJSON || data;
-          Helpers.changeButtonState(form, 'primary', false);
           notification.fadeOut(300, function() { $(this).remove(); });
         });
+
+        event.preventDefault();
       });
     }
 
   };
 
-  var Application = {
-
-    init: function () {
-      Subscribe.init();
-      Unsubscribe.init();
-    }
-
-  };
-
   $(function () {
-    Application.init();
+    Subscribe.init();
+    Unsubscribe.init();
   });
 
 })(jQuery);

@@ -39,7 +39,7 @@ $duration--base: 250ms;
 //------------------------------------------------------------------------------
 
 @mixin clearfix() {
-  &:after {
+  &::after {
     content: '';
     display: table;
     clear: both;
@@ -115,8 +115,8 @@ blockquote, q {
   quotes: none;
 }
 
-blockquote:before, blockquote:after,
-q:before, q:after {
+blockquote::before, blockquote::after,
+q::before, q::after {
   content: '';
   content: none;
 }
@@ -129,10 +129,20 @@ table {
 // Base
 //------------------------------------------------------------------------------
 
+@keyframes loading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 html {
   font-size: $size--base;
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     top: 0;
@@ -165,7 +175,7 @@ a {
   color: $color--base;
   transition: color $duration--base, opacity $duration--base;
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     right: 0;
@@ -181,8 +191,8 @@ a {
     color: $color--accent;
   }
 
-  &:hover:after,
-  &:focus:after {
+  &:hover::after,
+  &:focus::after {
     border-color: $color--accent-hover;
   }
 }
@@ -190,10 +200,10 @@ a {
 // Common
 //------------------------------------------------------------------------------
 
-.is-loading {
+.loadable {
   position: relative;
 
-  &:after {
+  &::after {
     content: '';
     position: absolute;
     z-index: 3;
@@ -202,6 +212,17 @@ a {
     bottom: -$rythm--tick;
     left: -($width--indent + $rythm--tick);
     background: rgba(#fff, .75);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity $duration--base, visibility $duration--base $duration--base;
+  }
+
+  &--loading {
+    &::after {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity $duration--base, visibility $duration--base;
+    }
   }
 }
 
@@ -226,19 +247,33 @@ a {
 .form {
   fieldset {
     position: relative;
+
+    &::before {
+      border: 5px solid rgba(#fff, 0.25);
+      border-left-color: #fff;
+      animation: loading 1s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      margin-top: -15px;
+      transition: opacity $duration--base;
+      opacity: 0;
+    }
   }
 
-  input[type='text'],
-  input[type='email'],
-  input[type='submit'] {
+  input,
+  button {
     box-sizing: border-box;
     border-radius: 2px;
     display: block;
     font-family: $font--base;
   }
 
-  input[type='text'],
-  input[type='email'] {
+  input {
     padding: .625rem 6.25rem .625rem 1.25rem;
     height: $rythm--tick * 2;
     width: 100%;
@@ -248,7 +283,7 @@ a {
     background: $color--input;
   }
 
-  input[type='submit'] {
+  button {
     position: absolute;
     top: .25rem;
     right: .25rem;
@@ -259,18 +294,19 @@ a {
     background: $color--accent;
     border: 0;
     cursor: pointer;
-    transition: background $duration--base;
+    transition: background $duration--base, opacity $duration--base;
 
     &:hover,
     &:focus {
       background: $color--accent-hover;
     }
 
-    &[disabled='disabled'],
-    &[disabled='disabled']:hover,
-    &[disabled='disabled']:focus {
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus {
       background: $color--accent-hover;
       opacity: .75;
+      cursor: normal;
     }
   }
 
@@ -285,6 +321,16 @@ a {
 
   &__success {
     color: #7eb95d;
+  }
+
+  &--loading {
+    fieldset::before {
+      opacity: 1;
+    }
+
+    button {
+      opacity: 0;
+    }
   }
 }
 
@@ -321,7 +367,7 @@ a {
         vertical-align: middle;
       }
 
-      &:after {
+      &::after {
         display: none;
       }
 
@@ -443,7 +489,7 @@ a {
       z-index: 2;
     }
 
-    &:before {
+    &::before {
       content: '';
       position: absolute;
       z-index: 1;
@@ -454,14 +500,14 @@ a {
       transition: background $duration--base;
     }
 
-    &:hover:before {
+    &:hover::before {
       background: $color--movie;
     }
 
     &.is-open {
       cursor: default;
 
-      &:before {
+      &::before {
         background: $color--movie-open;
       }
     }
