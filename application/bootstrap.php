@@ -5,7 +5,6 @@ require_once(__DIR__.'/../vendor/autoload.php');
 
 // Include used classes
 use Silex\Application;
-use Igorw\Silex\ConfigServiceProvider;
 use Silex\Provider\TwigServiceProvider;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Knp\Provider\ConsoleServiceProvider;
