@@ -18,7 +18,7 @@ class Movies
 
     return $application->json([
       'params' => $application['request']->query->all(),
-      'movies' => API::getMoviesByTitle($title, $application['api_key']),
+      'movies' => API::getMoviesByTitle($title),
     ]);
   }
 }

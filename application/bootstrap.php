@@ -14,9 +14,6 @@ use Silex\Provider\SwiftmailerServiceProvider;
 // Initialize application
 $application = new Application();
 
-// Register Configuration provider
-$application->register(new ConfigServiceProvider(__DIR__.'/configuration.php'));
-
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
   'twig.path'    => __DIR__.'/../application/views',
@@ -29,7 +26,7 @@ $application->register(new TwigServiceProvider(), [
 $application->register(new CapsuleServiceProvider(), [
  'capsule.connection' => [
     'driver'   => 'sqlite',
-    'database' => __DIR__.'/../'.$application['db_path'],
+    'database' => __DIR__.'/../'.$_SERVER['DB_PATH'],
   ]
 ]);
 

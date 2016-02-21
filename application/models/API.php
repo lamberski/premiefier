@@ -4,8 +4,9 @@ namespace Premiefier\Models;
 
 class API
 {
-  public static function getMoviesByTitle($title, $apiKey)
+  public static function getMoviesByTitle($title)
   {
+    $apiKey = $_SERVER['API_KEY'];
     $query  = http_build_query(['apikey' => $apiKey, 'q' => $title, 'page_limit' => 10]);
     $url    = 'http://api.rottentomatoes.com/api/public/v1.0/movies.json?';
     $json   = file_get_contents($url.$query);
@@ -15,8 +16,9 @@ class API
     return self::sortByReleaseDate($movies);
   }
 
-  public static function getMovieByID($id, $apiKey)
+  public static function getMovieByID($id)
   {
+    $apiKey = $_SERVER['API_KEY'];
     $query = http_build_query(['apikey' => $apiKey]);
     $url   = 'http://api.rottentomatoes.com/api/public/v1.0/movies/'.$id.'.json?';
     $json  = file_get_contents($url.$query);

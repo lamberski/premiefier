@@ -6,7 +6,6 @@
     "bitolaco/silex-eloquent": "*",
     "illuminate/database": "~4.2",
     "knplabs/console-service-provider": "~1.0",
-    "igorw/config-service-provider": "~1.2",
     "swiftmailer/swiftmailer": "~5.4"
   },
   "autoload": {
