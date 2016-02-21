@@ -1,3 +1,6 @@
+//= include ../../bower_components/jquery/dist/jquery.js
+//= include ../../bower_components/handlebars/handlebars.js
+
 (function ($) {
 
   var Elements = {
