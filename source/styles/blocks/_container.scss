@@ -1,0 +1,10 @@
+.container {
+  position: relative;
+  padding-left: $width--indent;
+  margin: $rythm--tick * 2 auto;
+  max-width: $width--body;
+
+  > :first-child ~ * {
+    margin-top: $rythm--tick * 2;
+  }
+}

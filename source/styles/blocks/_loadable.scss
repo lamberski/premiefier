@@ -1,0 +1,25 @@
+.loadable {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    z-index: 3;
+    top: -$rythm--tick;
+    right: -$rythm--tick;
+    bottom: -$rythm--tick;
+    left: -($width--indent + $rythm--tick);
+    background: rgba(#fff, .75);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity $duration--base, visibility $duration--base $duration--base;
+  }
+
+  &--loading {
+    &::after {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity $duration--base, visibility $duration--base;
+    }
+  }
+}

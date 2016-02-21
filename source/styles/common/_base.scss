@@ -1,0 +1,73 @@
+html {
+  font-size: $size--base;
+
+  &, * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 3px;
+    background: $color--accent;
+  }
+}
+
+body {
+  background: $color--background;
+  padding: 0 5%;
+  color: $color--base;
+  font-family: $font--base;
+  line-height: $rythm--tick;
+  text-size-adjust: 100%;
+}
+
+svg {
+  vertical-align: top;
+  width: 1em;
+  height: 1em;
+  fill: black;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: top;
+}
+
+hr {
+  display: none;
+}
+
+a {
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  color: $color--base;
+  transition: color $duration--base, opacity $duration--base;
+
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: .2rem;
+    left: 0;
+    border-bottom: .075rem solid transparent;
+    border-color: $color--border;
+    transition: border-color $duration--base;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color--accent;
+  }
+
+  &:hover::after,
+  &:focus::after {
+    border-color: $color--accent-hover;
+  }
+}

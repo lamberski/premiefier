@@ -1,0 +1,90 @@
+.form {
+  fieldset {
+    border: 0;
+    position: relative;
+
+    &::before {
+      border: 5px solid rgba(#fff, 0.25);
+      border-left-color: #fff;
+      animation: loading 1s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
+      border-radius: 50%;
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 20px;
+      width: 20px;
+      height: 20px;
+      margin-top: -15px;
+      transition: opacity $duration--base;
+      opacity: 0;
+    }
+  }
+
+  input,
+  button {
+    box-sizing: border-box;
+    border-radius: 2px;
+    display: block;
+    font-family: $font--base;
+  }
+
+  input {
+    padding: .625rem 6.25rem .625rem 1.25rem;
+    height: $rythm--tick * 2;
+    width: 100%;
+    font-size: 1rem;
+    color: $color--base;
+    border: 0;
+    background: $color--input;
+  }
+
+  button {
+    position: absolute;
+    top: .25rem;
+    right: .25rem;
+    bottom: .25rem;
+    padding: 0 .625rem;
+    font-size: $size--button;
+    color: #fff;
+    background: $color--accent;
+    border: 0;
+    cursor: pointer;
+    transition: background $duration--base, opacity $duration--base;
+
+    &:hover,
+    &:focus {
+      background: $color--accent-hover;
+    }
+
+    &[disabled],
+    &[disabled]:hover,
+    &[disabled]:focus {
+      background: $color--accent-hover;
+      opacity: .75;
+      cursor: normal;
+    }
+  }
+
+  p {
+    margin-top: $rythm--tick;
+    line-height: $rythm--tick;
+  }
+
+  &__error {
+    color: $color--error;
+  }
+
+  &__success {
+    color: #7eb95d;
+  }
+
+  &--loading {
+    fieldset::before {
+      opacity: 1;
+    }
+
+    button {
+      opacity: 0;
+    }
+  }
+}

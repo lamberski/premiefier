@@ -1,0 +1,33 @@
+$breakpoints: (
+  'laptop'  : '(max-width: 1440px)',
+  'tablet'  : '(max-width: 1024px)',
+  'phablet' : '(max-width: 736px)',
+  'phone'   : '(max-width: 480px)',
+);
+
+$font--base : ('Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif);
+
+$size--base    : 16px;
+$size--heading : 1.125rem;
+$size--minor   : .9375rem;
+$size--button  : .875rem;
+$size--top     : .75rem;
+
+$rythm--tick : 1.6875rem;
+
+$width--body   : $rythm--tick * 23;
+$width--indent : $rythm--tick * 3;
+
+$color--accent       : #CF6192;
+$color--accent-hover : darken($color--accent, 5%);
+$color--background   : #fff;
+$color--base         : #333;
+$color--heading      : #111;
+$color--border       : #eee;
+$color--minor        : #777;
+$color--error        : #d10010;
+$color--movie        : #fffce8;
+$color--movie-open   : #f5f5f5;
+$color--input        : #e6e8eb;
+
+$duration--base : 250ms;

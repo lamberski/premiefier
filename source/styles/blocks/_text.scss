@@ -1,0 +1,21 @@
+.text {
+  > :first-child ~ * {
+    margin-top: $rythm--tick;
+  }
+
+  h2 {
+    @extend %heading;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  del {
+    text-decoration: line-through;
+  }
+}

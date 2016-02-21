@@ -1,0 +1,111 @@
+.movie {
+  margin-left: -$width--indent;
+  padding-left: $width--indent;
+  position: relative;
+  min-height: 5rem;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-right: $rythm--tick;
+    width: $rythm--tick * 2;
+    border-radius: 2px;
+  }
+
+  h1 {
+    @extend %heading;
+  }
+
+  &__release-date {
+    time {
+      font-weight: 600;
+    }
+
+    &--unavailable {
+      color: $color--error;
+    }
+  }
+
+  &__rotten-link {
+    font-size: $size--minor;
+  }
+
+  & + & {
+    margin-top: $rythm--tick * 2;
+  }
+}
+
+.movie {
+  &__synopsis,
+  &__info {
+    font-size: $size--minor;
+    color: $color--minor;
+
+    a {
+      color: $color--minor;
+
+      &:hover,
+      &:focus {
+        color: $color--accent-hover;
+      }
+    }
+  }
+
+  &__synopsis {
+    max-height: $rythm--tick * 2;
+    overflow: hidden;
+  }
+
+  &__info {
+    margin: $rythm--tick 0;
+  }
+
+  &__subscribe {
+    display: none;
+  }
+
+  &.is-open &__details {
+    display: none;
+  }
+
+  &.is-open &__subscribe {
+    display: block;
+  }
+
+  &--available {
+    cursor: pointer;
+
+    * {
+      position: relative;
+      z-index: 2;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 1;
+      top: -$rythm--tick;
+      right: -$rythm--tick;
+      bottom: -$rythm--tick;
+      left: -$rythm--tick;
+      transition: background $duration--base;
+    }
+
+    &:hover::before {
+      background: $color--movie;
+    }
+
+    &.is-open {
+      cursor: default;
+
+      &::before {
+        background: $color--movie-open;
+      }
+    }
+  }
+
+  &--unavailable {
+    opacity: .5;
+  }
+}

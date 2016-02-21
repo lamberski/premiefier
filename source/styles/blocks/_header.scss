@@ -1,0 +1,40 @@
+.header {
+  &__top {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    margin: ($rythm--tick / 2) 0;
+    font-size: $size--top;
+
+    a {
+      color: #aaa;
+
+      &:hover,
+      &:focus {
+        color: $color--accent-hover;
+      }
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: $rythm--tick * 2;
+
+    a {
+      img {
+        width: $rythm--tick * 2;
+        vertical-align: middle;
+      }
+
+      &::after {
+        display: none;
+      }
+
+      &:hover {
+        opacity: .75;
+      }
+    }
+  }
+}
