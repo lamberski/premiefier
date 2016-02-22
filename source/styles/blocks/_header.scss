@@ -1,4 +1,6 @@
 .header {
+  position: relative;
+
   &__top {
     position: absolute;
     right: 0;
@@ -18,14 +20,13 @@
 
   &__logo {
     position: absolute;
-    top: 0;
-    left: 0;
-    line-height: $rythm--tick * 2;
+    top: 50%;
+    left: -$width--indent;
+    transform: translateY(-50%);
 
     a {
       img {
         width: $rythm--tick * 2;
-        vertical-align: middle;
       }
 
       &::after {
