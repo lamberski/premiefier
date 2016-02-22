@@ -15,7 +15,7 @@
                 {{#if movie.release_dates.theater}}
                   This movie was already released at <time>{{movie.release_dates.theater}}</time>.
                 {{else}}
-                  There&rsquo;s no info about release date.
+                  There&apos;s no info about release date.
                 {{/if}}
               </p>
             {{/if}}
@@ -25,7 +25,7 @@
               </div>
             {{/if}}
             <p class="movie__rotten-link">
-              <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
+              <a href="{{movie.links.alternate}}" target="_new">View on Rotten Tomatoes &rarr;</a>
             </p>
           </div>
           {{#if movie.subscribable}}

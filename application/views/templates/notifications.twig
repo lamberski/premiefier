@@ -10,7 +10,7 @@
               Will be released on <time>{{notification.premiere.released_at}}</time>.
             </p>
             <p class="movie__rotten-link">
-              <a href="{{notification.premiere.details_url}}">View on Rotten Tomatoes &rarr;</a>
+              <a href="{{notification.premiere.details_url}}" target="_new">View on Rotten Tomatoes &rarr;</a>
             </p>
             <form method="delete" action="api/notifications" class="form">
               <input type="hidden" name="notification_id" value="{{notification.id}}">
