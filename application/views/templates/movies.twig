@@ -1,61 +1,59 @@
 <script id="movies-template" type="x-handlebars-template">
   {% raw %}
     {{#if movies}}
-      <section>
-        {{#each movies as |movie movieId|}}
-          {{#if movie.subscribable}}
-            <article class="movie movie--available" data-id="{{movie.id}}">
-              <img src="{{movie.posters.thumbnail}}" alt="">
-              <div class="movie__details">
-                <h1>{{movie.title}}</h1>
-                <p class="movie__release-date">
-                  Will be released on <time>{{movie.release_dates.theater}}</time>.
-                </p>
-                {{#if movie.synopsis}}
-                  <div class="movie__synopsis text">
-                    <p>{{movie.synopsis}}</p>
-                  </div>
-                {{/if}}
-                <p class="movie__rotten-link">
-                  <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
-                </p>
-              </div>
-              <div class="movie__subscribe">
-                <a href="#show-details" class="movie__show-details">&larr; Back to movie details</a>
-                <div class="movie__info text">
-                  <p>You will receive email notification three days before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
+      {{#each movies as |movie movieId|}}
+        {{#if movie.subscribable}}
+          <article class="loadable__item movie movie--available" data-id="{{movie.id}}">
+            <img src="{{movie.posters.thumbnail}}" alt="">
+            <div class="movie__details">
+              <h1>{{movie.title}}</h1>
+              <p class="movie__release-date">
+                Will be released on <time>{{movie.release_dates.theater}}</time>.
+              </p>
+              {{#if movie.synopsis}}
+                <div class="movie__synopsis text">
+                  <p>{{movie.synopsis}}</p>
                 </div>
-                <div class="movie__form"></div>
+              {{/if}}
+              <p class="movie__rotten-link">
+                <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
+              </p>
+            </div>
+            <div class="movie__subscribe">
+              <a href="#show-details" class="movie__show-details">&larr; Back to movie details</a>
+              <div class="movie__info text">
+                <p>You will receive email notification three days before premiere. You can <a href="unsubscribe">opt out of notifications</a> in any moment. Your email will only be used to send you notification, it will not be spammed.</p>
               </div>
-            </article>
-          {{else}}
-            <article class="movie movie--unavailable">
-              <img src="{{movie.posters.thumbnail}}" alt="">
-              <div class="movie__details">
-                <h1>{{movie.title}}</h1>
-                <p class="movie__release-date movie__release-date--unavailable">
-                  {{#if movie.release_dates.theater}}
-                    This movie was already released at <time>{{movie.release_dates.theater}}</time>.
-                  {{else}}
-                    There&rsquo;s no info about release date.
-                  {{/if}}
-                </p>
-                {{#if movie.synopsis}}
-                  <div class="movie__synopsis text">
-                    <p>{{movie.synopsis}}</p>
-                  </div>
+              <div class="movie__form"></div>
+            </div>
+          </article>
+        {{else}}
+          <article class="loadable__item movie movie--unavailable">
+            <img src="{{movie.posters.thumbnail}}" alt="">
+            <div class="movie__details">
+              <h1>{{movie.title}}</h1>
+              <p class="movie__release-date movie__release-date--unavailable">
+                {{#if movie.release_dates.theater}}
+                  This movie was already released at <time>{{movie.release_dates.theater}}</time>.
+                {{else}}
+                  There&rsquo;s no info about release date.
                 {{/if}}
-                <p class="movie__rotten-link">
-                  <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
-                </p>
-              </div>
-            </article>
-          {{/if}}
-        {{/each}}
-      </section>
+              </p>
+              {{#if movie.synopsis}}
+                <div class="movie__synopsis text">
+                  <p>{{movie.synopsis}}</p>
+                </div>
+              {{/if}}
+              <p class="movie__rotten-link">
+                <a href="{{movie.links.alternate}}">View on Rotten Tomatoes &rarr;</a>
+              </p>
+            </div>
+          </article>
+        {{/if}}
+      {{/each}}
     {{else}}
       {{#unless error}}
-        <section class="text">
+        <section class="loadable__item text">
           <p><strong>Empty list</strong>. There are no movies with "<em>{{params.title}}</em>" in the title.</p>
         </section>
       {{/unless}}

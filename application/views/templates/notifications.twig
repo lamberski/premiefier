@@ -1,8 +1,8 @@
 <script id="notifications-template" type="x-handlebars-template">
   {% raw %}
     {{#if notifications}}
-      <section>
-        {{#each notifications as |notification notificationId|}}
+      {{#each notifications as |notification notificationId|}}
+        <div class="loadable__item">
           <article class="notification">
             <img src="{{notification.premiere.poster_url}}" alt="">
             <div class="notification__details">
@@ -19,11 +19,11 @@
               </form>
             </div>
           </article>
-        {{/each}}
-      </section>
+        </div>
+      {{/each}}
     {{else}}
       {{#unless error}}
-        <section class="text">
+        <section class="loadable__item text">
           <p><strong>Empty list</strong>. You are not subscribed to any movie premiere yet.</p>
         </section>
       {{/unless}}
