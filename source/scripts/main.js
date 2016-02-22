@@ -40,11 +40,15 @@
       }
     },
 
-    submitForm: function (form) {
+    submitForm: function (form, callback) {
       return $.ajax({
         url  : form.attr('action'),
         type : form.attr('method'),
         data : form.serialize()
+      })
+      .always(function (data) {
+        data = data.responseJSON || data;
+        callback(data);
       });
     }
 
@@ -69,8 +73,7 @@
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        Helpers.submitForm(form).always(function (data) {
-          data = data.responseJSON || data;
+        Helpers.submitForm(form, function (data) {
           Helpers.compileTemplate('search', 'search', data);
           Helpers.compileTemplate('movies', 'movies', data);
         });
@@ -85,8 +88,7 @@
         var movie     = form.closest('.movie');
         var container = form.closest('.movie__form');
 
-        Helpers.submitForm(form).always(function (data) {
-          data = data.responseJSON || data;
+        Helpers.submitForm(form, function (data) {
           Helpers.compileTemplate(container, 'subscribe', data);
         });
 
@@ -136,8 +138,7 @@
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        Helpers.submitForm(form).always(function (data) {
-          data = data.responseJSON || data;
+        Helpers.submitForm(form, function (data) {
           Helpers.compileTemplate('unsubscribe', 'unsubscribe', data);
           Helpers.compileTemplate('notifications', 'notifications', data);
         });
@@ -151,8 +152,7 @@
         var form         = $(this);
         var notification = form.closest('.notification');
 
-        Helpers.submitForm(form).always(function (data) {
-          data = data.responseJSON || data;
+        Helpers.submitForm(form, function (data) {
           notification.fadeOut(300, function() { $(this).remove(); });
         });
 
