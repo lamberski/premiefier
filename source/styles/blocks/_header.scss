@@ -20,7 +20,7 @@
 
   &__logo {
     position: absolute;
-    top: 50%;
+    top: $rythm--tick;
     left: -$width--indent;
     transform: translateY(-50%);
 
