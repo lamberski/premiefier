@@ -65,7 +65,7 @@
 
   &__error {
     color: $color--error;
-    animation-name: slide-in;
+    animation-name: fade-in;
     animation-duration: $duration--base;
     animation-timing-function: ease-in-out;
   }

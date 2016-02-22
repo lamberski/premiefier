@@ -22,6 +22,10 @@
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 
+    &--message {
+      animation-name: fade-in;
+    }
+
     @for $i from 1 through 10 {
       &:nth-child(#{$i}) {
         animation-delay: ($i - 1) * 100ms;

@@ -18,6 +18,8 @@
   }
 
   &__release-date {
+    color: $color--success;
+
     time {
       font-weight: 600;
     }
@@ -104,8 +106,4 @@
       }
     }
   }
-
-  // &--unavailable {
-  //   opacity: .5;
-  // }
 }
