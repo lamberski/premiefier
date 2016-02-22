@@ -26,10 +26,28 @@
 
   var Helpers = {
 
-    compileTemplate: function (name, data) {
+    compileTemplate: function (container, name, data) {
       var template = Handlebars.compile(Elements.templates[name].html());
-      return template(data);
+      var element  = container instanceof jQuery
+        ? container
+        : Elements.containers[container];
+
+      element.html(template(data)).removeClass('loadable--loading');
+
+      var autofocus = element.find('input[autofocus]');
+      if (autofocus) {
+        autofocus.trigger('focus').val(autofocus.val());
+      }
+    },
+
+    submitForm: function (form) {
+      return $.ajax({
+        url  : form.attr('action'),
+        type : form.attr('method'),
+        data : form.serialize()
+      });
     }
+
   };
 
   var Subscribe = {
@@ -39,7 +57,7 @@
         return;
       }
 
-      Elements.containers.search.html(Helpers.compileTemplate('search'));
+      Helpers.compileTemplate('search', 'search');
       Subscribe.bindSearchForm();
       Subscribe.bindSubscribeForm();
       Subscribe.bindTogglingMovieDetails();
@@ -51,19 +69,10 @@
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        $.ajax({
-          url  : form.attr('action'),
-          type : form.attr('method'),
-          data : form.serialize()
-        })
-        .always(function (data) {
+        Helpers.submitForm(form).always(function (data) {
           data = data.responseJSON || data;
-          form.removeClass('form--loading');
-          Elements.containers.search
-            .html(Helpers.compileTemplate('search', data));
-          Elements.containers.movies
-            .html(Helpers.compileTemplate('movies', data))
-            .removeClass('loadable--loading');
+          Helpers.compileTemplate('search', 'search', data);
+          Helpers.compileTemplate('movies', 'movies', data);
         });
 
         event.preventDefault();
@@ -76,14 +85,9 @@
         var movie     = form.closest('.movie');
         var container = form.closest('.movie__form');
 
-        $.ajax({
-          url  : form.attr('action'),
-          type : form.attr('method'),
-          data : form.serialize()
-        })
-        .always(function (data) {
+        Helpers.submitForm(form).always(function (data) {
           data = data.responseJSON || data;
-          container.html(Helpers.compileTemplate('subscribe', data));
+          Helpers.compileTemplate(container, 'subscribe', data);
         });
 
         event.preventDefault();
@@ -98,8 +102,7 @@
 
         if (!movie.hasClass('is-open') && !$(event.target).is('a')) {
           movie.addClass('is-open');
-          container.html(Helpers.compileTemplate('subscribe', data));
-          container.find('input[name="email"]').attr('autofocus', true);
+          Helpers.compileTemplate(container, 'subscribe', data);
 
           return false;
         }
@@ -122,7 +125,7 @@
         return;
       }
 
-      Elements.containers.unsubscribe.html(Helpers.compileTemplate('unsubscribe'));
+      Helpers.compileTemplate('unsubscribe', 'unsubscribe');
       Unsubscribe.bindSearchForm();
       Unsubscribe.bindUnbscribeForm();
     },
@@ -133,19 +136,10 @@
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        $.ajax({
-          url  : form.attr('action'),
-          type : form.attr('method'),
-          data : form.serialize()
-        })
-        .always(function (data) {
+        Helpers.submitForm(form).always(function (data) {
           data = data.responseJSON || data;
-          form.removeClass('form--loading');
-          Elements.containers.unsubscribe
-            .html(Helpers.compileTemplate('unsubscribe', data));
-          Elements.containers.notifications
-            .html(Helpers.compileTemplate('notifications', data))
-            .removeClass('loadable--loading');
+          Helpers.compileTemplate('unsubscribe', 'unsubscribe', data);
+          Helpers.compileTemplate('notifications', 'notifications', data);
         });
 
         event.preventDefault();
@@ -157,12 +151,7 @@
         var form         = $(this);
         var notification = form.closest('.notification');
 
-        $.ajax({
-          url  : form.attr('action'),
-          type : form.attr('method'),
-          data : form.serialize()
-        })
-        .always(function (data) {
+        Helpers.submitForm(form).always(function (data) {
           data = data.responseJSON || data;
           notification.fadeOut(300, function() { $(this).remove(); });
         });
