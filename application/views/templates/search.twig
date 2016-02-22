@@ -3,7 +3,7 @@
     <form method="get" action="api/movies" class="form">
       <fieldset>
         <input type="text" name="title" placeholder="Enter movie title" value="{{params.title}}" autofocus>
-        <button type="submit" data-primary="Search" data-processing="Searching&hellip;">Search</button>
+        <button type="submit">Search</button>
       </fieldset>
       {{#if error}}
         <p class="form__error">{{error}}</p>
