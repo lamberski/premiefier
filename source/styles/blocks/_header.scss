@@ -25,6 +25,8 @@
     transform: translateY(-50%);
 
     a {
+      backface-visibility: hidden;
+
       img {
         width: $rythm--tick * 2;
       }
