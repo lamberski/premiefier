@@ -1,8 +1,6 @@
 <script id="movies-template" type="x-handlebars-template">
   {% raw %}
     {{#if movies}}
-      <hr>
-
       <section>
         {{#each movies as |movie movieId|}}
           {{#if movie.subscribable}}
