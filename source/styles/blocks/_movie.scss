@@ -36,11 +36,8 @@
   & + & {
     margin-top: $rythm--tick * 2;
   }
-}
 
-.movie {
-  &__synopsis,
-  &__info {
+  &__synopsis, &__info {
     font-size: $size--minor;
     color: $color--minor;
 
@@ -63,18 +60,6 @@
     margin: $rythm--tick 0;
   }
 
-  &__subscribe {
-    display: none;
-  }
-
-  &.is-open &__details {
-    display: none;
-  }
-
-  &.is-open &__subscribe {
-    display: block;
-  }
-
   &--available {
     cursor: pointer;
 
@@ -91,19 +76,61 @@
       right: -$rythm--tick;
       bottom: -$rythm--tick;
       left: -$rythm--tick;
-      transition: background $duration--base;
+      transition: trans(background);
     }
 
     &:hover::before {
       background: $color--movie;
     }
+  }
 
-    &.is-open {
-      cursor: default;
+  &--open {
+    cursor: default;
 
-      &::before {
-        background: $color--movie-open;
-      }
+    &::before {
+      background: $color--movie-open;
     }
+  }
+
+  &__details {
+    position: relative;
+    top: 0;
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    transition: trans(transform),
+                trans(opacity, $duration--base / 2),
+                trans(visibility, $duration--base);
+  }
+
+  &__subscribe {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    transform: translateX(5%);
+    visibility: hidden;
+    transition: trans(transform),
+                trans(opacity, $duration--base / 2),
+                trans(visibility, 0ms, $duration--base);
+  }
+
+  &--open &__details {
+    position: absolute;
+    opacity: 0;
+    transform: translateX(-5%);
+    visibility: hidden;
+    transition: trans(transform),
+                trans(opacity, $duration--base / 2),
+                trans(visibility, 0ms, $duration--base);
+  }
+
+  &--open &__subscribe {
+    position: relative;
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    transition: trans(transform),
+                trans(opacity, $duration--base / 2),
+                trans(visibility, $duration--base);
   }
 }
