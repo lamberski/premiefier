@@ -17,6 +17,7 @@
       margin-top: -15px;
       transition: opacity $duration--base;
       opacity: 0;
+      z-index: 10;
     }
   }
 
@@ -49,19 +50,13 @@
     background: $color--accent;
     border: 0;
     cursor: pointer;
-    transition: background $duration--base, opacity $duration--base;
+    transition: background $duration--base, opacity $duration--base, visibility $duration--base $duration--base;
+    visibility: visible;
+    z-index: 10;
 
     &:hover,
     &:focus {
       background: $color--accent-hover;
-    }
-
-    &[disabled],
-    &[disabled]:hover,
-    &[disabled]:focus {
-      background: $color--accent-hover;
-      opacity: .75;
-      cursor: normal;
     }
   }
 
@@ -85,6 +80,8 @@
 
     button {
       opacity: 0;
+      visibility: hidden;
+      transition: background $duration--base, opacity $duration--base, visibility $duration--base $duration--base;
     }
   }
 }

@@ -86,7 +86,7 @@
 
     bindSubscribeForm: function () {
       Elements.body.on('submit', '.movie__form form', function (event) {
-        var form      = $(this);
+        var form      = $(this).addClass('form--loading');
         var movie     = form.closest('.movie');
         var container = form.closest('.movie__form');
 
