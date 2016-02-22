@@ -102,8 +102,8 @@
         var data      = { params: { movie_id: movie.data('id') } };
         var container = movie.find('.movie__form');
 
-        if (!movie.hasClass('is-open') && !$(event.target).is('a')) {
-          movie.addClass('is-open');
+        if (!movie.hasClass('movie--open') && !$(event.target).is('a')) {
+          movie.addClass('movie--open');
           Helpers.compileTemplate(container, 'subscribe', data);
 
           return false;
@@ -112,7 +112,7 @@
 
       Elements.body.on('click', '[href="#show-details"]', function (event) {
         var movie = $(this).closest('.movie');
-        movie.removeClass('is-open');
+        movie.removeClass('movie--open');
 
         event.preventDefault();
       });
