@@ -2,28 +2,26 @@
   {% raw %}
     {{#if notifications}}
       {{#each notifications as |notification notificationId|}}
-        <div class="loadable__item">
-          <article class="notification">
-            <img src="{{notification.premiere.poster_url}}" alt="">
-            <div class="notification__details">
-              <h1>{{notification.premiere.title}}</h1>
-              <p class="movie__release-date">
-                Will be released on <time>{{notification.premiere.released_at}}</time>.
-              </p>
-              <p class="movie__rotten-link">
-                <a href="{{notification.premiere.details_url}}">View on Rotten Tomatoes &rarr;</a>
-              </p>
-              <form method="delete" action="api/notifications" class="form">
-                <input type="hidden" name="notification_id" value="{{notification.id}}">
-                <button type="submit">Unsubscribe</button>
-              </form>
-            </div>
-          </article>
-        </div>
+        <article class="loadable__item notification">
+          <img src="{{notification.premiere.poster_url}}" alt="">
+          <div class="notification__details">
+            <h1>{{notification.premiere.title}}</h1>
+            <p class="movie__release-date">
+              Will be released on <time>{{notification.premiere.released_at}}</time>.
+            </p>
+            <p class="movie__rotten-link">
+              <a href="{{notification.premiere.details_url}}">View on Rotten Tomatoes &rarr;</a>
+            </p>
+            <form method="delete" action="api/notifications" class="form">
+              <input type="hidden" name="notification_id" value="{{notification.id}}">
+              <button type="submit">Unsubscribe</button>
+            </form>
+          </div>
+        </article>
       {{/each}}
     {{else}}
       {{#unless error}}
-        <section class="loadable__item text">
+        <section class="loadable__item loadable__item--message text">
           <p><strong>Empty list</strong>. You are not subscribed to any movie premiere yet.</p>
         </section>
       {{/unless}}
