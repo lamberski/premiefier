@@ -1,6 +1,6 @@
 .text {
   > :first-child ~ * {
-    margin-top: $rythm--tick;
+    margin-top: rem($rythm--tick);
   }
 
   h2 {

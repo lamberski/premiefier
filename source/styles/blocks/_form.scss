@@ -4,18 +4,18 @@
     position: relative;
 
     &::before {
-      border: 5px solid rgba(#fff, 0.25);
+      border: rem(5px) solid rgba(#fff, 0.25);
       border-left-color: #fff;
       animation: loading 1s infinite cubic-bezier(0.445, 0.05, 0.55, 0.95);
       border-radius: 50%;
       content: '';
       position: absolute;
       top: 50%;
-      right: 20px;
-      width: 20px;
-      height: 20px;
-      margin-top: -15px;
-      transition: opacity $duration--base;
+      right: rem(20px);
+      width: rem(20px);
+      height: rem(20px);
+      margin-top: rem(-15px);
+      transition: trans(opacity);
       opacity: 0;
       z-index: 10;
     }
@@ -23,16 +23,16 @@
 
   input, button {
     box-sizing: border-box;
-    border-radius: 2px;
+    border-radius: rem(2px);
     display: block;
     font-family: $font--base;
   }
 
   input {
-    padding: .625rem 6.25rem .625rem 1.25rem;
-    height: $rythm--tick * 2;
+    padding: rem(10px) rem(100px) rem(10px) rem(20px);
+    height: rem($rythm--tick * 2);
     width: 100%;
-    font-size: 1rem;
+    font-size: rem($size--base);
     color: $color--base;
     border: 0;
     background: $color--input;
@@ -40,16 +40,16 @@
 
   button {
     position: absolute;
-    top: .25rem;
-    right: .25rem;
-    bottom: .25rem;
-    padding: 0 .625rem;
-    font-size: $size--button;
+    top: rem(4px);
+    right: rem(4px);
+    bottom: rem(4px);
+    padding: 0 rem(10px);
+    font-size: rem($size--button);
     color: #fff;
     background: $color--accent;
     border: 0;
     cursor: pointer;
-    transition: background $duration--base, opacity $duration--base, visibility $duration--base $duration--base;
+    transition: trans(background), trans(opacity), trans(visibility);
     visibility: visible;
     z-index: 10;
 
@@ -59,15 +59,13 @@
   }
 
   p {
-    margin-top: $rythm--tick;
-    line-height: $rythm--tick;
+    margin-top: rem($rythm--tick);
+    line-height: rem($rythm--tick);
   }
 
   &__error {
     color: $color--error;
-    animation-name: fade-in;
-    animation-duration: $duration--base;
-    animation-timing-function: ease-in-out;
+    animation: fade-in $duration--base ease-in-out;
   }
 
   &__success {
@@ -82,7 +80,7 @@
     button {
       opacity: 0;
       visibility: hidden;
-      transition: background $duration--base, opacity $duration--base, visibility $duration--base $duration--base;
+      transition: trans(background), trans(opacity), trans(visibility, 0ms, $duration--base);
     }
   }
 }

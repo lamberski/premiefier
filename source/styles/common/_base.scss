@@ -13,17 +13,21 @@ html {
     top: 0;
     right: 0;
     left: 0;
-    height: 3px;
+    height: rem(3px);
     background: $color--accent;
+  }
+
+  @include breakpoint(phablet) {
+    font-size: rem($size--base - 2px);
   }
 }
 
 body {
   background: $color--background;
-  padding: 0 5%;
+  padding: 0 rem($width--margin);
   color: $color--base;
   font-family: $font--base;
-  line-height: $rythm--tick;
+  line-height: rem($rythm--tick);
   text-size-adjust: 100%;
 }
 
@@ -48,17 +52,17 @@ a {
   text-decoration: none;
   position: relative;
   color: $color--base;
-  transition: color $duration--base, opacity $duration--base;
+  transition: trans(color), trans(opacity);
 
   &::after {
     content: '';
     position: absolute;
     right: 0;
-    bottom: .2rem;
+    bottom: rem(3px);
     left: 0;
-    border-bottom: .075rem solid transparent;
+    border-bottom: rem(1.2px) solid transparent;
     border-color: $color--border;
-    transition: border-color $duration--base;
+    transition: trans(border-color);
   }
 
   &:hover,

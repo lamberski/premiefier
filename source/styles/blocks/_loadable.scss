@@ -5,22 +5,19 @@
     content: '';
     position: absolute;
     z-index: 3;
-    top: -$rythm--tick;
-    right: -$rythm--tick;
-    bottom: -$rythm--tick;
-    left: -($width--indent + $rythm--tick);
+    top: rem(-$rythm--tick);
+    right: rem(-$rythm--tick);
+    bottom: rem(-$rythm--tick);
+    left: rem(-($width--indent + $rythm--tick));
     background: rgba(#fff, .75);
     opacity: 0;
     visibility: hidden;
-    transition: opacity $duration--base, visibility $duration--base $duration--base;
+    transition: trans(opacity), trans(visibility, 0ms, $duration--base);
   }
 
   &__item {
     opacity: 0;
-    animation-name: slide-down;
-    animation-duration: $duration--base;
-    animation-timing-function: ease-in-out;
-    animation-fill-mode: forwards;
+    animation: slide-down $duration--base forwards ease-in-out;
 
     &--message {
       animation-name: fade-in;
@@ -37,7 +34,18 @@
     &::after {
       opacity: 1;
       visibility: visible;
-      transition: opacity $duration--base, visibility $duration--base;
+      transition: trans(opacity), trans(visibility);
+    }
+  }
+
+  @include breakpoint(phablet) {
+    &::after {
+      right: rem(-$width--margin);
+      left: rem(-($width--indent + $width--margin));
+    }
+
+    &__item--message {
+      margin-left: rem(-$width--indent);
     }
   }
 }

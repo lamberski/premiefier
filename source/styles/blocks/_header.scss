@@ -20,15 +20,15 @@
 
   &__logo {
     position: absolute;
-    top: $rythm--tick;
-    left: -$width--indent;
+    top: rem($rythm--tick);
+    left: rem(-$width--indent);
     transform: translateY(-50%);
 
     a {
       backface-visibility: hidden;
 
       img {
-        width: $rythm--tick * 2;
+        width: rem($rythm--tick * 2);
       }
 
       &::after {
@@ -37,6 +37,20 @@
 
       &:hover {
         opacity: .75;
+      }
+    }
+  }
+
+  @include breakpoint(phablet) {
+    margin-left: rem(-$width--indent);
+
+    &__logo {
+      top: auto;
+      bottom: 100%;
+      left: 0;
+
+      a img {
+        width: rem($rythm--tick);
       }
     }
   }

@@ -1,16 +1,16 @@
 .movie {
-  margin-left: -$width--indent;
-  padding-left: $width--indent;
+  margin-left: rem(-$width--indent);
+  padding-left: rem($width--indent);
   position: relative;
-  min-height: 5rem;
+  min-height: rem(80px);
 
   img {
     position: absolute;
     top: 0;
     left: 0;
-    margin-right: $rythm--tick;
-    width: $rythm--tick * 2;
-    border-radius: 2px;
+    margin-right: rem($rythm--tick);
+    width: rem($rythm--tick * 2);
+    border-radius: rem(2px);
   }
 
   h1 {
@@ -30,15 +30,15 @@
   }
 
   &__rotten-link {
-    font-size: $size--minor;
+    font-size: rem($size--minor);
   }
 
   & + & {
-    margin-top: $rythm--tick * 2;
+    margin-top: rem($rythm--tick * 2);
   }
 
   &__synopsis, &__info {
-    font-size: $size--minor;
+    font-size: rem($size--minor);
     color: $color--minor;
 
     a {
@@ -52,12 +52,12 @@
   }
 
   &__synopsis {
-    max-height: $rythm--tick * 2;
+    max-height: rem($rythm--tick * 2);
     overflow: hidden;
   }
 
   &__info {
-    margin: $rythm--tick 0;
+    margin: rem($rythm--tick) 0;
   }
 
   &--available {
@@ -72,10 +72,10 @@
       content: '';
       position: absolute;
       z-index: 1;
-      top: -$rythm--tick;
-      right: -$rythm--tick;
-      bottom: -$rythm--tick;
-      left: -$rythm--tick;
+      top: rem(-$rythm--tick);
+      right: rem(-$rythm--tick);
+      bottom: rem(-$rythm--tick);
+      left: rem(-$rythm--tick);
       transition: trans(background);
     }
 
@@ -98,9 +98,8 @@
     opacity: 1;
     transform: translateX(0);
     visibility: visible;
-    transition: trans(transform),
-                trans(opacity, $duration--base / 2),
-                trans(visibility, $duration--base);
+    animation: position-in ($duration--base / 2) ease-in-out forwards;
+    transition: trans(transform), trans(opacity), trans(visibility);
   }
 
   &__subscribe {
@@ -109,19 +108,30 @@
     opacity: 0;
     transform: translateX(5%);
     visibility: hidden;
-    transition: trans(transform),
-                trans(opacity, $duration--base / 2),
-                trans(visibility, 0ms, $duration--base);
+    animation: position-out ($duration--base / 2) ease-in-out forwards;
+    transition: trans(transform), trans(opacity), trans(visibility, 0ms, $duration--base);
+  }
+
+  &__subscribe &__show-details {
+    animation: fade-out $duration--base ease-in-out forwards;
+  }
+
+  &__subscribe &__info {
+    animation: scale-out $duration--base ease-in-out forwards;
+  }
+
+  &__subscribe &__form {
+    animation: slide-up $duration--base ease-in-out forwards;
   }
 
   &--open &__details {
     position: absolute;
     opacity: 0;
-    transform: translateX(-5%);
+    transform: translateX(-$rythm--tick);
     visibility: hidden;
-    transition: trans(transform),
-                trans(opacity, $duration--base / 2),
-                trans(visibility, 0ms, $duration--base);
+    animation-duration: 0ms;
+    animation-name: position-out;
+    transition: trans(transform), trans(opacity), trans(visibility, 0ms, $duration--base);
   }
 
   &--open &__subscribe {
@@ -129,8 +139,29 @@
     opacity: 1;
     transform: translateX(0);
     visibility: visible;
-    transition: trans(transform),
-                trans(opacity, $duration--base / 2),
-                trans(visibility, $duration--base);
+    animation-duration: 0ms;
+    animation-name: position-in;
+    transition: trans(transform), trans(opacity), trans(visibility);
+  }
+
+  &--open &__subscribe &__show-details {
+    animation-name: fade-in;
+  }
+
+  &--open &__subscribe &__info {
+    animation-name: scale-in;
+  }
+
+  &--open &__subscribe &__form {
+    animation-name: slide-down;
+  }
+
+  @include breakpoint(phablet) {
+    &--available {
+      &::before {
+        right: rem(-$width--margin);
+        left: rem(-$width--margin);
+      }
+    }
   }
 }
