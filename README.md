@@ -7,7 +7,7 @@ Premiefier helps you to keep up to date with movie premieres. It will notify you
 * `/application`—Back-end of the application powered by [Silex](https://github.com/silexphp/Silex) framework.
 * `/gulpfile.js`—Gulp workflow extracted from [Frontkit](https://github.com/lamberski/frontkit) (Scaffolding & Gulp workflow for web projects.)
 * `/source`—Front-end source files.
-* `/public`—Public folder where all requests go.
+* `/public`—Public folder where all requests go. Also all static assets are put there.
 
 ## License
 
