@@ -2,23 +2,22 @@
 
 namespace Premiefier\Controllers;
 
-use Silex\Application;
 use Premiefier\Models\API;
+use Silex\Application;
 
 class Movies
 {
-  function index(Application $application)
-  {
-    $title = $application['request']->get('title');
-
-    if (!trim($title))
+    public function index(Application $application)
     {
-      throw new \Exception('Enter movie title.', 400);
-    }
+        $title = $application['request']->get('title');
 
-    return $application->json([
-      'params' => $application['request']->query->all(),
-      'movies' => API::getMoviesByTitle($title),
-    ]);
-  }
+        if (!trim($title)) {
+            throw new \Exception('Enter movie title.', 400);
+        }
+
+        return $application->json([
+            'params' => $application['request']->query->all(),
+            'movies' => API::getMoviesByTitle($title),
+        ]);
+    }
 }

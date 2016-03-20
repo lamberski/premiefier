@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model
 {
-  public $timestamps = false;
-  protected $fillable = ['email'];
+    public $timestamps  = false;
+    protected $fillable = ['email'];
 
-  public function notifications()
-  {
-    return $this->hasMany('Premiefier\Models\Notification');
-  }
+    public function notifications()
+    {
+        return $this->hasMany('Premiefier\Models\Notification');
+    }
 }
