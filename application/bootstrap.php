@@ -35,7 +35,7 @@ $application->register(new TwigServiceProvider(), [
 $application->register(new CapsuleServiceProvider(), [
     'capsule.connection' => [
         'driver'   => 'sqlite',
-        'database' => __DIR__ . '/../' . $application['config.db_path'],
+        'database' => $application['config.db_path'],
     ],
 ]);
 
