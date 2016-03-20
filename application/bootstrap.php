@@ -9,12 +9,16 @@ use Silex\Provider\TwigServiceProvider;
 use Knp\Provider\ConsoleServiceProvider;
 use BitolaCo\Silex\CapsuleServiceProvider;
 use Silex\Provider\SwiftmailerServiceProvider;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 // Initialize application
 $application = new Application();
 
 // Load configuration
 $application['config'] = require __DIR__ . '/config.php';
+
+// Turn debug mode on/off
+$application['debug'] = $application['config']['DEBUG'];
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
@@ -53,14 +57,17 @@ $application->register(new SwiftmailerServiceProvider([
 ]));
 
 // Declare common error handler for all exceptions
-$application->error(function (\Exception $exception, $code) use ($application) {
+$application->error(function (\Exception $exception) use ($application) {
+    $code    = $exception instanceof HttpException ? $exception->getStatusCode() : 500;
+    $message = $application['debug'] ? $exception->getMessage() : 'Something went wrong.';
+
     return $application->json([
-        'error'  => $exception->getMessage(),
+        'error'  => $message,
         'params' => array_merge(
             $application['request']->query->all(),
             $application['request']->request->all()
         ),
-    ], $exception->getCode() ? $exception->getCode() : $code);
+    ], $code);
 });
 
 // Define public routes

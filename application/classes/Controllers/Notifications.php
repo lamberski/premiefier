@@ -7,6 +7,7 @@ use Premiefier\Models\API;
 use Premiefier\Models\User;
 use Premiefier\Models\Premiere;
 use Premiefier\Models\Notification;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Notifications
 {
@@ -15,11 +16,11 @@ class Notifications
         $email = $application['request']->get('email');
 
         if (!trim($email)) {
-            throw new \Exception('Enter your email address first.', 400);
+            throw new HttpException(400, 'Enter your email address first.');
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \Exception('Please enter valid email address.', 400);
+            throw new HttpException(400, 'Please enter valid email address.');
         }
 
         $user = User::whereEmail($email)->first();
@@ -27,7 +28,9 @@ class Notifications
         $notifications = $user
         ? $user
             ->notifications()->with('premiere')->get()
-            ->sortBy(function ($notification) {return $notification->premiere->released_at;})
+            ->sortBy(function ($notification) {
+                return $notification->premiere->released_at;
+            })
             ->toArray()
         : [];
 
@@ -44,18 +47,18 @@ class Notifications
         $email   = $application['request']->get('email');
 
         if (!trim($movieId)) {
-            throw new \Exception('Provide movie ID from Rotten Tomatoes API.', 400);
+            throw new HttpException(400, 'Provide movie ID from Rotten Tomatoes API.');
         }
 
         if (!trim($email)) {
-            throw new \Exception('Enter your email address first.', 400);
+            throw new HttpException(400, 'Enter your email address first.');
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \Exception('Please enter valid email address.', 400);
+            throw new HttpException(400, 'Please enter valid email address.');
         }
 
-        $movie = API::getMovieByID($movieId);
+        $movie = API::getMovieByID($application, $movieId);
 
         $premiere = Premiere::firstOrCreate([
             'id'          => $movieId,
@@ -73,7 +76,7 @@ class Notifications
         ]);
 
         if ($notification->id) {
-            throw new \Exception(sprintf('You are already subscribed to %s!', $movie['title']), 404);
+            throw new HttpException(404, sprintf('You are already subscribed to %s!', $movie['title']));
         } else {
             $notification->save();
         }
@@ -90,7 +93,7 @@ class Notifications
         $notificationId = $application['request']->get('notification_id');
 
         if (!trim($notificationId)) {
-            throw new \Exception('Provide notification ID.', 400);
+            throw new HttpException(400, 'Provide notification ID.');
         }
 
         Notification::destroy($notificationId);
