@@ -29,14 +29,15 @@
 
       svg {
         width: rem($rythm--tick * 2);
+        fill: $color--accent;
       }
 
       &::after {
         display: none;
       }
 
-      &:hover {
-        opacity: .75;
+      &:hover svg {
+        fill: $color--accent-hover;
       }
     }
   }
