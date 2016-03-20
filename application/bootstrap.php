@@ -4,14 +4,17 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 // Include used classes
-use BitolaCo\Silex\CapsuleServiceProvider;
-use Knp\Provider\ConsoleServiceProvider;
 use Silex\Application;
-use Silex\Provider\SwiftmailerServiceProvider;
 use Silex\Provider\TwigServiceProvider;
+use Knp\Provider\ConsoleServiceProvider;
+use BitolaCo\Silex\CapsuleServiceProvider;
+use Silex\Provider\SwiftmailerServiceProvider;
 
 // Initialize application
 $application = new Application();
+
+// Load configuration
+$application['config'] = require __DIR__ . '/config.php';
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
@@ -25,7 +28,7 @@ $application->register(new TwigServiceProvider(), [
 $application->register(new CapsuleServiceProvider(), [
     'capsule.connection' => [
         'driver'   => 'sqlite',
-        'database' => __DIR__ . '/../' . $_SERVER['DB_PATH'],
+        'database' => __DIR__ . '/../' . $application['config']['DB_PATH'],
     ],
 ]);
 
@@ -40,12 +43,12 @@ $application->register(new ConsoleServiceProvider(), [
 $application->register(new SwiftmailerServiceProvider([
     'swiftmailer.use_spool' => false,
     'swiftmailer.options'   => [
-        'host'       => $_SERVER['MAIL_HOST'],
-        'port'       => $_SERVER['MAIL_PORT'],
-        'username'   => $_SERVER['MAIL_USERNAME'],
-        'password'   => $_SERVER['MAIL_PASSWORD'],
-        'encryption' => $_SERVER['MAIL_ENCRYPTION'],
-        'auth_mode'  => $_SERVER['MAIL_AUTH_MODE'],
+        'host'       => $application['config']['MAIL_HOST'],
+        'port'       => $application['config']['MAIL_PORT'],
+        'username'   => $application['config']['MAIL_USERNAME'],
+        'password'   => $application['config']['MAIL_PASSWORD'],
+        'encryption' => $application['config']['MAIL_ENCRYPTION'],
+        'auth_mode'  => $application['config']['MAIL_AUTH_MODE'],
     ],
 ]));
 
