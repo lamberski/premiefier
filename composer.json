@@ -1,18 +1,16 @@
 {
-  "require": {
-    "silex/silex": "~1.2",
-    "twig/twig": ">=1.8,<2.0-dev",
-    "symfony/twig-bridge": "~2.3",
-    "bitolaco/silex-eloquent": "*",
-    "illuminate/database": "~4.2",
-    "knplabs/console-service-provider": "~1.0",
-    "swiftmailer/swiftmailer": "~5.4"
-  },
-  "autoload": {
-    "psr-4": {
-      "Premiefier\\Models\\": "application/models/",
-      "Premiefier\\Controllers\\": "application/controllers/",
-      "Premiefier\\Commands\\": "application/commands/"
+    "require": {
+        "silex/silex": "~1.2",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "~2.3",
+        "bitolaco/silex-eloquent": "*",
+        "illuminate/database": "~4.2",
+        "knplabs/console-service-provider": "~1.0",
+        "swiftmailer/swiftmailer": "~5.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Premiefier\\": "application/classes/"
+        }
     }
-  }
 }

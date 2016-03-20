@@ -1,8 +1,8 @@
 {
-  "name": true,
-  "devDependencies": {
-    "jquery": "~2.1",
-    "normalize.css": "~3.0.3",
-    "handlebars": "^4.0.5"
-  }
+    "name": true,
+    "devDependencies": {
+        "jquery": "~2.1",
+        "normalize.css": "~3.0.3",
+        "handlebars": "^4.0.5"
+    }
 }
