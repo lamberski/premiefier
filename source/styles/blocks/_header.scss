@@ -27,7 +27,7 @@
     a {
       backface-visibility: hidden;
 
-      img {
+      svg {
         width: rem($rythm--tick * 2);
       }
 
@@ -49,8 +49,10 @@
       bottom: 100%;
       left: 0;
 
-      a img {
+      a svg {
         width: rem($rythm--tick);
+        position: relative;
+        top: rem(3px);
       }
     }
   }
