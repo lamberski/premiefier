@@ -2,8 +2,8 @@
 
 namespace Premiefier\Controllers;
 
-use Premiefier\Models\API;
 use Silex\Application;
+use Premiefier\Models\API;
 
 class Movies
 {

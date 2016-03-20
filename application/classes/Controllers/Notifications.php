@@ -2,11 +2,11 @@
 
 namespace Premiefier\Controllers;
 
-use Premiefier\Models\API;
-use Premiefier\Models\Notification;
-use Premiefier\Models\Premiere;
-use Premiefier\Models\User;
 use Silex\Application;
+use Premiefier\Models\API;
+use Premiefier\Models\User;
+use Premiefier\Models\Premiere;
+use Premiefier\Models\Notification;
 
 class Notifications
 {
