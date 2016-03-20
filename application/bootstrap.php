@@ -15,10 +15,13 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 $application = new Application();
 
 // Load configuration
-$application['config'] = require __DIR__ . '/config.php';
+$config = require __DIR__ . '/config.php';
+foreach ($config as $key => $value) {
+    $application['config.' . $key] = $value;
+}
 
 // Turn debug mode on/off
-$application['debug'] = $application['config']['DEBUG'];
+$application['debug'] = $application['config.debug'];
 
 // Register Twig provider
 $application->register(new TwigServiceProvider(), [
@@ -32,7 +35,7 @@ $application->register(new TwigServiceProvider(), [
 $application->register(new CapsuleServiceProvider(), [
     'capsule.connection' => [
         'driver'   => 'sqlite',
-        'database' => __DIR__ . '/../' . $application['config']['DB_PATH'],
+        'database' => __DIR__ . '/../' . $application['config.db_path'],
     ],
 ]);
 
@@ -47,12 +50,12 @@ $application->register(new ConsoleServiceProvider(), [
 $application->register(new SwiftmailerServiceProvider([
     'swiftmailer.use_spool' => false,
     'swiftmailer.options'   => [
-        'host'       => $application['config']['MAIL_HOST'],
-        'port'       => $application['config']['MAIL_PORT'],
-        'username'   => $application['config']['MAIL_USERNAME'],
-        'password'   => $application['config']['MAIL_PASSWORD'],
-        'encryption' => $application['config']['MAIL_ENCRYPTION'],
-        'auth_mode'  => $application['config']['MAIL_AUTH_MODE'],
+        'host'       => $application['config.mail_host'],
+        'port'       => $application['config.mail_port'],
+        'username'   => $application['config.mail_username'],
+        'password'   => $application['config.mail_password'],
+        'encryption' => $application['config.mail_encryption'],
+        'auth_mode'  => $application['config.mail_auth_mode'],
     ],
 ]));
 
