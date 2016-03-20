@@ -8,3 +8,4 @@ public/.htaccess
 public/images
 public/scripts
 public/styles
+application/config.php
