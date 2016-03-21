@@ -28,6 +28,10 @@
 
       $element.html(template(data)).removeClass('loadable--loading');
 
+      $element.find('.loadable__item').each(function (index) {
+        $(this).css('animation-delay', (100 * index) + 'ms');
+      });
+
       var $autofocus = $element.find('input[autofocus]');
       if ($autofocus) {
         $autofocus.trigger('focus').val($autofocus.val());
