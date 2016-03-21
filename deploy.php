@@ -4,6 +4,7 @@ require 'recipe/composer.php';
 
 set('repository', 'https://github.com/lamberski/premiefier.git');
 set('default_stage', 'production');
+set('shared_files', ['.env']);
 serverList('deploy.yml');
 
 task('deploy:assets', function () {
