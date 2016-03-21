@@ -38,7 +38,11 @@ Site is using SQLite to store data. Schema of the database is located in [_schem
 
 ## Deployment
 
-Premiefier has deployment mechanism already set up. It's using simple yet powerful [Deployer](http://deployer.org/). Servers configuration is loaded from external YAML file _deploy.yml_ (which is not included to the repository). Learn more about serverList() in [Deployer documentation](http://deployer.org/docs/servers).
+Premiefier has deployment mechanism already set up. It's using simple yet powerful [Deployer](http://deployer.org/). Servers configuration is loaded from external YAML file _deploy.yml_ (which is not included to the repository). Learn more about serverList() in [Deployer documentation](http://deployer.org/docs/servers). To deploy files to the server run:
+
+```bash
+dep deploy
+```
 
 ## License
 
