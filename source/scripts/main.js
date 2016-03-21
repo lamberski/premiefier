@@ -2,9 +2,7 @@
 //= include ../../bower_components/handlebars/handlebars.js
 
 (function ($) {
-
   var Elements = {
-
     body: $('body'),
 
     templates: {
@@ -21,11 +19,9 @@
       notifications : $('#notifications-container'),
       unsubscribe   : $('#unsubscribe-container')
     }
-
   };
 
   var Helpers = {
-
     compileTemplate: function (container, name, data) {
       var template = Handlebars.compile(Elements.templates[name].html());
       var element  = container instanceof jQuery ? container : Elements.containers[container];
@@ -49,11 +45,9 @@
         callback(data);
       });
     }
-
   };
 
   var Subscribe = {
-
     init: function () {
       if (Elements.containers.search.length === 0) {
         return;
@@ -115,11 +109,9 @@
         event.preventDefault();
       });
     }
-
   };
 
   var Unsubscribe = {
-
     init: function () {
       if (Elements.containers.unsubscribe.length === 0) {
         return;
@@ -157,12 +149,10 @@
         event.preventDefault();
       });
     }
-
   };
 
   $(function () {
     Subscribe.init();
     Unsubscribe.init();
   });
-
 })(jQuery);
