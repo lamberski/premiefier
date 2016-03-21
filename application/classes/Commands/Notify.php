@@ -28,11 +28,12 @@ class Notify extends Command
         foreach ($notifications as $notification) {
             $premiere = $notification->premiere;
             $user     = $notification->user;
+            $view     = $application['twig']->render('emails/notification.twig', ['premiere' => $premiere]);
             $message  = \Swift_Message::newInstance()
                 ->setFrom([$application['config.mail_from']])
                 ->setTo([$user->email])
                 ->setSubject(sprintf('Premire of %s is in 3 days!', $premiere->title))
-                ->setBody('Test.');
+                ->setBody($view);
 
             $application['mailer']->send($message);
             $output->writeln(sprintf('Message sent to %s', $user->email));
