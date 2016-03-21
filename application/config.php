@@ -1,5 +1,7 @@
 <?php
 
+(new Dotenv\Dotenv(__DIR__ . '/..'))->load();
+
 return [
     'debug'           => getenv('DEBUG'),
     'api_key'         => getenv('API_KEY'),

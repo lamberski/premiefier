@@ -5,6 +5,7 @@ vendor
 resources
 *.sqlite
 deploy.yml
+.env
 .htaccess
 public/images
 public/scripts
