@@ -1,6 +1,6 @@
 # Premiefier
 
-Premiefier helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere via email three days before. (Notification module is not yet fully implemented.)
+Premiefier helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere via email three days before.
 
 ## Directories
 
