@@ -22,7 +22,7 @@ class Notify extends Command
         $application['capsule']->bootEloquent();
 
         $notifications = Notification::whereHas('premiere', function ($query) {
-            // $query->where('released_at', '=', date('Y-m-d', strtotime('+3 days')));
+            $query->where('released_at', '=', date('Y-m-d', strtotime('+3 days')));
         })->with(['user', 'premiere'])->get();
 
         foreach ($notifications as $notification) {
