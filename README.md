@@ -21,6 +21,14 @@ gulp # Equivalent of 'gulp build && gulp watch'.
 
 Keep in mind that in order to run above commands you need to have `npm`, `gulp` and `bower` installed.  Also, run `npm install && bower install` first to install all dependencies.
 
+## Background Jobs
+
+To notify subscribed users about upcoming premieres, background job for checking dates ands send emails needs to be set up. Premiefier is using [ConsoleServiceProvider](https://github.com/KnpLabs/ConsoleServiceProvider) to run console tasks. Set up `crontab -e` to run below command at least once a day.
+
+```bash
+php application/console.php notify
+```
+
 ## Configuration
 
 Configuration of the app—including database path, API keys, SMTP setup—is based on environment variables to remove all confidential data from the repository. [_config.php_](application/config.php) file is located in _/application_ directory. Below is list of all required variables:
