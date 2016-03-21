@@ -140,10 +140,11 @@
     bindUnbscribeForm: function () {
       Elements.body.on('submit', '.notification form', function (event) {
         var $form         = $(this);
-        var $notification = form.closest('.notification');
+        var $notification = $form.closest('.notification');
 
         Helpers.submitForm($form, function (data) {
-          $notification.fadeOut(300, function() { $(this).remove(); });
+          $notification.addClass('movie--fading');
+          setTimeout(function () { $notification.remove(); }, 300);
         });
 
         event.preventDefault();
