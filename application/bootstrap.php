@@ -47,17 +47,16 @@ $application->register(new ConsoleServiceProvider(), [
 ]);
 
 // Register SwiftMailer provider
-$application->register(new SwiftmailerServiceProvider([
-    'swiftmailer.use_spool' => false,
-    'swiftmailer.options'   => [
-        'host'       => $application['config.mail_host'],
-        'port'       => $application['config.mail_port'],
-        'username'   => $application['config.mail_username'],
-        'password'   => $application['config.mail_password'],
-        'encryption' => $application['config.mail_encryption'],
-        'auth_mode'  => $application['config.mail_auth_mode'],
-    ],
-]));
+$application->register(new SwiftmailerServiceProvider());
+$application['swiftmailer.use_spool'] = false;
+$application['swiftmailer.options']   = [
+    'host'       => $application['config.mail_host'],
+    'port'       => $application['config.mail_port'],
+    'username'   => $application['config.mail_username'],
+    'password'   => $application['config.mail_password'],
+    'encryption' => $application['config.mail_encryption'],
+    'auth_mode'  => $application['config.mail_auth_mode'],
+];
 
 // Declare common error handler for all exceptions
 $application->error(function (\Exception $exception) use ($application) {
