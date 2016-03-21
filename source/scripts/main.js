@@ -22,23 +22,23 @@
   };
 
   var Helpers = {
-    compileTemplate: function (container, name, data) {
+    compileTemplate: function ($container, name, data) {
       var template = Handlebars.compile(Elements.templates[name].html());
-      var element  = container instanceof jQuery ? container : Elements.containers[container];
+      var $element = $container instanceof jQuery ? $container : Elements.containers[$container];
 
-      element.html(template(data)).removeClass('loadable--loading');
+      $element.html(template(data)).removeClass('loadable--loading');
 
-      var autofocus = element.find('input[autofocus]');
-      if (autofocus) {
-        autofocus.trigger('focus').val(autofocus.val());
+      var $autofocus = $element.find('input[autofocus]');
+      if ($autofocus) {
+        $autofocus.trigger('focus').val($autofocus.val());
       }
     },
 
-    submitForm: function (form, callback) {
+    submitForm: function ($form, callback) {
       return $.ajax({
-        url  : form.attr('action'),
-        type : form.attr('method'),
-        data : form.serialize()
+        url  : $form.attr('action'),
+        type : $form.attr('method'),
+        data : $form.serialize()
       })
       .always(function (data) {
         data = data.responseJSON || data;
@@ -61,11 +61,11 @@
 
     bindSearchForm: function () {
       Elements.body.on('submit', '#search-container form', function (event) {
-        var form = $(this).addClass('form--loading');
+        var $form = $(this).addClass('form--loading');
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        Helpers.submitForm(form, function (data) {
+        Helpers.submitForm($form, function (data) {
           Helpers.compileTemplate('search', 'search', data);
           Helpers.compileTemplate('movies', 'movies', data);
         });
@@ -76,12 +76,12 @@
 
     bindSubscribeForm: function () {
       Elements.body.on('submit', '.movie__form form', function (event) {
-        var form      = $(this).addClass('form--loading');
-        var movie     = form.closest('.movie');
-        var container = form.closest('.movie__form');
+        var $form      = $(this).addClass('form--loading');
+        var $movie     = $form.closest('.movie');
+        var $container = $form.closest('.movie__form');
 
-        Helpers.submitForm(form, function (data) {
-          Helpers.compileTemplate(container, 'subscribe', data);
+        Helpers.submitForm($form, function (data) {
+          Helpers.compileTemplate($container, 'subscribe', data);
         });
 
         event.preventDefault();
@@ -90,21 +90,21 @@
 
     bindTogglingMovieDetails: function () {
       Elements.body.on('click', '.movie--available', function (event) {
-        var movie     = $(this);
-        var data      = { params: { movie_id: movie.data('id') } };
-        var container = movie.find('.movie__form');
+        var $movie     = $(this);
+        var $container = $movie.find('.movie__form');
+        var data      = { params: { movie_id: $movie.data('id') } };
 
-        if (!movie.hasClass('movie--open') && !$(event.target).is('a')) {
-          movie.addClass('movie--open');
-          Helpers.compileTemplate(container, 'subscribe', data);
+        if (!$movie.hasClass('movie--open') && !$(event.target).is('a')) {
+          $movie.addClass('movie--open');
+          Helpers.compileTemplate($container, 'subscribe', data);
 
           return false;
         }
       });
 
       Elements.body.on('click', '[href="#show-details"]', function (event) {
-        var movie = $(this).closest('.movie');
-        movie.removeClass('movie--open');
+        var $movie = $(this).closest('.movie');
+        $movie.removeClass('movie--open');
 
         event.preventDefault();
       });
@@ -124,11 +124,11 @@
 
     bindSearchForm: function () {
       Elements.body.on('submit', '#unsubscribe-container form', function (event) {
-        var form = $(this).addClass('form--loading');
+        var $form = $(this).addClass('form--loading');
 
         Elements.containers.movies.addClass('loadable--loading');
 
-        Helpers.submitForm(form, function (data) {
+        Helpers.submitForm($form, function (data) {
           Helpers.compileTemplate('unsubscribe', 'unsubscribe', data);
           Helpers.compileTemplate('notifications', 'notifications', data);
         });
@@ -139,11 +139,11 @@
 
     bindUnbscribeForm: function () {
       Elements.body.on('submit', '.notification form', function (event) {
-        var form         = $(this);
-        var notification = form.closest('.notification');
+        var $form         = $(this);
+        var $notification = form.closest('.notification');
 
-        Helpers.submitForm(form, function (data) {
-          notification.fadeOut(300, function() { $(this).remove(); });
+        Helpers.submitForm($form, function (data) {
+          $notification.fadeOut(300, function() { $(this).remove(); });
         });
 
         event.preventDefault();
