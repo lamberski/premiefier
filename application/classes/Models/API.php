@@ -8,7 +8,7 @@ class API
 {
     public static function getMoviesByTitle(Application $application, $title)
     {
-        $apiKey = $application['config']['API_KEY'];
+        $apiKey = $application['config.api_key'];
         $query  = http_build_query(['apikey' => $apiKey, 'q' => $title, 'page_limit' => 10]);
         $url    = 'http://api.rottentomatoes.com/api/public/v1.0/movies.json?';
         $json   = file_get_contents($url . $query);
@@ -20,7 +20,7 @@ class API
 
     public static function getMovieByID(Application $application, $movieId)
     {
-        $apiKey = $application['config']['API_KEY'];
+        $apiKey = $application['config.api_key'];
         $query  = http_build_query(['apikey' => $apiKey]);
         $url    = 'http://api.rottentomatoes.com/api/public/v1.0/movies/' . $movieId . '.json?';
         $json   = file_get_contents($url . $query);
