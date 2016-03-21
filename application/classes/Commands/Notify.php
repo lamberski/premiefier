@@ -22,7 +22,7 @@ class Notify extends Command
         $application['capsule']->bootEloquent();
 
         $notifications = Notification::whereHas('premiere', function ($query) {
-            $query->where('released_at', '=', date('Y-m-d', strtotime('+3 days')));
+            // $query->where('released_at', '=', date('Y-m-d', strtotime('+3 days')));
         })->with(['user', 'premiere'])->get();
 
         foreach ($notifications as $notification) {
@@ -30,7 +30,7 @@ class Notify extends Command
             $user     = $notification->user;
             $view     = $application['twig']->render('emails/notification.twig', ['premiere' => $premiere]);
             $message  = \Swift_Message::newInstance()
-                ->setFrom([$application['config.mail_from']])
+                ->setFrom([$application['config.mail_from'] => 'Premiefier'])
                 ->setTo([$user->email])
                 ->setSubject(sprintf('Premire of %s is in 3 days!', $premiere->title))
                 ->setBody($view);
