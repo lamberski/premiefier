@@ -2,12 +2,12 @@
 
 Premiefier helps you to keep up to date with movie premieres. It will notify you about the upcoming premiere via email three days before. (Notification module is not yet fully implemented.)
 
-## Directories Structure
+## Directories
 
-* `/application`—Back-end of the application powered by [Silex](https://github.com/silexphp/Silex) framework. [Eloquent](https://laravel.com/docs/eloquent) is used as ORM of choice, 'cause it's lighter and simpler to set up than Doctrine.
-* `/gulpfile.js`—Gulp workflow extracted from [Frontkit](https://github.com/lamberski/frontkit) (Scaffolding & Gulp workflow for web projects.)
-* `/source`—Front-end source files. Check out [Frontkit documentation](https://github.com/lamberski/frontkit/blob/master/README.md) to learn more about structure and files.
-* `/public`—Public folder where all requests go. Also all static assets are put there during compilation.
+* _/application_—Back-end of the application powered by [Silex](https://github.com/silexphp/Silex) framework. [Eloquent](https://laravel.com/docs/eloquent) is used as ORM of choice, 'cause it's lighter and simpler to set up than Doctrine.
+* _/gulpfile.js_—Gulp workflow extracted from [Frontkit](https://github.com/lamberski/frontkit) (Scaffolding & Gulp workflow for web projects.)
+* _/source_—Front-end source files. Check out [Frontkit documentation](https://github.com/lamberski/frontkit/blob/master/README.md) to learn more about structure and files.
+* _/public_—Public folder where all requests go. Also all static assets are put there during compilation.
 
 ## Front-End
 
@@ -21,12 +21,9 @@ gulp # Equivalent of 'gulp build && gulp watch'.
 
 Keep in mind that in order to run above commands you need to have `npm`, `gulp` and `bower` installed.  Also, run `npm install && bower install` first to install all dependencies.
 
-
-
-
 ## Configuration
 
-Configuration of the app (including database path, API keys, SMTP setup) is based on environment variables to remove all confidential data from the repository. Below is list of all required variables:
+Configuration of the app—including database path, API keys, SMTP setup—is based on environment variables to remove all confidential data from the repository. [_config.php_](application/config.php) file is located in _/application_ directory. Below is list of all required variables:
 
 | Key | Description |
 | :--- | :--- |
@@ -37,11 +34,11 @@ Configuration of the app (including database path, API keys, SMTP setup) is base
 
 ## Database
 
-Site is using SQLite to store data. Schema of the database is located in [schema.sql](schema.sql).
+Site is using SQLite to store data. Schema of the database is located in [_schema.sql_](schema.sql).
 
 ## Deployment
 
-Premiefier has deployment mechanism already set up. It's using simple yet powerful [Deployer](http://deployer.org/). Servers configuration is loaded from external YAML file `deploy.yml` (which is not included to the repository). Learn more about serverList() in [Deployer documentation](http://deployer.org/docs/servers).
+Premiefier has deployment mechanism already set up. It's using simple yet powerful [Deployer](http://deployer.org/). Servers configuration is loaded from external YAML file _deploy.yml_ (which is not included to the repository). Learn more about serverList() in [Deployer documentation](http://deployer.org/docs/servers).
 
 ## License
 
