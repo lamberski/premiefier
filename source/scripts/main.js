@@ -28,9 +28,7 @@
 
     compileTemplate: function (container, name, data) {
       var template = Handlebars.compile(Elements.templates[name].html());
-      var element  = container instanceof jQuery
-        ? container
-        : Elements.containers[container];
+      var element  = container instanceof jQuery ? container : Elements.containers[container];
 
       element.html(template(data)).removeClass('loadable--loading');
 
