@@ -1,5 +1,9 @@
-//= include ../../bower_components/jquery/dist/jquery.js
-//= include ../../bower_components/handlebars/handlebars.js
+// document.addEventListener('DOMContentLoaded', () => {
+//   require('./modules/hello-world').init()
+// })
+
+var jQuery = require('jquery');
+var Handlebars = require('handlebars');
 
 (function ($) {
   var Elements = {
